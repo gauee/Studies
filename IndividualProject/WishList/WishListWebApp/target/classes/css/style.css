@@ -82,6 +82,7 @@ aside{
     border-top: 1px solid rgb(20, 165, 184);
     border-right: 1px solid rgb(20, 165, 184);
     border-bottom: 1px solid rgb(20, 165, 184);
+    padding: 10px 0px 10px 10px;
 }
 
 #content{

@@ -16,47 +16,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 //@RequestMapping("/")
 public class MainController {
-    
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String index(ModelMap model){
-        model.addAttribute("message","Testuje servlet...");
-        
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(ModelMap model) {
+        model.addAttribute("message", "Testuje servlet...");
+
         return "index";
     }
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
-    public String welcome(ModelMap model){
-        model.addAttribute("message","Witaj na mojej pierwszej stronie napisanej w springu");
-        
+    public String welcome(ModelMap model) {
+        model.addAttribute("message", "Witaj na mojej pierwszej stronie napisanej w springu");
+
         return "index";
     }
-    
-    @RequestMapping(value = "/mySite",method = RequestMethod.GET)
-    public String mySite(ModelMap model){
-        model.addAttribute("message","Strona o mnie");
-        
+
+    @RequestMapping(value = "/mySite", method = RequestMethod.GET)
+    public String mySite(ModelMap model) {
+        model.addAttribute("message", "Strona o mnie");
+
         return "mysite";
     }
-    
-    @RequestMapping(value = "/myMessages",method = RequestMethod.GET)
-    public String myMessages(ModelMap model){
-        model.addAttribute("message","Moje wiadomości");
-        
+
+    @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
+    public String myMessages(ModelMap model) {
+        model.addAttribute("message", "Moje wiadomości");
+
         return "myMessages";
     }
-    
-    @RequestMapping(value = "/myFriends",method = RequestMethod.GET)
-    public String myFriends(ModelMap model){
-        model.addAttribute("message","Moi znajomi");
-        
+
+    @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
+    public String myFriends(ModelMap model) {
+        model.addAttribute("message", "Moi znajomi");
+
         return "friends";
     }
-    
-    @RequestMapping(value = "/myLists",method = RequestMethod.GET)
-    public String myLists(ModelMap model){
-        model.addAttribute("message","Moje listy");
-        
+
+    @RequestMapping(value = "/myLists", method = RequestMethod.GET)
+    public String myLists(ModelMap model) {
+        model.addAttribute("message", "Moje listy");
+
         return "lists";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(ModelMap model) {
+        return "login";
+    }
+
+//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+//    public String logout(ModelMap model) {
+//        return "logout";
+//    }
 }
