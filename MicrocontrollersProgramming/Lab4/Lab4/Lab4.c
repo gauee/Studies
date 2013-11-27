@@ -16,8 +16,7 @@ int main(void)
 	init_for_all_lamps();
 	int i=1;
 	sei();
-	while(1)	
-    {
+	while(1){
 		if(OCR0 == 255){
 			i=-1;
 		}else if(OCR0 == 0){
