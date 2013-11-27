@@ -11,29 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-//Timer -> CTC
-//OCR = 250
-//64prescaller
-
-#define SCHEDULER_SIZE 10
-typedef void (*TASK_PTR)(void);
-
-typedef struct {
-	
-	TASK_PTR task_ptr;
-	uint16_t to_go;
-	uint16_t inteval;
-	uint8_t ready;
-	
-} TASK;
-
-TASK scheduled_task[SCHEDULER_SIZE];
-int new_task_idx = 0;
-
-unsigned int toInc = 0;
-
-void increment(void);
-void incrementOneShot(void);
+#include "Lab5.h"
 
 int main(void)
 {
