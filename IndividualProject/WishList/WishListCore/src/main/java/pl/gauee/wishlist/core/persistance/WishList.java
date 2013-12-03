@@ -16,12 +16,12 @@ public class WishList {
     private int id;
     private String name;
     private Date createTime;
-    private User owner;
-    private List<User> coparticipants;
+    private WishUser owner;
+    private List<WishUser> coparticipants;
     private List<WishItem> items;
 
 
-    public WishList(String name, User owner, List<User> coparticipants, List<WishItem> items) {
+    public WishList(String name, WishUser owner, List<WishUser> coparticipants, List<WishItem> items) {
         this.id = -1;
         this.name = name;
         this.createTime = new Date();
@@ -42,11 +42,11 @@ public class WishList {
         return createTime;
     }
 
-    public User getOwner() {
+    public WishUser getOwner() {
         return owner;
     }
 
-    public List<User> getCoparticipants() {
+    public List<WishUser> getCoparticipants() {
         return coparticipants;
     }
 
@@ -58,11 +58,11 @@ public class WishList {
         return coparticipants.size();
     }
     
-    public boolean addNewCoparticipants(User coparticipant){
+    public boolean addNewCoparticipants(WishUser coparticipant){
         return coparticipants.add(coparticipant);
     }
     
-    public boolean removeCoparticipants(User coparticipant){
+    public boolean removeCoparticipants(WishUser coparticipant){
         if(coparticipants.contains(coparticipant)){
             return coparticipants.remove(coparticipant);
         }
