@@ -4,7 +4,7 @@
  */
 package pl.gauee.wishlist.core.api;
 
-import java.io.Serializable;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -25,54 +25,51 @@ public class UserApi {
         user.setName(name);
         user.setSurname(surname);
 
-        Session session = HibernateUtil.getNewSession();
-        Transaction tx = session.beginTransaction();
-        Long id = (Long) session.save(user);
-        tx.commit();
-        session.close();
-
+        Long id = (Long) HibernateUtil.saveObject(user);
         user.setId(id);
 
         return user;
     }
 
     public static WishUser getUser(String login) {
-        return null;
+        Session session = HibernateUtil.getNewSession();
+        WishUser user = (WishUser) session.createCriteria(WishUser.class).
+                add(Restrictions.eq("login", login)).uniqueResult();
+        session.close();
+        return user;
     }
 
     public static WishUser getUser(long id) {
-        return null;
+        WishUser user = HibernateUtil.getObjectById(WishUser.class, id);
+        return user;
     }
 
     public static boolean updateUser(WishUser toUpdateUser) {
+        HibernateUtil.saveOrUpdateObject(toUpdateUser);
         return true;
     }
 
     public static boolean deleteUser(long id) {
+        HibernateUtil.deleteObject(id);
+
         return true;
     }
 
     public static boolean deleteUser(String login) {
+        WishUser user = getUser(login);
+        HibernateUtil.deleteObject(user.getId());
+
         return true;
     }
 
     public static boolean isUserExist(long id) {
-        Session session = HibernateUtil.getNewSession();
-
-        WishUser user = (WishUser) session.get(WishUser.class, id);
-
-        session.close();
+        WishUser user = HibernateUtil.getObjectById(WishUser.class, id);
 
         return user == null ? false : true;
     }
 
     public static boolean isUserExist(String login) {
-        Session session = HibernateUtil.getNewSession();
-
-        WishUser user = (WishUser) session.createCriteria(WishUser.class).add(
-                Restrictions.eq("login", login)).uniqueResult();
-
-        session.close();
+        WishUser user = getUser(login);
 
         return user == null ? false : true;
     }

@@ -6,11 +6,7 @@ package pl.gauee.wishlist.core.api;
 
 import static junit.framework.Assert.assertEquals;
 import junit.framework.TestCase;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import pl.gauee.wishlist.core.persistance.WishUser;
-import pl.gauee.wishlist.core.utils.HibernateUtil;
 
 /**
  *

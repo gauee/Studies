@@ -4,9 +4,12 @@
  */
 package pl.gauee.wishlist.core.utils;
 
+import java.io.Serializable;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
+import pl.gauee.wishlist.core.persistance.WishItem;
 import pl.gauee.wishlist.core.persistance.WishUser;
 
 /**
@@ -40,5 +43,31 @@ public class HibernateUtil {
 
     public static Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
+    }
+
+    public static Serializable saveObject(Object o) {
+        Session session = getNewSession();
+        Serializable id = session.save(o);
+        session.close();
+
+        return id;
+    }
+
+    public static void saveOrUpdateObject(Object o) {
+        Session session = getNewSession();
+        session.saveOrUpdate(o);
+        session.close();
+    }
+
+    public static <T> T getObjectById(Class<T> classType, long id) {
+        Session session = getNewSession();
+        Object o = session.get(classType, id);
+        session.close();
+        return classType.cast(o);
+    }
+
+    public static void deleteObject(Object o) {
+        Session session = getNewSession();
+        session.delete(o);
     }
 }

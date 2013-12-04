@@ -40,11 +40,6 @@ public class WishUser implements Serializable{
     public WishUser() {
     }
 
-//    public WishUser(String login, String name, String surname) {
-//        this.login = login;
-//        this.name = name;
-//        this.surname = surname;
-//    }
 
     public long getId() {
         return id;
