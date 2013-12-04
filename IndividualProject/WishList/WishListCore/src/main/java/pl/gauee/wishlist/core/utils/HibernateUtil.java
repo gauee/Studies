@@ -6,6 +6,7 @@ package pl.gauee.wishlist.core.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.classic.Session;
 import pl.gauee.wishlist.core.persistance.WishUser;
 
 /**
@@ -32,5 +33,12 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-    
+
+    public static Session getNewSession() {
+        return sessionFactory.openSession();
+    }
+
+    public static Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
 }

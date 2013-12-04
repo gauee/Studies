@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,12 +21,15 @@ import javax.persistence.Table;
 public class WishUser implements Serializable{
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="u_id")
-    private int id;
+    private long id;
     
     @Column(name="u_login")
     private String login;
+    
+    @Column(name="u_pass_hash")
+    private String passHash;
     
     @Column(name="u_name")
     private String name;
@@ -36,18 +40,16 @@ public class WishUser implements Serializable{
     public WishUser() {
     }
 
-    public WishUser(int id, String login, String name, String surname) {
-        this.id = id;
-        this.login = login;
-        this.name = name;
-        this.surname = surname;
-    }
+//    public WishUser(String login, String name, String surname) {
+//        this.login = login;
+//        this.name = name;
+//        this.surname = surname;
+//    }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,6 +75,14 @@ public class WishUser implements Serializable{
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getPassHash() {
+        return passHash;
+    }
+
+    public void setPassHash(String passHash) {
+        this.passHash = passHash;
     }
 
     @Override

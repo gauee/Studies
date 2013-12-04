@@ -30,7 +30,7 @@ public class UserTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown(); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     public void testGetUserList() {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
