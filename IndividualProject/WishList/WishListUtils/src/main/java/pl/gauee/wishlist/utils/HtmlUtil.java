@@ -4,6 +4,8 @@
  */
 package pl.gauee.wishlist.utils;
 
+import java.util.List;
+
 /**
  *
  * @author gauee
@@ -26,5 +28,23 @@ public class HtmlUtil {
         sb.append("</tr>");
 
         return sb.toString();
+    }
+
+    public static String createUlList(List<String> positions) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<ul>");
+        for (String pos : positions) {
+            sb.append("<li>")
+                    .append(pos)
+                    .append("</li>");
+        }
+        sb.append("</ul>");
+
+        return sb.toString();
+    }
+
+    public static String getBold(String login) {
+        return new StringBuilder().append("<b>").append(login).append("</b>").toString();
     }
 }

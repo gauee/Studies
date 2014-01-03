@@ -14,7 +14,6 @@
 </t:head>
 <t:template>
     <jsp:attribute name="sideBar" >
-        Hej SideBar!
     </jsp:attribute>
     <jsp:attribute name="content" >
         <h2>Message:</h2>

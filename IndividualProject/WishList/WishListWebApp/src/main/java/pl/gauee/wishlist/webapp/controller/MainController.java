@@ -4,6 +4,9 @@
  */
 package pl.gauee.wishlist.webapp.controller;
 
+import org.apache.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.gauee.wishlist.utils.decorators.DWishUser;
 import pl.gauee.wishlist.webapp.api.UserApi;
 import pl.gauee.wishlist.webapp.factories.PersistanceAccessFactories;
+import pl.gauee.wishlist.webapp.html.MyFriendBuilder;
 import pl.gauee.wishlist.webapp.html.MySiteBuilder;
 
 /**
@@ -20,6 +24,8 @@ import pl.gauee.wishlist.webapp.html.MySiteBuilder;
 @Controller
 //@RequestMapping("/")
 public class MainController {
+
+    private final Logger logger = Logger.getLogger(MainController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -37,11 +43,12 @@ public class MainController {
 
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
-//        model.addAttribute("message", "Strona o mnie");
+        User currentLoggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        logger.info("Loggedin User name is " + currentLoggedUser.getUsername());
         UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
         DWishUser user = userApi.getDefaultUser();
 
-        model.addAttribute("message", MySiteBuilder.buildMySite(user));
+        model.addAttribute("message", MySiteBuilder.build(user));
 
         return "mysite";
     }
@@ -55,8 +62,10 @@ public class MainController {
 
     @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
-        model.addAttribute("message", "Moi znajomi");
+        UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
+        DWishUser user = userApi.getDefaultUser();
 
+        model.addAttribute("message", MyFriendBuilder.build(user));
         return "friends";
     }
 

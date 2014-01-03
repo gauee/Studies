@@ -20,7 +20,7 @@ public class MySiteBuilder {
     private static final String labelEmail = "E-mail: ";
     private static final String labelMsisdn = "Komórka: ";
 
-    public static String buildMySite(DWishUser user) {
+    public static String build(DWishUser user) {
         StringBuilder sb = new StringBuilder();
         sb.append(HtmlUtil.getHeader3(titlePage))
                 .append("<table>")

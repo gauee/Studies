@@ -20,6 +20,6 @@ class UserAccess implements UserApi {
 
     @Override
     public DWishUser getDefaultUser() {
-        return new DWishUser("gauee", "Damian", "Gałka", "galka.damian.91@gmail.com", "503109746");
+        return new DWishUser("gauee", "Damian", "Gałka", "galka.damian.91@gmail.com", "503109746",null);
     }
 }
