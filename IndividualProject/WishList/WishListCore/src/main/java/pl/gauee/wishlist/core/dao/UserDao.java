@@ -30,7 +30,6 @@ public class UserDao extends BaseDao implements UserApi {
     public void deleteAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
     private Class classType = WishUser.class;
 
     public Class getClassType() {

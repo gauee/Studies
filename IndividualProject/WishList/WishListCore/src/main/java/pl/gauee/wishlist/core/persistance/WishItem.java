@@ -5,11 +5,15 @@
 package pl.gauee.wishlist.core.persistance;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import pl.gauee.wishlist.core.api.WishObject;
 
@@ -21,6 +25,7 @@ import pl.gauee.wishlist.core.api.WishObject;
 @Table(name = "WishItem")
 public class WishItem implements WishObject {
 
+    private static final long serialVersionUID = 8277298816098447876L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wi_id")
@@ -33,6 +38,9 @@ public class WishItem implements WishObject {
     private float price;
     @Column(name = "wi_photo")
     private String photoUrl;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "EMPLOYEE_ID")
+    private Set<WishItemInList> itemsInList;
 
     public WishItem() {
     }

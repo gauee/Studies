@@ -4,13 +4,16 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import pl.gauee.wishlist.core.api.WishObject;
 
@@ -22,6 +25,7 @@ import pl.gauee.wishlist.core.api.WishObject;
 @Table(name = "WishUserGroup")
 public class WishUserGroup implements WishObject {
 
+    private static final long serialVersionUID = -2639931312043809982L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wug_id")

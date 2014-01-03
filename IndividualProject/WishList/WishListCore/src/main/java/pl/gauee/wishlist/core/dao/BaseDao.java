@@ -27,7 +27,6 @@ public abstract class BaseDao implements DaoApi {
     public WishItem update(WishItem object) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 //    public T create(T object) {
 //        Session session = HibernateUtil.getNewSession();
 //        Serializable id = session.save(object);

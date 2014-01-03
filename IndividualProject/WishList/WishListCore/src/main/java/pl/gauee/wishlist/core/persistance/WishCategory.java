@@ -20,6 +20,7 @@ import pl.gauee.wishlist.core.api.WishObject;
 @Table(name = "WishCategory")
 public class WishCategory implements WishObject {
 
+    private static final long serialVersionUID = 4558327714687451237L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wc_id")

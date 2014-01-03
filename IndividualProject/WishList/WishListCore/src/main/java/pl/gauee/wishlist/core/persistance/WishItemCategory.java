@@ -4,7 +4,6 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,47 +17,38 @@ import pl.gauee.wishlist.core.api.WishObject;
  * @author gauee
  */
 @Entity
-@Table(name = "WishList")
-public class WishList implements WishObject {
+@Table(name = "WishItemCategory")
+public class WishItemCategory implements WishObject {
 
-    private static final long serialVersionUID = -8979136921462582767L;
+    private static final long serialVersionUID = 5255779887965755974L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "wl_id")
+    @Column(name = "wic_id")
     private long id;
-    @Column(name = "wl_created_date")
-    private Date createdDate;
-    @Column(name = "wl_name")
+    @Column(name = "wic_name")
     private String name;
 
-    public WishList() {
+    public WishItemCategory() {
     }
 
-    public WishList(long id, Date createdDate, String name) {
+    public WishItemCategory(long id, String name) {
         this.id = id;
-        this.createdDate = createdDate;
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + '}';
+        return "WishItemCategory{" + "id=" + id + ", name=" + name + '}';
     }
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
     }
 
     public String getName() {

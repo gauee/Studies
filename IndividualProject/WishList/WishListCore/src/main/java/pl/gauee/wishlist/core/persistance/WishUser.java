@@ -4,7 +4,6 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,21 +20,22 @@ import pl.gauee.wishlist.core.api.WishObject;
 @Table(name = "WishUser")
 public class WishUser implements WishObject {
 
+    private static final long serialVersionUID = -4388501513356374532L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "u_id")
+    @Column(name = "wu_id")
     private long id;
-    @Column(name = "u_login")
+    @Column(name = "wu_login")
     private String login;
-    @Column(name = "u_pass_hash")
+    @Column(name = "wu_pass_hash")
     private String passHash;
-    @Column(name = "u_name")
+    @Column(name = "wu_name")
     private String name;
-    @Column(name = "u_surname")
+    @Column(name = "wu_surname")
     private String surname;
-    @Column(name = "u_email")
+    @Column(name = "wu_email")
     private String email;
-    @Column(name = "u_phone")
+    @Column(name = "wu_msisdn")
     private long msisdn;
 
     public WishUser() {
