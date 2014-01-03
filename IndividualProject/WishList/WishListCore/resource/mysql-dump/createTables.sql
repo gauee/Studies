@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `WishItemCategory`;
 
 
 CREATE TABLE `WishUser` (
-  `wu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wu_id` bigint NOT NULL AUTO_INCREMENT,
   `wu_login` varchar(255) NOT NULL,
   `wu_pass_hash` varchar(255) NOT NULL,
   `wu_name` varchar(255) NOT NULL,
@@ -23,9 +23,9 @@ CREATE TABLE `WishUser` (
 
 
 CREATE TABLE `WishUserRole` (
-  `wur_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wur_id` bigint NOT NULL AUTO_INCREMENT,
   `wur_authority` varchar(255) NOT NULL,
-  `wur_wu_id` int(11) NOT NULL,
+  `wur_wu_id` bigint NOT NULL,
 
   PRIMARY KEY (`wur_id`),
   INDEX(wur_wu_id),
@@ -36,7 +36,7 @@ CREATE TABLE `WishUserRole` (
 
 
 CREATE TABLE `WishUserGroup` (
-  `wug_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wug_id` bigint NOT NULL AUTO_INCREMENT,
   `wug_name` varchar(255) NOT NULL,
   `wug_created_time` date NOT NULL, 
   PRIMARY KEY (`wug_id`)
@@ -44,8 +44,8 @@ CREATE TABLE `WishUserGroup` (
 
 
 CREATE TABLE `Wish_User_UserGroup` (
-  `wuug_wu_id` int(11) NOT NULL,
-  `wuug_wug_id` int(11) NOT NULL,
+  `wuug_wu_id` bigint NOT NULL,
+  `wuug_wug_id` bigint NOT NULL,
   INDEX(wuug_wu_id),
   INDEX(wuug_wug_id),
   FOREIGN KEY (wuug_wu_id)
@@ -57,15 +57,15 @@ CREATE TABLE `Wish_User_UserGroup` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `WishList` (
-  `wl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wl_id` bigint NOT NULL AUTO_INCREMENT,
   `wl_name` varchar(255) NOT NULL,
   `wl_created_time` date NOT NULL, 
   PRIMARY KEY (`wl_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `Wish_User_List` (
-  `wul_wu_id` int(11) NOT NULL,
-  `wul_wl_id` int(11) NOT NULL,
+  `wul_wu_id` bigint NOT NULL,
+  `wul_wl_id` bigint NOT NULL,
   INDEX(wul_wu_id),
   INDEX(wul_wl_id),
   FOREIGN KEY (wul_wu_id)
@@ -78,19 +78,19 @@ CREATE TABLE `Wish_User_List` (
 
 
 CREATE TABLE `WishItemCategory` (
-  `wic_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wic_id` bigint NOT NULL AUTO_INCREMENT,
   `wic_name` varchar(255) NOT NULL,
   PRIMARY KEY (`wic_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `WishItem` (
-  `wi_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wi_id` bigint NOT NULL AUTO_INCREMENT,
   `wi_name` varchar(255) NOT NULL,
   `wi_photo` varchar(255) DEFAULT NULL, 
   `wi_description` varchar(255) DEFAULT NULL,
   `wi_price` DECIMAL(9,2) DEFAULT NULL,
-  `wi_wic_id` int(11) NOT NULL,
+  `wi_wic_id` bigint NOT NULL,
   PRIMARY KEY (`wi_id`),
   INDEX(wi_wic_id),
   FOREIGN KEY (wi_wic_id)
@@ -100,12 +100,12 @@ CREATE TABLE `WishItem` (
 
 
 CREATE TABLE `WishItemInList` (
-  `wiil_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wiil_id` bigint NOT NULL AUTO_INCREMENT,
   `wiil_bought` tinyint(1) DEFAULT FALSE,
   `wiil_last_update` date NOT NULL,
 
-  `wiil_wl_id` int(11) NOT NULL,
-  `wiil_wi_id` int(11) NOT NULL,
+  `wiil_wl_id` bigint NOT NULL,
+  `wiil_wi_id` bigint NOT NULL,
 
   PRIMARY KEY (`wiil_id`),
   INDEX(wiil_wl_id),
@@ -129,3 +129,15 @@ insert into WishUser (wu_login,wu_pass_hash,wu_name,wu_surname,wu_email,wu_msisd
 values('gauee','0e238030db298bbe7fcb89275fe2a789f358b690ca7581479bf1c34d4d0ff49d','Damian','Gałka','galka.damian.91@gmail.com','503109746');
 
 select * from WishUser;
+
+
+insert into WishItemCategory(wic_name) values('jedzenie');
+insert into WishItemCategory(wic_name) values('napoje');
+select * from WishItemCategory;
+insert into WishItem (wi_name,wi_description,wi_price,wi_wic_id) 
+values ('cola','napoj do odrdzewiania',4.32,2);
+insert into WishItem (wi_name,wi_description,wi_price,wi_wic_id) 
+values ('fanta','napoj pomaranczowy',4.32,2);
+insert into WishItem (wi_name,wi_description,wi_price,wi_wic_id) 
+values ('Lays Fromage','chipsy do jedzenie',3,1);
+select * from WishItem;

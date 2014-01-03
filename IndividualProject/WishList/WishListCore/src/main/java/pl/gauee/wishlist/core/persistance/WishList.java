@@ -4,7 +4,7 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +26,7 @@ public class WishList implements WishObject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wl_id")
     private long id;
-    @Column(name = "wl_created_date")
+    @Column(name = "wl_created_time")
     private Date createdDate;
     @Column(name = "wl_name")
     private String name;

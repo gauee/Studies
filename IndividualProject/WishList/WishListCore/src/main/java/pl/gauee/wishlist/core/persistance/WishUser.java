@@ -36,7 +36,7 @@ public class WishUser implements WishObject {
     @Column(name = "wu_email")
     private String email;
     @Column(name = "wu_msisdn")
-    private long msisdn;
+    private String msisdn;
 
     public WishUser() {
     }
@@ -94,11 +94,11 @@ public class WishUser implements WishObject {
         this.email = email;
     }
 
-    public long getMsisdn() {
+    public String getMsisdn() {
         return msisdn;
     }
 
-    public void setMsisdn(long msisdn) {
+    public void setMsisdn(String msisdn) {
         this.msisdn = msisdn;
     }
 }

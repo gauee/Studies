@@ -4,16 +4,13 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
-import java.io.Serializable;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import pl.gauee.wishlist.core.api.WishObject;
 
@@ -34,13 +31,13 @@ public class WishItem implements WishObject {
     private String name;
     @Column(name = "wi_description")
     private String description;
-    @Column(name = "wi_price")
-    private float price;
+    @Column(name = "wi_price", columnDefinition = "Decimal(10,2) default '100.00'")
+    private double price;
     @Column(name = "wi_photo")
     private String photoUrl;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "EMPLOYEE_ID")
-    private Set<WishItemInList> itemsInList;
+    @ManyToOne
+    @JoinColumn(name = "wi_wic_id")
+    private WishItemCategory category;
 
     public WishItem() {
     }
@@ -74,11 +71,11 @@ public class WishItem implements WishObject {
         this.description = description;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -88,5 +85,13 @@ public class WishItem implements WishObject {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public WishItemCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(WishItemCategory category) {
+        this.category = category;
     }
 }
