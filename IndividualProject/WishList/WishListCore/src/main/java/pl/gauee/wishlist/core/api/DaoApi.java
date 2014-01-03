@@ -20,9 +20,7 @@ public interface DaoApi<T extends WishObject> {
 
     public T update(T objectToUpdate);
 
-    public void delete(Long id);
+    public void delete(T objectToDelete);
 
     public void deleteAll();
-
-    public Class getClassType();
 }

@@ -6,7 +6,6 @@ package pl.gauee.wishlist.core.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.classic.Session;
 import pl.gauee.wishlist.core.api.DaoApi;
 import pl.gauee.wishlist.core.api.WishObject;
@@ -23,32 +22,51 @@ public abstract class BaseDao implements DaoApi {
         session.beginTransaction();
 
         Serializable id = session.save(objectToSave);
-        objectToSave.setId((Long) id);
+        session.getTransaction().commit();
 
+        objectToSave.setId((Long) id);
         return objectToSave;
     }
 
     public WishObject getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = HibernateUtil.getNewSession();
+        WishObject objectById = (WishObject) session.get(getClassType(), id);
+        return objectById;
     }
 
-    public List getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<WishObject> getAll() {
+        Session session = HibernateUtil.getNewSession();
+        List<WishObject> list = session.createCriteria(getClassType()).list();
+        return list;
     }
 
     public WishObject update(WishObject object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = HibernateUtil.getNewSession();
+        session.beginTransaction();
+        session.update(object);
+        session.getTransaction().commit();
+        return object;
     }
 
-    public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(WishObject objectToDelete) {
+        Session session = HibernateUtil.getNewSession();
+        session.beginTransaction();
+        session.delete(objectToDelete);
+        session.flush();
+        session.getTransaction().commit();
     }
 
     public void deleteAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = HibernateUtil.getNewSession();
+        session.beginTransaction();
+        List<WishObject> toDeleteList = getAll();
+        for (WishObject toDelete : toDeleteList) {
+            session.delete(toDelete);
+        }
+        session.flush();
+        session.getTransaction().commit();
+
     }
 
-    public Class getClassType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public abstract Class getClassType();
 }
