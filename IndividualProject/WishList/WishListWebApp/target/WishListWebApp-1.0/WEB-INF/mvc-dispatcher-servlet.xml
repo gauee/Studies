@@ -27,6 +27,8 @@
             <value>.jsp</value>
         </property>
     </bean>
+    
+    <bean id="customAuthenticationProvider" class="pl.gauee.wishlist.webapp.controller.CustomAuthenticationProvider" />
 
     <mvc:resources mapping="/static/**" location="/static/" />
     <mvc:default-servlet-handler />

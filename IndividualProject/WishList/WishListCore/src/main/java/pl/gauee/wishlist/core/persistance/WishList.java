@@ -4,68 +4,62 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
  * @author gauee
  */
-public class WishList {
+@Entity
+@Table(name = "WishList")
+public class WishList implements WishObject {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "wl_id")
+    private long id;
+    @Column(name = "wl_created_date")
+    private Date createdDate;
+    @Column(name = "wl_name")
     private String name;
-    private Date createTime;
-    private WishUser owner;
-    private List<WishUser> coparticipants;
-    private List<WishItem> items;
 
-
-    public WishList(String name, WishUser owner, List<WishUser> coparticipants, List<WishItem> items) {
-        this.id = -1;
-        this.name = name;
-        this.createTime = new Date();
-        this.owner = owner;
-        this.coparticipants = coparticipants;
-        this.items = items;
+    public WishList() {
     }
 
-    public int getId() {
+    @Override
+    public String toString() {
+        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + '}';
+    }
+
+    public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getName() {
         return name;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public WishUser getOwner() {
-        return owner;
-    }
-
-    public List<WishUser> getCoparticipants() {
-        return coparticipants;
-    }
-
-    public List<WishItem> getItems() {
-        return items;
-    }
-    
-    public int getCoparticipantsSize(){
-        return coparticipants.size();
-    }
-    
-    public boolean addNewCoparticipants(WishUser coparticipant){
-        return coparticipants.add(coparticipant);
-    }
-    
-    public boolean removeCoparticipants(WishUser coparticipant){
-        if(coparticipants.contains(coparticipant)){
-            return coparticipants.remove(coparticipant);
-        }
-        return false;
+    public void setName(String name) {
+        this.name = name;
     }
 }

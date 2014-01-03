@@ -4,12 +4,14 @@
  */
 package pl.gauee.wishlist.core.persistance;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "WishItem")
-public class WishItem {
+public class WishItem implements WishObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +31,15 @@ public class WishItem {
     private String description;
     @Column(name = "wi_price")
     private float price;
+    @Column(name = "wi_photo")
+    private String photoUrl;
 
     public WishItem() {
+    }
+
+    @Override
+    public String toString() {
+        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", photoUrl=" + photoUrl + '}';
     }
 
     public long getId() {
@@ -65,8 +74,11 @@ public class WishItem {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
-        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + '}';
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

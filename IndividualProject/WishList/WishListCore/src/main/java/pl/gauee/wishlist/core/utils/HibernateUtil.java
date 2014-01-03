@@ -5,11 +5,9 @@
 package pl.gauee.wishlist.core.utils;
 
 import java.io.Serializable;
-import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.classic.Session;
-import pl.gauee.wishlist.core.persistance.WishItem;
 import pl.gauee.wishlist.core.persistance.WishUser;
 
 /**

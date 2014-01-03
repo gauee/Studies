@@ -11,39 +11,45 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
  * @author gauee
  */
 @Entity
-@Table(name="User")
-public class WishUser implements Serializable{
-    
+@Table(name = "WishUser")
+public class WishUser implements WishObject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="u_id")
+    @Column(name = "u_id")
     private long id;
-    
-    @Column(name="u_login")
+    @Column(name = "u_login")
     private String login;
-    
-    @Column(name="u_pass_hash")
+    @Column(name = "u_pass_hash")
     private String passHash;
-    
-    @Column(name="u_name")
+    @Column(name = "u_name")
     private String name;
-    
-    @Column(name="u_surname")
+    @Column(name = "u_surname")
     private String surname;
+    @Column(name = "u_email")
+    private String email;
+    @Column(name = "u_phone")
+    private long msisdn;
 
     public WishUser() {
     }
 
+    @Override
+    public String toString() {
+        return "WishUser{" + "id=" + id + ", login=" + login + ", passHash=" + passHash + ", name=" + name + ", surname=" + surname + ", email=" + email + ", msisdn=" + msisdn + '}';
+    }
 
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -80,10 +86,19 @@ public class WishUser implements Serializable{
         this.passHash = passHash;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", login=" + login + ", name=" + name + ", surname=" + surname + '}';
+    public String getEmail() {
+        return email;
     }
-    
-    
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public long getMsisdn() {
+        return msisdn;
+    }
+
+    public void setMsisdn(long msisdn) {
+        this.msisdn = msisdn;
+    }
 }

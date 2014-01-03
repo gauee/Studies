@@ -13,10 +13,10 @@ import pl.gauee.wishlist.core.persistance.WishList;
  * @author gauee
  */
 public interface ListOperations {
-    
-    public WishList createNewWishList(String listName,WishUser owner,WishList... items);
-    public boolean addToWishList(WishList list, WishItem...items);
+
+    public WishList createNewWishList(String listName, WishUser owner, WishList... items);
+
+    public boolean addToWishList(WishList list, WishItem... items);
+
     public WishList getWishList(int id);
-    
-    
 }

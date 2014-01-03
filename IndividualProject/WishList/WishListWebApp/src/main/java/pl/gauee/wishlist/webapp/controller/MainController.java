@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import pl.gauee.wishlist.utils.decorators.DWishUser;
+import pl.gauee.wishlist.webapp.api.UserApi;
+import pl.gauee.wishlist.webapp.factories.PersistanceAccessFactories;
+import pl.gauee.wishlist.webapp.html.MySiteBuilder;
 
 /**
  *
@@ -33,7 +37,11 @@ public class MainController {
 
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
-        model.addAttribute("message", "Strona o mnie");
+//        model.addAttribute("message", "Strona o mnie");
+        UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
+        DWishUser user = userApi.getDefaultUser();
+
+        model.addAttribute("message", MySiteBuilder.buildMySite(user));
 
         return "mysite";
     }
@@ -63,9 +71,4 @@ public class MainController {
     public String login(ModelMap model) {
         return "login";
     }
-
-//    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-//    public String logout(ModelMap model) {
-//        return "logout";
-//    }
 }
