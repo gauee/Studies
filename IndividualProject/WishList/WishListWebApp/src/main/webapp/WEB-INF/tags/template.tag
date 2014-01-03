@@ -6,6 +6,8 @@
 
 <%@tag description="Template of site" pageEncoding="UTF-8"%>
 <%-- The list of normal or fragment attributes can be specified here: --%>
+<%@attribute name="header" fragment="true"%>
+<%@attribute name="footer" fragment="true"%>
 <%@attribute name="content" fragment="true"%>
 <%@attribute name="sideBar" fragment="true"%>
 
@@ -15,8 +17,8 @@
     Author     : gauee
 --%>
 <html>
+    <jsp:invoke fragment="header" />
     <body>
-        <%@include file="header.jsp" %>
         <section id="content">
             <section id="main_content">
                 <aside>
@@ -27,7 +29,7 @@
                 </section>
             </section>
         </section>
-        <%@include file="footer.jsp" %>
+        <jsp:invoke fragment="footer" />
     </body>
 </html>
 

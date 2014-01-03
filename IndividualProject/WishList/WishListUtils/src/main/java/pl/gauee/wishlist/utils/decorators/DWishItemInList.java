@@ -22,13 +22,13 @@ public class DWishItemInList {
     public DWishItemInList() {
     }
 
-    public DWishItemInList(String name, String photo, String description, double price, boolean bougth, Date lastUpdate) {
+    public DWishItemInList(String name, String photo, String description, double price) {
         this.name = name;
         this.photo = photo;
         this.description = description;
         this.price = price;
-        this.bougth = bougth;
-        this.lastUpdate = lastUpdate;
+        this.bougth = false;
+        this.lastUpdate = new Date();
     }
 
     @Override

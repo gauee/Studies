@@ -20,9 +20,9 @@ public class DWishList {
     public DWishList() {
     }
 
-    public DWishList(String name, Date createdTime, List<DWishItemInList> items) {
+    public DWishList(String name, List<DWishItemInList> items) {
         this.name = name;
-        this.createdTime = createdTime;
+        this.createdTime = new Date();
         this.items = items;
     }
 

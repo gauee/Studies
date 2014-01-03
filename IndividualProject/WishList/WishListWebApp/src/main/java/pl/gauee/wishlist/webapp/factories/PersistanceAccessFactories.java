@@ -4,6 +4,7 @@
  */
 package pl.gauee.wishlist.webapp.factories;
 
+import pl.gauee.wishlist.webapp.api.ListApi;
 import pl.gauee.wishlist.webapp.api.PersistanceFactoryApi;
 import pl.gauee.wishlist.webapp.api.UserApi;
 
@@ -25,5 +26,10 @@ public class PersistanceAccessFactories implements PersistanceFactoryApi {
     @Override
     public UserApi getUserApi() {
         return new UserAccess();
+    }
+
+    @Override
+    public ListApi getListApi() {
+        return new ListAccess();
     }
 }

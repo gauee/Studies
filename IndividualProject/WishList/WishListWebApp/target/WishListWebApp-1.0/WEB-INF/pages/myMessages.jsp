@@ -12,7 +12,15 @@
         Wiadomości
     </jsp:attribute>
 </t:head>
-<t:template>
+<t:template>    
+    <jsp:attribute name="header">
+        <jsp:include page="header.jsp" />
+    </jsp:attribute>
+    <jsp:attribute name="footer">
+        <jsp:include page="footer.jsp" />
+    </jsp:attribute>
+
+
     <jsp:attribute name="sideBar" >
         Hej SideBar!
     </jsp:attribute>

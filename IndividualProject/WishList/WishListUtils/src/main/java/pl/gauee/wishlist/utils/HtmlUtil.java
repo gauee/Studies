@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class HtmlUtil {
 
+    public static final String TAG_NEW_LINE = "<br />";
+
     public static String getHeader3(String msg) {
         return new StringBuilder().append("<h3>").append(msg).append("</h3>").toString();
     }
@@ -44,7 +46,35 @@ public class HtmlUtil {
         return sb.toString();
     }
 
-    public static String getBold(String login) {
-        return new StringBuilder().append("<b>").append(login).append("</b>").toString();
+    public static String getBold(String toBold) {
+        return new StringBuilder().append("<b>").append(toBold).append("</b>").toString();
+    }
+
+    public static String getAhrefLink(String href, String aName) {
+        return new StringBuilder().append("<a href=\"")
+                .append(href)
+                .append("\" >")
+                .append(aName)
+                .append("</a>").toString();
+    }
+
+    public static String getImgSrc(String href) {
+        return new StringBuilder()
+                .append("<img src=\"")
+                .append(href)
+                .append("\" />")
+                .toString();
+    }
+
+    public static String getNewLine() {
+        return TAG_NEW_LINE;
+    }
+
+    public static String getCheckBox(String action, boolean checked) {
+        return new StringBuilder().append("<input type=\"checkbox\" value=\"")
+                .append(action)
+                .append("\" ")
+                .append(checked ? "checked" : "")
+                .append(">").toString();
     }
 }
