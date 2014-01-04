@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `Wish_User_UserGroup`;
 DROP TABLE IF EXISTS `Wish_User_List`;
+DROP TABLE IF EXISTS `Wish_User_User`;
 DROP TABLE IF EXISTS `WishItemInList`;
 DROP TABLE IF EXISTS `WishUserRole`;
 DROP TABLE IF EXISTS `WishUser`;
@@ -21,6 +22,18 @@ CREATE TABLE `WishUser` (
   PRIMARY KEY (`wu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `Wish_User_User` (
+  `wuu_wu_id1` bigint NOT NULL,
+  `wuu_wu_id2` bigint NOT NULL,
+  INDEX(wuu_wu_id1),
+  INDEX(wuu_wu_id2),
+  FOREIGN KEY (wuu_wu_id1)
+      REFERENCES WishUser(wu_id)
+      ON UPDATE CASCADE ON DELETE RESTRICT,
+  FOREIGN KEY (wuu_wu_id2)
+      REFERENCES WishUser(wu_id)
+      ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `WishUserRole` (
   `wur_id` bigint NOT NULL AUTO_INCREMENT,

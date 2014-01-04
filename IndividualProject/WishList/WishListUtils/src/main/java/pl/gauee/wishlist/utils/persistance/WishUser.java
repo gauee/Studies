@@ -51,6 +51,15 @@ public class WishUser implements WishObject {
         @JoinColumn(name = "wul_wl_id")
     })
     private Set<WishList> userLists = new HashSet<WishList>();
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "Wish_User_User",
+            joinColumns = {
+        @JoinColumn(name = "wuu_wu_id1")
+    },
+            inverseJoinColumns = {
+        @JoinColumn(name = "wuu_wu_id2")
+    })
+    private Set<WishUser> userFriends = new HashSet<WishUser>();
 
     public WishUser() {
     }
