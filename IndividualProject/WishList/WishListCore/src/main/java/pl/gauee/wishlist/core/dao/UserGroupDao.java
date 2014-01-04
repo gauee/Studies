@@ -1,7 +1,5 @@
 package pl.gauee.wishlist.core.dao;
 
-
-import pl.gauee.wishlist.core.dao.BaseDao;
 import pl.gauee.wishlist.core.persistance.WishUserGroup;
 
 /*
@@ -12,7 +10,7 @@ import pl.gauee.wishlist.core.persistance.WishUserGroup;
  *
  * @author gauee
  */
-public class UserGroupDao extends BaseDao<WishUserGroup> {
+class UserGroupDao extends BaseDao<WishUserGroup> {
 
     public static final Class<WishUserGroup> classType = WishUserGroup.class;
 

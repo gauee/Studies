@@ -9,6 +9,8 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +55,8 @@ public class MainController {
 
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
-//        User currentLoggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        logger.info("Loggedin User name is " + currentLoggedUser.getUsername());
+        String currentLoggedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        logger.info("Loggedin User name is " + currentLoggedUser);
         UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
         DWishUser user = userApi.getDefaultUser();
 

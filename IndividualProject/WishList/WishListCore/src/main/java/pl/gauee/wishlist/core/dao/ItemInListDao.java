@@ -10,7 +10,7 @@ import pl.gauee.wishlist.core.persistance.WishItemInList;
  *
  * @author gauee
  */
-public class ItemInListDao extends BaseDao<WishItemInList> {
+class ItemInListDao extends BaseDao<WishItemInList> {
 
     public static final Class<WishItemInList> classType = WishItemInList.class;
 

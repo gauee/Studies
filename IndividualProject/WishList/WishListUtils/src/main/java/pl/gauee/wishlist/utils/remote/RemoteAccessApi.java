@@ -11,4 +11,6 @@ package pl.gauee.wishlist.utils.remote;
 public interface RemoteAccessApi {
 
     public long testBySquare(int x);
+    
+    public boolean authenticateUser(String userLogin, String userPassHash);
 }

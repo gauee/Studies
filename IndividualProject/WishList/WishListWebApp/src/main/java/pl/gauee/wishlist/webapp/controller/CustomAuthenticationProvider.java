@@ -7,6 +7,8 @@ package pl.gauee.wishlist.webapp.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import pl.gauee.wishlist.utils.HashUtils;
+import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
 
 /**
  *
@@ -22,9 +25,12 @@ import pl.gauee.wishlist.utils.HashUtils;
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
+    @Autowired
+    @Qualifier(value = "proxyBean")
+    RemoteAccessApi remoteAccessApi;
     private final Logger logger = Logger.getLogger(CustomAuthenticationProvider.class);
-    private final String testUserName = "gauee";
-    private final String testUserPass = "0e238030db298bbe7fcb89275fe2a789f358b690ca7581479bf1c34d4d0ff49d";
+//    private final String testUserName = "gauee";
+//    private final String testUserPass = "0e238030db298bbe7fcb89275fe2a789f358b690ca7581479bf1c34d4d0ff49d";
 
     @Override
     public Authentication authenticate(Authentication authentication) {
@@ -43,9 +49,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
         grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if (testUserName.equals(username) && testUserPass.equals(passwordHash)) {
+        if (remoteAccessApi.authenticateUser(username, passwordHash)) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, passwordHash, grantedAuths);
-
             return token;
         }
 
