@@ -22,7 +22,7 @@ public class ItemCategoryDaoTest extends TestCase {
         super.setUp();
     }
 
-    public void tes2tCRUDMethods() {
+    public void testCRUDMethods() {
         ItemCategoryDao categoryDao = new ItemCategoryDao();
         categoryDao.deleteAll();
 
@@ -31,11 +31,11 @@ public class ItemCategoryDaoTest extends TestCase {
 
         WishItemCategory itemCategory = new WishItemCategory();
         itemCategory.setName("jedzenie");
-        assertNull(itemCategory.getId());
+        assertEquals(0, itemCategory.getId());
 
         itemCategory = categoryDao.create(itemCategory);
 
-        assertNotNull(itemCategory.getId());
+        assertNotSame(0, itemCategory.getId());
 
         WishItemCategory itemCategory2 = new WishItemCategory();
         itemCategory2.setName("napoje");
