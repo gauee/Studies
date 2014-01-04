@@ -130,9 +130,15 @@ public class MainController {
         return "lists";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = PageUtils.login, method = RequestMethod.GET)
     public String login(ModelMap model) {
         return "login";
+    }
+
+    @RequestMapping(value = PageUtils.register, method = RequestMethod.GET)
+    public String register(ModelMap model) {
+        logger.info("Jestem w register");
+        return "register";
     }
 
     @RequestMapping(value = PageUtils.MyItemBought, method = RequestMethod.GET)

@@ -7,6 +7,7 @@
 	http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
     <http pattern="/login" security="none"/>
+    <http pattern="/register" security="none"/>
     <http pattern="static" security="none"/>
     
     <http auto-config="true">

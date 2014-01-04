@@ -13,7 +13,7 @@
     </jsp:attribute>
 </t:head>
 <t:template>
-    
+
     <jsp:attribute name="header">
         <jsp:include page="header.jsp" />
     </jsp:attribute>
@@ -47,8 +47,10 @@
                     </td>
                 </tr>
             </table>
-
         </form>
+        <a href="register">
+            <input type="button" value="Register" />
+        </a>
     </jsp:attribute>
     <jsp:attribute name="content" >
         <h2>Witaj w aplikacji WishList'a</h2>

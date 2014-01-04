@@ -18,4 +18,6 @@ public class PageUtils {
     public static final String MyItem = "myItem";
     public static final String MyItemBought = MyItem + "_bought";
     public static final String MyItemBoughtCancel = MyItem + "_bought_cancel";
+    public static final String login = "login";
+    public static final String register = "register";
 }
