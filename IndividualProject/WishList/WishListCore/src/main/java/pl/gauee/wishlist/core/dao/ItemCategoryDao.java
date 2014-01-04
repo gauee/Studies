@@ -11,9 +11,9 @@ import pl.gauee.wishlist.core.persistance.WishItemCategory;
  * @author gauee
  */
 public class ItemCategoryDao extends BaseDao<WishItemCategory> {
-    
+
     public static final Class<WishItemCategory> classType = WishItemCategory.class;
-    
+
     @Override
     public Class getClassType() {
         return classType;

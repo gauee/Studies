@@ -7,6 +7,8 @@ package pl.gauee.wishlist.webapp.controller;
 import java.util.List;
 import java.util.Random;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.decorators.DWishList;
 import pl.gauee.wishlist.utils.decorators.DWishUser;
+import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
 import pl.gauee.wishlist.webapp.api.ListApi;
 import pl.gauee.wishlist.webapp.api.UserApi;
 import pl.gauee.wishlist.webapp.factories.PersistanceAccessFactories;
@@ -30,6 +33,9 @@ import pl.gauee.wishlist.webapp.html.MySiteBuilder;
 public class MainController {
 
     private final Logger logger = Logger.getLogger(MainController.class);
+    @Autowired
+    @Qualifier(value = "proxyBean")
+    RemoteAccessApi remoteAccess;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -129,7 +135,8 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyItemBought, method = RequestMethod.GET)
     public String boughtItem(ModelMap model) {
-        model.addAttribute("message", "przedmiot kupiony");
+//        model.addAttribute("message", "przedmiot kupiony");
+        model.addAttribute("message", "przedmiot kupiony, remote value is: " + remoteAccess.testBySquare(new Random().nextInt(100)));
 
         return "lists";
     }

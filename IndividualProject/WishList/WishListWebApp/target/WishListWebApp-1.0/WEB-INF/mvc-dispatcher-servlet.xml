@@ -32,5 +32,12 @@
 
     <mvc:resources mapping="/static/**" location="/static/" />
     <mvc:default-servlet-handler />
+    
+    
+    <!--RMI-->
+    <bean id="proxyBean" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://localhost:1099/RMIService" />
+        <property name="serviceInterface" value="pl.gauee.wishlist.utils.remote.RemoteAccessApi" />
+    </bean>
  
 </beans>

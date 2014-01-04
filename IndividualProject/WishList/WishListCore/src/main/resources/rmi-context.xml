@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean id="testRmi" class="pl.gauee.wishlist.core.remote.RemoteAccess"/>
+ 
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+  
+        <property name="service" ref="testRmi" />
+        <property name="serviceInterface" value="pl.gauee.wishlist.utils.remote.RemoteAccessApi"/>
+        <property name="serviceName" value="RMIService" />
+        <property name="replaceExistingBinding" value="true" />
+        <property name="registryPort" value="1099" />
+    </bean>
+
+</beans>
