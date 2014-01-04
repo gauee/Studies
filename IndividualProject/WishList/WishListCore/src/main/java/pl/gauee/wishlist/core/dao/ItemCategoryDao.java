@@ -4,7 +4,7 @@
  */
 package pl.gauee.wishlist.core.dao;
 
-import pl.gauee.wishlist.core.persistance.WishItemCategory;
+import pl.gauee.wishlist.utils.persistance.WishItemCategory;
 
 /**
  *

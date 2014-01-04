@@ -28,9 +28,5 @@
          
         <property name="hbm2ddl.auto">validate</property>
   
-        <!--Mapowanie klas-->
-        <!--<mapping resource="pl.gauee.wishlist.core.persistance.User"/>-->
-         
-          
     </session-factory>
 </hibernate-configuration>

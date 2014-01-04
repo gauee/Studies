@@ -5,7 +5,7 @@
 package pl.gauee.wishlist.core.dao;
 
 import junit.framework.TestCase;
-import pl.gauee.wishlist.core.persistance.WishItemCategory;
+import pl.gauee.wishlist.utils.persistance.WishItemCategory;
 
 /**
  *

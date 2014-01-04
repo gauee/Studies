@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.core.api;
 
 import java.util.List;
+import pl.gauee.wishlist.utils.persistance.WishObject;
 
 /**
  *

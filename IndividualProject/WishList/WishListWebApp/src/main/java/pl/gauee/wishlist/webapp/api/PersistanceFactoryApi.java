@@ -10,7 +10,7 @@ package pl.gauee.wishlist.webapp.api;
  */
 public interface PersistanceFactoryApi {
 
-    public UserApi getUserApi();
+    public WebUserApi getUserApi();
     
     public ListApi getListApi();
 }

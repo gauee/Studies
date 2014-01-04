@@ -4,6 +4,8 @@
  */
 package pl.gauee.wishlist.utils.remote;
 
+import pl.gauee.wishlist.utils.persistance.WishUser;
+
 /**
  *
  * @author gauee
@@ -11,6 +13,12 @@ package pl.gauee.wishlist.utils.remote;
 public interface RemoteAccessApi {
 
     public long testBySquare(int x);
-    
+
     public boolean authenticateUser(String userLogin, String userPassHash);
+
+    public boolean isUserNameExists(String userName);
+
+    public WishUser createNewWishUser(WishUser user);
+
+    public WishUser getUserByLogin(String userName);
 }

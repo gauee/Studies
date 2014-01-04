@@ -5,7 +5,7 @@
 package pl.gauee.wishlist.webapp.api;
 
 import java.util.List;
-import pl.gauee.wishlist.utils.decorators.DWishList;
+import pl.gauee.wishlist.utils.persistance.WishList;
 
 /**
  *
@@ -13,9 +13,9 @@ import pl.gauee.wishlist.utils.decorators.DWishList;
  */
 public interface ListApi {
 
-    public DWishList getList(Long listId);
+    public WishList getList(Long listId);
 
-    public List<DWishList> getListsOwnedToUser(Long userId);
+    public List<WishList> getListsOwnedToUser(Long userId);
 
-    public List<DWishList> getDefaultWishList();
+    public List<WishList> getDefaultWishList();
 }

@@ -1,6 +1,6 @@
 package pl.gauee.wishlist.core.dao;
 
-import pl.gauee.wishlist.core.persistance.WishUserGroup;
+import pl.gauee.wishlist.utils.persistance.WishUserGroup;
 
 /*
  * To change this template, choose Tools | Templates

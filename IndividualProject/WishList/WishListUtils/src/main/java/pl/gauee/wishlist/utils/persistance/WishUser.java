@@ -2,15 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.core.persistance;
+package pl.gauee.wishlist.utils.persistance;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
@@ -39,6 +39,16 @@ public class WishUser implements WishObject {
     private String msisdn;
 
     public WishUser() {
+    }
+
+    public WishUser(String login, String passHash, String name, String surname, String email, String msisdn) {
+        this.id = id;
+        this.login = login;
+        this.passHash = passHash;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.msisdn = msisdn;
     }
 
     @Override
@@ -100,5 +110,10 @@ public class WishUser implements WishObject {
 
     public void setMsisdn(String msisdn) {
         this.msisdn = msisdn;
+    }
+    
+    
+    public List<WishUser> getFriends(){
+        return null;
     }
 }

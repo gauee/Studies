@@ -33,6 +33,7 @@
     <mvc:resources mapping="/static/**" location="/static/" />
     <mvc:default-servlet-handler />
     
+    <bean id="userApiBean" class="pl.gauee.wishlist.webapp.factories.UserAccess" />
     
     <!--RMI-->
     <bean id="proxyBean" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">

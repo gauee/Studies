@@ -7,7 +7,7 @@ package pl.gauee.wishlist.webapp.html;
 import java.util.LinkedList;
 import java.util.List;
 import pl.gauee.wishlist.utils.HtmlUtil;
-import pl.gauee.wishlist.utils.decorators.DWishUser;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *
@@ -15,14 +15,14 @@ import pl.gauee.wishlist.utils.decorators.DWishUser;
  */
 public class MyFriendBuilder {
 
-    public static String build(DWishUser user) {
+    public static String build(WishUser user) {
         StringBuilder sb = new StringBuilder();
 
         if (user.getFriends() == null || user.getFriends().isEmpty()) {
             sb.append("Nie masz jeszcze żadnych znajomych");
         } else {
             List<String> friendsNames = new LinkedList<String>();
-            for (DWishUser friend : user.getFriends()) {
+            for (WishUser friend : user.getFriends()) {
                 friendsNames.add(HtmlUtil.getBold(friend.getLogin()) + " - " + friend.getName() + " " + friend.getSurname());
             }
             sb.append(HtmlUtil.createUlList(friendsNames));

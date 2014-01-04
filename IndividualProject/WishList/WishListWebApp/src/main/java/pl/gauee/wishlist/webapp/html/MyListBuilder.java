@@ -10,8 +10,8 @@ import java.util.List;
 import pl.gauee.wishlist.utils.HtmlUtil;
 import pl.gauee.wishlist.utils.IconUtils;
 import pl.gauee.wishlist.utils.PageUtils;
-import pl.gauee.wishlist.utils.decorators.DWishItemInList;
-import pl.gauee.wishlist.utils.decorators.DWishList;
+import pl.gauee.wishlist.utils.persistance.WishItemInList;
+import pl.gauee.wishlist.utils.persistance.WishList;
 
 /**
  *
@@ -31,15 +31,15 @@ public class MyListBuilder {
         ""
     };
 
-    public static String buildViewOfAllList(List<DWishList> lists) {
+    public static String buildViewOfAllList(List<WishList> lists) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(HtmlUtil.getHeader3("Moje listy"))
                 .append("<table>");
-        for (DWishList list : lists) {
+        for (WishList list : lists) {
             sb.append(HtmlUtil.getTableRow(
                     list.getName(),
-                    dateFormat.format(list.getCreatedTime()),
+                    dateFormat.format(list.getCreatedDate()),
                     getImgA(PageUtils.MyListPreview, IconUtils.iconPreview),
                     getImgA(PageUtils.MyListEdit, IconUtils.iconEdit),
                     getImgA(PageUtils.MyListShare, IconUtils.iconShare),
@@ -53,27 +53,27 @@ public class MyListBuilder {
         return HtmlUtil.getAhrefLink(pageHref, HtmlUtil.getImgSrc(imageHref));
     }
 
-    public static Object buildViewOneList(DWishList list) {
+    public static Object buildViewOneList(WishList list) {
         StringBuilder sb = new StringBuilder();
 
         sb.append(HtmlUtil.getHeader3("Podgląd listy"))
                 .append("Lista: ")
                 .append(HtmlUtil.getBold(list.getName()))
                 .append("  stworzona: ")
-                .append(dateFormat.format(list.getCreatedTime()))
+                .append(dateFormat.format(list.getCreatedDate()))
                 .append(HtmlUtil.getNewLine())
                 .append("<table>");
 
         sb.append(HtmlUtil.getBold(HtmlUtil.getTableRow(itemsLables)));
 
-        for (DWishItemInList item : list.getItems()) {
+        for (WishItemInList item : list.getItems()) {
             sb.append(HtmlUtil.getTableRow(
-                    item.isBougth() ? getBoughtLink() : getNotBoughtLink(),
-                    item.getName(),
-                    item.getDescription(),
-                    item.getPrice() + "zł",
+                    item.isBought()? getBoughtLink() : getNotBoughtLink(),
+                    item.getItem().getName(),
+                    item.getItem().getDescription(),
+                    item.getItem().getPrice() + "zł",
                     dateFormat.format(item.getLastUpdate()),
-                    HtmlUtil.getImgSrc(item.getPhoto() == null ? "" : item.getPhoto())));
+                    HtmlUtil.getImgSrc(item.getItem().getPhotoUrl()== null ? "" : item.getItem().getPhotoUrl())));
         }
 
         sb.append("</table>");

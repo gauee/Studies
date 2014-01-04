@@ -2,16 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.core.persistance;
+package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
+import java.util.LinkedList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
@@ -30,15 +31,22 @@ public class WishList implements WishObject {
     private Date createdDate;
     @Column(name = "wl_name")
     private String name;
+    
+//    private List<WishItemInList> items;
 
     public WishList() {
     }
 
-    public WishList(long id, Date createdDate, String name) {
-        this.id = id;
-        this.createdDate = createdDate;
+    public WishList(String name) {
+        this.createdDate = new Date(System.currentTimeMillis());
         this.name = name;
     }
+
+//    public WishList(String name, List<WishItemInList> items) {
+//        this.createdDate = new Date(System.currentTimeMillis());
+//        this.name = name;
+//        this.items = items;
+//    }
 
     @Override
     public String toString() {
@@ -67,5 +75,9 @@ public class WishList implements WishObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<WishItemInList> getItems() {
+        return new LinkedList<WishItemInList>();
     }
 }

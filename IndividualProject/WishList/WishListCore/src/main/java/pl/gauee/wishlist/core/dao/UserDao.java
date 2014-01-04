@@ -7,8 +7,8 @@ package pl.gauee.wishlist.core.dao;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import pl.gauee.wishlist.core.api.UserApi;
-import pl.gauee.wishlist.core.persistance.WishUser;
-import pl.gauee.wishlist.core.utils.HibernateUtil;
+import pl.gauee.wishlist.utils.persistance.WishUser;
+import pl.gauee.wishlist.utils.persistance.HibernateUtil;
 
 /**
  *
@@ -24,7 +24,7 @@ class UserDao extends BaseDao<WishUser> implements UserApi {
     }
 
     public WishUser getUserByLogin(String login) {
-        Session session = HibernateUtil.getNewSession();
+        Session session = HibernateSession.getNewSession();
         WishUser user = (WishUser) session.createCriteria(getClassType()).add(Restrictions.eq("login", login)).uniqueResult();
         session.close();
         return user;
@@ -37,5 +37,9 @@ class UserDao extends BaseDao<WishUser> implements UserApi {
     public boolean authenticateUserWithPassHash(String userName, String passHash) {
         WishUser user = getUserByLogin(userName);
         return user != null && user.getPassHash().equals(passHash);
+    }
+
+    public WishUser createUser(WishUser user) {
+        return super.create(user);
     }
 }

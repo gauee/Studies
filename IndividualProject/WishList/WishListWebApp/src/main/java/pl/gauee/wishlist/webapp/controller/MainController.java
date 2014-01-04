@@ -10,17 +10,16 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
-import pl.gauee.wishlist.utils.decorators.DWishList;
-import pl.gauee.wishlist.utils.decorators.DWishUser;
-import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
+import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 import pl.gauee.wishlist.webapp.api.ListApi;
-import pl.gauee.wishlist.webapp.api.UserApi;
+import pl.gauee.wishlist.webapp.api.WebUserApi;
 import pl.gauee.wishlist.webapp.factories.PersistanceAccessFactories;
 import pl.gauee.wishlist.webapp.html.MyFriendBuilder;
 import pl.gauee.wishlist.webapp.html.MyListBuilder;
@@ -36,8 +35,8 @@ public class MainController {
 
     private final Logger logger = Logger.getLogger(MainController.class);
     @Autowired
-    @Qualifier(value = "proxyBean")
-    RemoteAccessApi remoteAccess;
+    @Qualifier(value = "userApiBean")
+    WebUserApi userApi;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -56,9 +55,7 @@ public class MainController {
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
         String currentLoggedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        logger.info("Loggedin User name is " + currentLoggedUser);
-        UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
-        DWishUser user = userApi.getDefaultUser();
+        WishUser user = userApi.getUserByLogin(currentLoggedUser);
 
         model.addAttribute("message", MySiteBuilder.build(user));
 
@@ -74,8 +71,8 @@ public class MainController {
 
     @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
-        UserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
-        DWishUser user = userApi.getDefaultUser();
+        WebUserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
+        WishUser user = userApi.getDefaultUser();
 
         model.addAttribute("message", MyFriendBuilder.build(user));
         return "friends";
@@ -83,12 +80,12 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyList, method = RequestMethod.GET)
     public String myLists(ModelMap model) {
-//        User currentLoggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentLoggedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        logger.info("Loggedin User name is " + currentLoggedUser.getUsername());
 
         ListApi listApi = PersistanceAccessFactories.getInstance().getListApi();
 
-        List<DWishList> lists = listApi.getDefaultWishList();
+        List<WishList> lists = listApi.getDefaultWishList();
 
         model.addAttribute("message", MyListBuilder.buildViewOfAllList(lists));
 
@@ -100,7 +97,7 @@ public class MainController {
 
         ListApi listApi = PersistanceAccessFactories.getInstance().getListApi();
 
-        List<DWishList> lists = listApi.getDefaultWishList();
+        List<WishList> lists = listApi.getDefaultWishList();
         model.addAttribute("message", MyListBuilder.buildViewOneList(lists.get(new Random().nextInt(2))));
 
         return "lists";
@@ -141,10 +138,44 @@ public class MainController {
         return "register";
     }
 
+    @RequestMapping(value = PageUtils.register, method = RequestMethod.POST)
+    public String registerSubmit(
+            @RequestParam("reg_login") String login,
+            @RequestParam("reg_name") String name,
+            @RequestParam("reg_surname") String surname,
+            @RequestParam("reg_pass") String pass,
+            @RequestParam("reg_pass_conf") String passConf,
+            @RequestParam("reg_email") String email,
+            @RequestParam("reg_phone") String msisdn,
+            ModelMap model) {
+        logger.info("Jestem w register post: " + login);
+        logger.info(login + " " + name + " " + surname + " " + pass + " " + passConf + " " + email + " " + msisdn);
+        if (userApi.isUserExist(login)) {
+            logger.info("Login: " + login + " is used");
+            model.addAttribute("message", "login już jest zajęty");
+            return "register";
+        }
+
+        if (!userApi.isTwoPassIdentical(pass, passConf)) {
+            logger.info("Passes are diffrent: " + pass + " != " + passConf);
+            model.addAttribute("message", "passwords must be the same");
+            return "register";
+        }
+
+        WishUser wishUser = new WishUser(login, pass, name, surname, email, msisdn);
+
+        userApi.createUser(wishUser);
+        logger.info("Created: " + wishUser);
+
+        model.addAttribute("message", "Utworzono konto dla użytkownika: " + login);
+
+        return "redirect:/welcome";
+    }
+
     @RequestMapping(value = PageUtils.MyItemBought, method = RequestMethod.GET)
     public String boughtItem(ModelMap model) {
-//        model.addAttribute("message", "przedmiot kupiony");
-        model.addAttribute("message", "przedmiot kupiony, remote value is: " + remoteAccess.testBySquare(new Random().nextInt(100)));
+        model.addAttribute("message", "przedmiot kupiony");
+//        model.addAttribute("message", "przedmiot kupiony, remote value is: " + remoteAccess.testBySquare(new Random().nextInt(100)));
 
         return "lists";
     }

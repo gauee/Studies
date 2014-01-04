@@ -4,9 +4,9 @@
  */
 package pl.gauee.wishlist.core.lists;
 
-import pl.gauee.wishlist.core.persistance.WishUser;
-import pl.gauee.wishlist.core.persistance.WishItem;
-import pl.gauee.wishlist.core.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
+import pl.gauee.wishlist.utils.persistance.WishItem;
+import pl.gauee.wishlist.utils.persistance.WishList;
 
 /**
  *

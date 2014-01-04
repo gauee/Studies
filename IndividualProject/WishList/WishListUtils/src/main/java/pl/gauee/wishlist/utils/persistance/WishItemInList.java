@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.core.persistance;
+package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
 import javax.persistence.Column;
@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
@@ -30,15 +29,22 @@ public class WishItemInList implements WishObject {
     private boolean bought;
     @Column(name = "wiil_last_update")
     private Date lastUpdate;
+//    private WishItem item;
 
     public WishItemInList() {
     }
 
-    public WishItemInList(long id, boolean bought, Date lastUpdate) {
-        this.id = id;
+    public WishItemInList(boolean bought) {
         this.bought = bought;
         this.lastUpdate = lastUpdate;
+//        this.item = item;
     }
+
+//    public WishItemInList(String name, String description, double price, String photoUrl) {
+//        this.item = new WishItem(name, description, price, photoUrl, new WishItemCategory("unknown"));
+//        this.bought = false;
+//        this.lastUpdate = new Date(System.currentTimeMillis());
+//    }
 
     @Override
     public String toString() {
@@ -70,4 +76,9 @@ public class WishItemInList implements WishObject {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
+    public WishItem getItem() {
+        return new WishItem("item1", "opis1", 10.12, "src1", new WishItemCategory("unknown"));
+    }
+
 }

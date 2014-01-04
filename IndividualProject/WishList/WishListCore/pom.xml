@@ -17,7 +17,7 @@
 
     <dependencies>
         
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <version>3.5.6-Final</version>
@@ -31,7 +31,7 @@
             <groupId>org.hibernate</groupId>
             <artifactId>ejb3-persistence</artifactId>
             <version>1.0.2.GA</version>
-        </dependency>
+        </dependency>-->
         <!--        <dependency>
                     <groupId>org.hibernate</groupId>
                     <artifactId>hibernate-annotations</artifactId>

@@ -2,7 +2,7 @@ package pl.gauee.wishlist.core.dao;
 
 
 import pl.gauee.wishlist.core.dao.BaseDao;
-import pl.gauee.wishlist.core.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishList;
 
 /*
  * To change this template, choose Tools | Templates

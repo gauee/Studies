@@ -16,7 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import pl.gauee.wishlist.utils.HashUtils;
-import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
+import pl.gauee.wishlist.webapp.api.WebUserApi;
 
 /**
  *
@@ -26,8 +26,8 @@ import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    @Qualifier(value = "proxyBean")
-    RemoteAccessApi remoteAccessApi;
+    @Qualifier(value = "userApiBean")
+    WebUserApi userApi;
     private final Logger logger = Logger.getLogger(CustomAuthenticationProvider.class);
 //    private final String testUserName = "gauee";
 //    private final String testUserPass = "0e238030db298bbe7fcb89275fe2a789f358b690ca7581479bf1c34d4d0ff49d";
@@ -49,7 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
         grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if (remoteAccessApi.authenticateUser(username, passwordHash)) {
+        if (userApi.authenticateUserWithPassHash(username, passwordHash)) {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, passwordHash, grantedAuths);
             return token;
         }

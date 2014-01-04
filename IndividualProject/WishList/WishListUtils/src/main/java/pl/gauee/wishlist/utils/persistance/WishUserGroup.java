@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.core.persistance;
+package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
 import javax.persistence.Column;
@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *

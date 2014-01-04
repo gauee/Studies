@@ -5,7 +5,7 @@
 package pl.gauee.wishlist.webapp.html;
 
 import pl.gauee.wishlist.utils.HtmlUtil;
-import pl.gauee.wishlist.utils.decorators.DWishUser;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *
@@ -20,7 +20,7 @@ public class MySiteBuilder {
     private static final String labelEmail = "E-mail: ";
     private static final String labelMsisdn = "Komórka: ";
 
-    public static String build(DWishUser user) {
+    public static String build(WishUser user) {
         StringBuilder sb = new StringBuilder();
         sb.append(HtmlUtil.getHeader3(titlePage))
                 .append("<table>")

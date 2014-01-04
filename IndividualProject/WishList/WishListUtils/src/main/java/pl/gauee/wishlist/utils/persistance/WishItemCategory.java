@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.core.persistance;
+package pl.gauee.wishlist.utils.persistance;
 
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import pl.gauee.wishlist.core.api.WishObject;
 
 /**
  *
@@ -38,8 +37,7 @@ public class WishItemCategory implements WishObject {
     public WishItemCategory() {
     }
 
-    public WishItemCategory(long id, String name) {
-        this.id = id;
+    public WishItemCategory(String name) {
         this.name = name;
     }
 
