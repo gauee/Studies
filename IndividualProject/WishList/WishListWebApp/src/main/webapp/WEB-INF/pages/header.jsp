@@ -6,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-     <p>WishList 1.0</p>
+    <p>WishList 1.0</p>
     <nav>
         <a href="welcome" >Strona Główna</a>
         <!--<a href="myMessages" >Wiadomosci</a>-->

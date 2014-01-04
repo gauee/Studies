@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.gauee.wishlist.webapp;
+package pl.gauee.wishlist.utils.api;
 
 /**
  *
  * @author gauee
  */
-public class App {
+public interface ListApi {
 }

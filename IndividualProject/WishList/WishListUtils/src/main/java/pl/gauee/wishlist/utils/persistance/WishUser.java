@@ -4,12 +4,19 @@
  */
 package pl.gauee.wishlist.utils.persistance;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -37,6 +44,13 @@ public class WishUser implements WishObject {
     private String email;
     @Column(name = "wu_msisdn")
     private String msisdn;
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinTable(name = "Wish_User_List", joinColumns = {
+        @JoinColumn(name = "wul_wu_id")
+    }, inverseJoinColumns = {
+        @JoinColumn(name = "wul_wl_id")
+    })
+    private Set<WishList> userLists = new HashSet<WishList>();
 
     public WishUser() {
     }
@@ -53,7 +67,7 @@ public class WishUser implements WishObject {
 
     @Override
     public String toString() {
-        return "WishUser{" + "id=" + id + ", login=" + login + ", passHash=" + passHash + ", name=" + name + ", surname=" + surname + ", email=" + email + ", msisdn=" + msisdn + '}';
+        return "WishUser{" + "id=" + id + ", login=" + login + ", passHash=" + passHash + ", name=" + name + ", surname=" + surname + ", email=" + email + ", msisdn=" + msisdn + ", userLists=" + userLists + '}';
     }
 
     public long getId() {
@@ -111,9 +125,16 @@ public class WishUser implements WishObject {
     public void setMsisdn(String msisdn) {
         this.msisdn = msisdn;
     }
-    
-    
-    public List<WishUser> getFriends(){
+
+    public List<WishUser> getFriends() {
         return null;
+    }
+
+    public Set<WishList> getUserLists() {
+        return userLists;
+    }
+
+    public void setUserLists(Set<WishList> userLists) {
+        this.userLists = userLists;
     }
 }

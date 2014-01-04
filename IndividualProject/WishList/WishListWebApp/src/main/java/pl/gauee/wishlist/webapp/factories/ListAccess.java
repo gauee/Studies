@@ -6,15 +6,24 @@ package pl.gauee.wishlist.webapp.factories;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
-import pl.gauee.wishlist.webapp.api.ListApi;
+import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
+import pl.gauee.wishlist.webapp.api.WebListApi;
 
 /**
  *
  * @author gauee
  */
-public class ListAccess implements ListApi {
+@Component
+public class ListAccess implements WebListApi {
+
+    @Autowired
+    @Qualifier(value = "proxyBean")
+    RemoteAccessApi remoteAccessApi;
 
     @Override
     public WishList getList(Long listId) {
@@ -22,8 +31,13 @@ public class ListAccess implements ListApi {
     }
 
     @Override
-    public List<WishList> getListsOwnedToUser(Long userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<WishList> getListsOwnedToUser(String userName) {
+        return remoteAccessApi.getListOwnToUser(userName);
+    }
+
+    @Override
+    public boolean createNewListForUser(WishList list, String userName) {
+        return remoteAccessApi.createNewListForUser(list, userName);
     }
 
     @Override

@@ -6,6 +6,7 @@ package pl.gauee.wishlist.webapp.html;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import pl.gauee.wishlist.utils.HtmlUtil;
 import pl.gauee.wishlist.utils.IconUtils;
@@ -68,12 +69,12 @@ public class MyListBuilder {
 
         for (WishItemInList item : list.getItems()) {
             sb.append(HtmlUtil.getTableRow(
-                    item.isBought()? getBoughtLink() : getNotBoughtLink(),
+                    item.isBought() ? getBoughtLink() : getNotBoughtLink(),
                     item.getItem().getName(),
                     item.getItem().getDescription(),
                     item.getItem().getPrice() + "zł",
                     dateFormat.format(item.getLastUpdate()),
-                    HtmlUtil.getImgSrc(item.getItem().getPhotoUrl()== null ? "" : item.getItem().getPhotoUrl())));
+                    HtmlUtil.getImgSrc(item.getItem().getPhotoUrl() == null ? "" : item.getItem().getPhotoUrl())));
         }
 
         sb.append("</table>");

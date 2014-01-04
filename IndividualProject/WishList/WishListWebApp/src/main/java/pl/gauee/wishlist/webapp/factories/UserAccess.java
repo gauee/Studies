@@ -55,6 +55,11 @@ class UserAccess implements WebUserApi {
     }
 
     @Override
+    public boolean updateUser(WishUser user) {
+        return remoteAccessApi.updateUser(user);
+    }
+
+    @Override
     public boolean isTwoPassIdentical(String pass1, String pass2) {
         if (null == pass1) {
             return false;

@@ -5,17 +5,21 @@
 package pl.gauee.wishlist.webapp.api;
 
 import java.util.List;
+import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *
  * @author gauee
  */
-public interface ListApi {
+public interface WebListApi extends ListApi {
 
     public WishList getList(Long listId);
 
-    public List<WishList> getListsOwnedToUser(Long userId);
+    public List<WishList> getListsOwnedToUser(String userName);
+
+    public boolean createNewListForUser(WishList list, String userName);
 
     public List<WishList> getDefaultWishList();
 }

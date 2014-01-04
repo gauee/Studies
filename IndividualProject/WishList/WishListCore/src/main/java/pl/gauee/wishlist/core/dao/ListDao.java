@@ -1,7 +1,7 @@
 package pl.gauee.wishlist.core.dao;
 
-
-import pl.gauee.wishlist.core.dao.BaseDao;
+import java.util.List;
+import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.persistance.WishList;
 
 /*
@@ -12,12 +12,16 @@ import pl.gauee.wishlist.utils.persistance.WishList;
  *
  * @author gauee
  */
-class ListDao extends BaseDao<WishList> {
+class ListDao extends BaseDao<WishList> implements ListApi {
 
     public static final Class<WishList> classType = WishList.class;
 
     @Override
     public Class getClassType() {
         return classType;
+    }
+
+    public List<WishList> getListOwnedToUser(Long userId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

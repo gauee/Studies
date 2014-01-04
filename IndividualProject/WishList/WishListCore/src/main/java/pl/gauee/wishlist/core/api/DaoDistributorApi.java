@@ -4,6 +4,8 @@
  */
 package pl.gauee.wishlist.core.api;
 
+import pl.gauee.wishlist.utils.api.UserApi;
+
 /**
  *
  * @author gauee

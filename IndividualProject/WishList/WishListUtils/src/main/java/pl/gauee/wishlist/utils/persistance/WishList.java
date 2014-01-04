@@ -5,13 +5,18 @@
 package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,29 +33,23 @@ public class WishList implements WishObject {
     @Column(name = "wl_id")
     private long id;
     @Column(name = "wl_created_time")
-    private Date createdDate;
+    private Timestamp createdDate;
     @Column(name = "wl_name")
     private String name;
-    
-//    private List<WishItemInList> items;
+    @ManyToMany(mappedBy = "userLists", fetch = FetchType.EAGER)
+    private Set<WishUser> listUsers = new HashSet<WishUser>();
 
     public WishList() {
     }
 
     public WishList(String name) {
-        this.createdDate = new Date(System.currentTimeMillis());
+        this.createdDate = new Timestamp(System.currentTimeMillis());
         this.name = name;
     }
 
-//    public WishList(String name, List<WishItemInList> items) {
-//        this.createdDate = new Date(System.currentTimeMillis());
-//        this.name = name;
-//        this.items = items;
-//    }
-
     @Override
     public String toString() {
-        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + '}';
+        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + ", listUsers=" + listUsers + '}';
     }
 
     public long getId() {
@@ -61,11 +60,11 @@ public class WishList implements WishObject {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -79,5 +78,13 @@ public class WishList implements WishObject {
 
     public List<WishItemInList> getItems() {
         return new LinkedList<WishItemInList>();
+    }
+
+    public Set<WishUser> getListUsers() {
+        return listUsers;
+    }
+
+    public void setListUsers(Set<WishUser> listUsers) {
+        this.listUsers = listUsers;
     }
 }

@@ -6,9 +6,8 @@ package pl.gauee.wishlist.core.dao;
 
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
-import pl.gauee.wishlist.core.api.UserApi;
+import pl.gauee.wishlist.utils.api.UserApi;
 import pl.gauee.wishlist.utils.persistance.WishUser;
-import pl.gauee.wishlist.utils.persistance.HibernateUtil;
 
 /**
  *
@@ -41,5 +40,9 @@ class UserDao extends BaseDao<WishUser> implements UserApi {
 
     public WishUser createUser(WishUser user) {
         return super.create(user);
+    }
+
+    public boolean updateUser(WishUser user) {
+        return null != super.update(user);
     }
 }

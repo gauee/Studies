@@ -48,8 +48,6 @@ public class WishItem implements WishObject {
         this.photoUrl = photoUrl;
         this.category = category;
     }
-    
-    
 
     @Override
     public String toString() {

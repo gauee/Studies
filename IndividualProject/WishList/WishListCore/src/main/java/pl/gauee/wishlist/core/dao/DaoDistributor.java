@@ -5,7 +5,7 @@
 package pl.gauee.wishlist.core.dao;
 
 import pl.gauee.wishlist.core.api.DaoDistributorApi;
-import pl.gauee.wishlist.core.api.UserApi;
+import pl.gauee.wishlist.utils.api.UserApi;
 
 /**
  *

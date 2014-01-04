@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
-import pl.gauee.wishlist.webapp.api.ListApi;
+import pl.gauee.wishlist.webapp.api.WebListApi;
 import pl.gauee.wishlist.webapp.api.WebUserApi;
-import pl.gauee.wishlist.webapp.factories.PersistanceAccessFactories;
 import pl.gauee.wishlist.webapp.html.MyFriendBuilder;
 import pl.gauee.wishlist.webapp.html.MyListBuilder;
 import pl.gauee.wishlist.webapp.html.MySiteBuilder;
@@ -37,6 +36,9 @@ public class MainController {
     @Autowired
     @Qualifier(value = "userApiBean")
     WebUserApi userApi;
+    @Autowired
+    @Qualifier(value = "listApiBean")
+    WebListApi listApi;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -54,7 +56,7 @@ public class MainController {
 
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
-        String currentLoggedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String currentLoggedUser = getLoginCurrentLoggedUser();
         WishUser user = userApi.getUserByLogin(currentLoggedUser);
 
         model.addAttribute("message", MySiteBuilder.build(user));
@@ -71,7 +73,6 @@ public class MainController {
 
     @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
-        WebUserApi userApi = PersistanceAccessFactories.getInstance().getUserApi();
         WishUser user = userApi.getDefaultUser();
 
         model.addAttribute("message", MyFriendBuilder.build(user));
@@ -80,12 +81,8 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyList, method = RequestMethod.GET)
     public String myLists(ModelMap model) {
-        String currentLoggedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        logger.info("Loggedin User name is " + currentLoggedUser.getUsername());
 
-        ListApi listApi = PersistanceAccessFactories.getInstance().getListApi();
-
-        List<WishList> lists = listApi.getDefaultWishList();
+        List<WishList> lists = listApi.getListsOwnedToUser(getLoginCurrentLoggedUser());
 
         model.addAttribute("message", MyListBuilder.buildViewOfAllList(lists));
 
@@ -94,9 +91,6 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyListPreview, method = RequestMethod.GET)
     public String myListsPreview(ModelMap model) {
-
-        ListApi listApi = PersistanceAccessFactories.getInstance().getListApi();
-
         List<WishList> lists = listApi.getDefaultWishList();
         model.addAttribute("message", MyListBuilder.buildViewOneList(lists.get(new Random().nextInt(2))));
 
@@ -125,6 +119,29 @@ public class MainController {
         model.addAttribute("message", "Usuwanie listy");
 
         return "lists";
+    }
+
+    @RequestMapping(value = PageUtils.MyListAddNewOne, method = RequestMethod.GET)
+    public String myListsAddNewOne(ModelMap model) {
+        model.addAttribute("message", "Stworzenie nowej listy");
+
+        return "lists_add_new_one";
+    }
+
+    @RequestMapping(value = PageUtils.MyListAddNewOne, method = RequestMethod.POST)
+    public String myListsAddNewOne(
+            @RequestParam("list_name") String listName,
+            ModelMap model) {
+
+        logger.info("Trying create new list named: " + listName);
+
+        WishList tmpList = new WishList(listName);
+        if (!listApi.createNewListForUser(tmpList, getLoginCurrentLoggedUser())) {
+            model.addAttribute("message", "nie udało się dodać listy");
+            return "lists_add_new_one";
+        }
+
+        return "redirect:/" + PageUtils.MyList;
     }
 
     @RequestMapping(value = PageUtils.login, method = RequestMethod.GET)
@@ -185,5 +202,13 @@ public class MainController {
         model.addAttribute("message", "przedmiot został oddany");
 
         return "lists";
+    }
+
+    private String getLoginCurrentLoggedUser() {
+        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    private Long getIdCurrentLoggedUser() {
+        return userApi.getUserByLogin(getLoginCurrentLoggedUser()).getId();
     }
 }

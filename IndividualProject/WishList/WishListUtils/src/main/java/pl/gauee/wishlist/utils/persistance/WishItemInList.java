@@ -45,7 +45,6 @@ public class WishItemInList implements WishObject {
 //        this.bought = false;
 //        this.lastUpdate = new Date(System.currentTimeMillis());
 //    }
-
     @Override
     public String toString() {
         return "WishItemInList{" + "id=" + id + ", bought=" + bought + ", lastUpdate=" + lastUpdate + '}';
@@ -80,5 +79,4 @@ public class WishItemInList implements WishObject {
     public WishItem getItem() {
         return new WishItem("item1", "opis1", 10.12, "src1", new WishItemCategory("unknown"));
     }
-
 }
