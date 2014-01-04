@@ -11,9 +11,9 @@ import pl.gauee.wishlist.core.persistance.WishUser;
  *
  * @author gauee
  */
-public class UserDao extends BaseDao implements UserApi {
+public class UserDao extends BaseDao<WishUser> implements UserApi {
 
-    private final Class classType = WishUser.class;
+    public static final Class<WishUser> classType = WishUser.class;
 
     @Override
     public Class getClassType() {

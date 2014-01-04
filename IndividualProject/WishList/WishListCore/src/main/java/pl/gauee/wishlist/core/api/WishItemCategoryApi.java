@@ -4,11 +4,9 @@
  */
 package pl.gauee.wishlist.core.api;
 
-import pl.gauee.wishlist.core.persistance.WishItemCategory;
-
 /**
  *
  * @author gauee
  */
-public interface WishItemCategoryApi extends DaoApi<WishItemCategory> {
+public interface WishItemCategoryApi {
 }

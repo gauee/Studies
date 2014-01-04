@@ -8,7 +8,7 @@ package pl.gauee.wishlist.core.api;
  *
  * @author gauee
  */
-public interface UserApi extends DaoApi {
+public interface UserApi {
 
     public boolean isUserExist(String login);
 }
