@@ -18,6 +18,8 @@ public interface DaoApi<T extends WishObject> {
 
     public List<T> getAll();
 
+    public Long getCount();
+
     public T update(T objectToUpdate);
 
     public void delete(T objectToDelete);

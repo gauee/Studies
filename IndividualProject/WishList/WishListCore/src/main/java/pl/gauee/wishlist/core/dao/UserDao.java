@@ -4,9 +4,7 @@
  */
 package pl.gauee.wishlist.core.dao;
 
-import java.util.List;
 import pl.gauee.wishlist.core.api.UserApi;
-import pl.gauee.wishlist.core.persistance.WishItem;
 import pl.gauee.wishlist.core.persistance.WishUser;
 
 /**
@@ -15,28 +13,14 @@ import pl.gauee.wishlist.core.persistance.WishUser;
  */
 public class UserDao extends BaseDao implements UserApi {
 
-    public WishItem getById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private final Class classType = WishUser.class;
 
-    public List getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void delete(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void deleteAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    private Class classType = WishUser.class;
-
+    @Override
     public Class getClassType() {
         return classType;
     }
 
     public boolean isUserExist(String login) {
-        return true;
+        return false;
     }
 }
