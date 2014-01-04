@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import pl.gauee.wishlist.utils.HashUtils;
 
 /**
  *
@@ -45,9 +46,11 @@ public class WishUser implements WishObject {
     @Column(name = "wu_msisdn")
     private String msisdn;
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinTable(name = "Wish_User_List", joinColumns = {
+    @JoinTable(name = "Wish_User_List",
+            joinColumns = {
         @JoinColumn(name = "wul_wu_id")
-    }, inverseJoinColumns = {
+    },
+            inverseJoinColumns = {
         @JoinColumn(name = "wul_wl_id")
     })
     private Set<WishList> userLists = new HashSet<WishList>();
@@ -60,14 +63,15 @@ public class WishUser implements WishObject {
         @JoinColumn(name = "wuu_wu_id2")
     })
     private Set<WishUser> userFriends = new HashSet<WishUser>();
+    @ManyToMany(mappedBy = "userFriends", fetch = FetchType.EAGER)
+    private Set<WishUser> userFriends2 = new HashSet<WishUser>();
 
     public WishUser() {
     }
 
-    public WishUser(String login, String passHash, String name, String surname, String email, String msisdn) {
-        this.id = id;
+    public WishUser(String login, String pass, String name, String surname, String email, String msisdn) {
         this.login = login;
-        this.passHash = passHash;
+        this.passHash = HashUtils.getInstance().hashSHA256(pass);
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -135,15 +139,19 @@ public class WishUser implements WishObject {
         this.msisdn = msisdn;
     }
 
-    public List<WishUser> getFriends() {
-        return null;
-    }
-
     public Set<WishList> getUserLists() {
         return userLists;
     }
 
     public void setUserLists(Set<WishList> userLists) {
         this.userLists = userLists;
+    }
+
+    public Set<WishUser> getUserFriends() {
+        return userFriends;
+    }
+
+    public void setUserFriends(Set<WishUser> userFriends) {
+        this.userFriends = userFriends;
     }
 }

@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.core.dao;
 
 import junit.framework.TestCase;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *
@@ -31,5 +32,23 @@ public class UserDaoTest extends TestCase {
     }
 
     public void testAuthenticateUserWithPassHash() {
+    }
+
+    public void testGetUserByLogin() {
+    }
+
+    public void testCreateUser() {
+    }
+
+    public void testUpdateUser() {
+    }
+
+    public void testJoinTwoUserAsFriends() {
+        UserDao dao = new UserDao();
+        
+        WishUser user1 = dao.getUserByLogin("friend");
+        WishUser user2 = dao.getUserByLogin("gauee");
+
+        dao.joinTwoUserAsFriends(user1, user2);
     }
 }

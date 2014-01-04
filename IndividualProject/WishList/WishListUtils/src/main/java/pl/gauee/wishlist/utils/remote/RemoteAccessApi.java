@@ -29,4 +29,6 @@ public interface RemoteAccessApi {
     public boolean createNewListForUser(WishList list, String userName);
 
     public boolean updateUser(WishUser user);
+
+    public boolean joinTwoUsersAsFriends(WishUser user1, WishUser user2);
 }

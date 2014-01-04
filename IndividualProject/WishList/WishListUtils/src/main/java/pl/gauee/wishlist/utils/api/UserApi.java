@@ -21,4 +21,6 @@ public interface UserApi {
     public boolean authenticateUserWithPassHash(String userName, String passHash);
 
     public boolean updateUser(WishUser user);
+
+    public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2);
 }

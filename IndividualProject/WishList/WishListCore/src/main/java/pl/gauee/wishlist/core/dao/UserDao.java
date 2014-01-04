@@ -45,4 +45,15 @@ class UserDao extends BaseDao<WishUser> implements UserApi {
     public boolean updateUser(WishUser user) {
         return null != super.update(user);
     }
+
+    public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2) {
+        if (user1 == null || user2 == null) {
+            return false;
+        }
+        user1.getUserFriends().add(user2);
+        user2.getUserFriends().add(user1);
+        super.update(user1);
+        super.update(user2);
+        return true;
+    }
 }

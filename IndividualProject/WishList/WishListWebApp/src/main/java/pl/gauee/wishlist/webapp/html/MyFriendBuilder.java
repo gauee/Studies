@@ -18,11 +18,11 @@ public class MyFriendBuilder {
     public static String build(WishUser user) {
         StringBuilder sb = new StringBuilder();
 
-        if (user.getFriends() == null || user.getFriends().isEmpty()) {
+        if (user.getUserFriends()== null || user.getUserFriends().isEmpty()) {
             sb.append("Nie masz jeszcze żadnych znajomych");
         } else {
             List<String> friendsNames = new LinkedList<String>();
-            for (WishUser friend : user.getFriends()) {
+            for (WishUser friend : user.getUserFriends()) {
                 friendsNames.add(HtmlUtil.getBold(friend.getLogin()) + " - " + friend.getName() + " " + friend.getSurname());
             }
             sb.append(HtmlUtil.createUlList(friendsNames));

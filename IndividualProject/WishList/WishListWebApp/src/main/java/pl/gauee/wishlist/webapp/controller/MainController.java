@@ -73,8 +73,9 @@ public class MainController {
 
     @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
-        WishUser user = userApi.getDefaultUser();
-
+        WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
+//        logger.info(""+user.getUserFriends());
+        
         model.addAttribute("message", MyFriendBuilder.build(user));
         return "friends";
     }

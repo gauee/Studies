@@ -60,6 +60,13 @@ class UserAccess implements WebUserApi {
     }
 
     @Override
+    public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2) {
+        return remoteAccessApi.joinTwoUsersAsFriends(user1,user2);
+    }
+    
+    
+
+    @Override
     public boolean isTwoPassIdentical(String pass1, String pass2) {
         if (null == pass1) {
             return false;
