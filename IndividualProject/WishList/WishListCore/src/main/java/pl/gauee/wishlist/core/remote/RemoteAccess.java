@@ -24,53 +24,54 @@ public class RemoteAccess implements RemoteAccessApi {
     }
 
     public boolean authenticateUser(String userLogin, String userPassHash) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         return userApi.authenticateUserWithPassHash(userLogin, userPassHash);
     }
 
     public boolean isUserNameExists(String userName) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         return userApi.isUserExist(userName);
     }
 
     public WishUser createNewWishUser(WishUser wishUser) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         wishUser = userApi.createUser(wishUser);
 
         return wishUser;
     }
 
     public WishUser getUserByLogin(String userName) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         WishUser wishUser = userApi.getUserByLogin(userName);
         return wishUser;
     }
 
     public List<WishList> getListOwnToUser(String userName) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         WishUser wishUser = userApi.getUserByLogin(userName);
         return new LinkedList<WishList>(wishUser.getUserLists());
     }
 
     public boolean createNewListForUser(WishList list, String userName) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         WishUser user = userApi.getUserByLogin(userName);
+        list = createList(list);
         user.getUserLists().add(list);
         return userApi.updateUser(user);
     }
 
     public boolean updateUser(WishUser user) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         return userApi.updateUser(user);
     }
 
     public boolean joinTwoUsersAsFriends(WishUser user1, WishUser user2) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         return userApi.joinTwoUserAsFriends(user1, user2);
     }
 
     public void deleteFriendship(WishUser user, WishUser userToDelete) {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         user.getUserFriends().remove(userToDelete);
         userToDelete.getUserFriends().remove(user);
 
@@ -79,19 +80,35 @@ public class RemoteAccess implements RemoteAccessApi {
     }
 
     public List<WishUser> getAllUsers() {
-        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        UserApi userApi = getUserApi();
         return userApi.getAllUsers();
     }
 
     public WishList getList(Long listId) {
-        ListApi listApi = DaoDistributor.getInstance().getListApi();
+        ListApi listApi = getListApi();
         return listApi.getListById(listId);
     }
 
     public boolean addListToUser(WishList list, String userName) {
-        UserApi useApi = DaoDistributor.getInstance().getUserApi();
+        UserApi useApi = getUserApi();
         return useApi.addListToUser(list, userName);
     }
-    
-    
+
+    public WishList createList(WishList list) {
+        ListApi listApi = getListApi();
+        return listApi.createList(list);
+    }
+
+    public void deleteList(long listId) {
+        ListApi listApi = getListApi();
+        listApi.deleteList(listId);
+    }
+
+    private ListApi getListApi() {
+        return DaoDistributor.getInstance().getListApi();
+    }
+
+    private UserApi getUserApi() {
+        return DaoDistributor.getInstance().getUserApi();
+    }
 }

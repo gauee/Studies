@@ -1,8 +1,9 @@
 package pl.gauee.wishlist.core.dao;
 
-import java.util.List;
+import org.apache.log4j.Logger;
 import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /*
  * To change this template, choose Tools | Templates
@@ -15,17 +16,29 @@ import pl.gauee.wishlist.utils.persistance.WishList;
 class ListDao extends BaseDao<WishList> implements ListApi {
 
     public static final Class<WishList> classType = WishList.class;
+    private final Logger logger = Logger.getLogger(ListDao.class);
 
     @Override
     public Class getClassType() {
         return classType;
     }
 
-    public List<WishList> getListOwnedToUser(Long userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public WishList getListById(Long listId) {
         return super.getById(listId);
+    }
+
+    public WishList createList(WishList list) {
+        return super.create(list);
+    }
+
+    public void deleteList(long listId) {
+        WishList list = super.getById(listId);
+        UserDao userDao = new UserDao();
+
+        for (WishUser user : list.getListUsers()) {
+            user.getUserLists().remove(list);
+            userDao.update(user);
+        }
+        super.delete(list);
     }
 }

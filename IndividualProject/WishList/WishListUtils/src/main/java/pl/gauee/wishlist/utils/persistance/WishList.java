@@ -37,7 +37,7 @@ public class WishList implements WishObject {
     @Column(name = "wl_name")
     private String name;
     @ManyToMany(mappedBy = "userLists", fetch = FetchType.EAGER)
-    private Set<WishUser> listUsers = new HashSet<WishUser>();
+    private Set<WishUser> listUsers=  new HashSet<WishUser>();
 
     public WishList() {
     }

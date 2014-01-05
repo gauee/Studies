@@ -40,4 +40,8 @@ public interface RemoteAccessApi {
 
     public boolean addListToUser(WishList list, String userName);
 
+    public WishList createList(WishList list);
+
+    public void deleteList(long listId);
+
 }

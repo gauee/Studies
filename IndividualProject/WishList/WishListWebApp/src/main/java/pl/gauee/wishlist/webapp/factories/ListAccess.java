@@ -26,6 +26,11 @@ public class ListAccess implements WebListApi {
     RemoteAccessApi remoteAccessApi;
 
     @Override
+    public WishList createList(WishList list) {
+        return remoteAccessApi.createList(list);
+    }
+
+    @Override
     public WishList getListById(Long listId) {
         return remoteAccessApi.getList(listId);
     }
@@ -38,6 +43,11 @@ public class ListAccess implements WebListApi {
     @Override
     public boolean createNewListForUser(WishList list, String userName) {
         return remoteAccessApi.createNewListForUser(list, userName);
+    }
+
+    @Override
+    public void deleteList(long listId) {
+        remoteAccessApi.deleteList(listId);
     }
 
     @Override

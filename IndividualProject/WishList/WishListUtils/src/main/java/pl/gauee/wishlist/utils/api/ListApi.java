@@ -11,6 +11,10 @@ import pl.gauee.wishlist.utils.persistance.WishList;
  * @author gauee
  */
 public interface ListApi {
-    
+
     public WishList getListById(Long listId);
+
+    public WishList createList(WishList list);
+
+    public void deleteList(long listId);
 }

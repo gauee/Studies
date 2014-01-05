@@ -45,7 +45,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
         setUserNameCurrentLoggedUser(model);
-        
+
         model.addAttribute("message", "Testuje servlet...");
 
         return "index";
@@ -195,11 +195,15 @@ public class MainController {
     }
 
     @RequestMapping(value = PageUtils.MyListDelete, method = RequestMethod.GET)
-    public String myListsDelete(ModelMap model) {
+    public String myListsDelete(
+            @RequestParam("listId") long listId,
+            ModelMap model) {
 
         model.addAttribute("message", "Usuwanie listy");
 
-        return "lists";
+        listApi.deleteList(listId);
+
+        return getRedirectTo(PageUtils.MyList);
     }
 
     @RequestMapping(value = PageUtils.MyListAddNewOne, method = RequestMethod.GET)
