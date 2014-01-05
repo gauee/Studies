@@ -39,6 +39,9 @@ public class HashUtils {
         if (mdSHA256 == null) {
             return "";
         }
+        if (stringToHash == null) {
+            stringToHash = "";
+        }
         StringBuilder sb = new StringBuilder();
         mdSHA256.update(stringToHash.getBytes());
 

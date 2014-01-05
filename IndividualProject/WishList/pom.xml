@@ -10,8 +10,8 @@
   
     <modules>
         <module>WishListUtils</module>
-        <module>WishListWebApp</module>
         <module>WishListCore</module>
+        <module>WishListWebApp</module>
     </modules>
   
   

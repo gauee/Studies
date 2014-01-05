@@ -6,10 +6,10 @@ package pl.gauee.wishlist.core.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Projections;
 import pl.gauee.wishlist.core.api.DaoApi;
-import pl.gauee.wishlist.utils.persistance.HibernateUtil;
 import pl.gauee.wishlist.utils.persistance.WishObject;
 
 /**
@@ -39,7 +39,9 @@ public abstract class BaseDao<T extends WishObject> implements DaoApi<T> {
 
     public List<T> getAll() {
         Session session = HibernateSession.getNewSession();
-        List<T> list = session.createCriteria(getClassType()).list();
+        List<T> list = session.createCriteria(getClassType())
+                .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).
+                list();
         session.close();
         return list;
     }

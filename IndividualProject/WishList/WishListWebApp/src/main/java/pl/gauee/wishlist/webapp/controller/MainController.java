@@ -76,7 +76,10 @@ public class MainController {
         WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
 //        logger.info(""+user.getUserFriends());
         
+        List<String> nonFriendsLoginLists = userApi.getNonFriendsLoginForUser(getLoginCurrentLoggedUser());
+        
         model.addAttribute("message", MyFriendBuilder.build(user));
+        model.addAttribute("nonFriendList", nonFriendsLoginLists);
         return "friends";
     }
 

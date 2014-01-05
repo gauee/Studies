@@ -16,9 +16,10 @@
             <goal>package</goal>
         </goals>
         <properties>
-            <netbeans.deploy.debugmode>true</netbeans.deploy.debugmode>
-            <netbeans.deploy>true</netbeans.deploy>
-            <netbeans.deploy.clientUrlPart></netbeans.deploy.clientUrlPart>
+                <jpda.listen>maven</jpda.listen>
+            
+            
+            
         </properties>
     </action>
     <action>

@@ -4,6 +4,9 @@
  */
 package pl.gauee.wishlist.webapp.factories;
 
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -21,6 +24,7 @@ class UserAccess implements WebUserApi {
     @Autowired
     @Qualifier(value = "proxyBean")
     RemoteAccessApi remoteAccessApi;
+    private final Logger logger = Logger.getLogger(UserAccess.class);
 
     @Override
     public WishUser getDefaultUser() {
@@ -61,10 +65,43 @@ class UserAccess implements WebUserApi {
 
     @Override
     public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2) {
-        return remoteAccessApi.joinTwoUsersAsFriends(user1,user2);
+        return remoteAccessApi.joinTwoUsersAsFriends(user1, user2);
     }
-    
-    
+
+    @Override
+    public List<WishUser> getAllUsers() {
+        return remoteAccessApi.getAllUsers();
+    }
+
+    @Override
+    public List<String> getNonFriendsLoginForUser(String userName) {
+        List<String> nonFriends = new ArrayList<String>();
+        WishUser loggedUser = remoteAccessApi.getUserByLogin(userName);
+        List<WishUser> allUsers = remoteAccessApi.getAllUsers();
+        logger.info("Total user is: " + allUsers.size());
+
+
+        logger.info("***all users***");
+        for (WishUser user : allUsers) {
+            logger.info(user);
+        }
+        logger.info("Logged user: " + loggedUser);
+        for (WishUser friend : loggedUser.getUserFriends()) {
+            logger.info("Friend: " + friend);
+        }
+
+
+        logger.info("remove logged: " + allUsers.remove(loggedUser));
+        for (WishUser friend : loggedUser.getUserFriends()) {
+            logger.info("Remove friend: " + allUsers.remove(friend));
+        }
+
+        for (WishUser nonFriend : allUsers) {
+            nonFriends.add("'" + nonFriend.getLogin() + "'");
+        }
+
+        return nonFriends;
+    }
 
     @Override
     public boolean isTwoPassIdentical(String pass1, String pass2) {

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <t:head>
     <jsp:attribute name="pageTitle">
         Znajoma
@@ -26,11 +27,18 @@
     <jsp:attribute name="content" >
         <h3>Dodaj znajomego</h3>
         <form action="#">
-            Szukaj: <input type="search" id="friendSearcher" name="friendSearcher" >
+            Szukaj: <input type="text" id="friendSearcher" autocomplete="off" name="friendSearcher" >
             <input type="submit" value="Dodaj" >
         </form>
         <h2>Message:</h2>
         <h4>${message}</h4>
+        <script>
+            $(function() {
+                $("#friendSearcher").autocomplete({
+                    source: ${nonFriendList}
+                });
+            });
+        </script> 
     </jsp:attribute>
 
 

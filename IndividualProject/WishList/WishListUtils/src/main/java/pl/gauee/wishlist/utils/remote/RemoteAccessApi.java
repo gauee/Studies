@@ -31,4 +31,7 @@ public interface RemoteAccessApi {
     public boolean updateUser(WishUser user);
 
     public boolean joinTwoUsersAsFriends(WishUser user1, WishUser user2);
+
+    public List<WishUser> getAllUsers();
+
 }

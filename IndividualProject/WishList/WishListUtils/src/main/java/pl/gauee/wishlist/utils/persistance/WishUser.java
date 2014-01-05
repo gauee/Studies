@@ -79,8 +79,31 @@ public class WishUser implements WishObject {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        WishUser compareUser = (WishUser) obj;
+        return this.getId() == this.getId() && this.getLogin().equals(compareUser.getLogin());
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = (int) (prime * result + id);
+        result = prime * result + ((login == null) ? 0 : login.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
-        return "WishUser{" + "id=" + id + ", login=" + login + ", passHash=" + passHash + ", name=" + name + ", surname=" + surname + ", email=" + email + ", msisdn=" + msisdn + ", userLists=" + userLists + '}';
+        return "WishUser{" + "id=" + id + ", login=" + login + ", passHash=" + passHash + ", name=" + name + ", surname=" + surname + ", email=" + email + ", msisdn=" + msisdn + ", userLists=" + getUserListsName(userLists) + '}';
     }
 
     public long getId() {
@@ -153,5 +176,15 @@ public class WishUser implements WishObject {
 
     public void setUserFriends(Set<WishUser> userFriends) {
         this.userFriends = userFriends;
+    }
+
+    private String getUserListsName(Set<WishList> userLists) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(",");
+        for (WishList list : userLists) {
+            sb.append(list.getName())
+                    .append(",");
+        }
+        return sb.substring(1);
     }
 }

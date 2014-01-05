@@ -4,6 +4,7 @@
  */
 package pl.gauee.wishlist.webapp.api;
 
+import java.util.List;
 import pl.gauee.wishlist.utils.api.UserApi;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
@@ -16,4 +17,6 @@ public interface WebUserApi extends UserApi {
     public WishUser getDefaultUser();
 
     public boolean isTwoPassIdentical(String pass1, String pass2);
+
+    public List<String> getNonFriendsLoginForUser(String loginCurrentLoggedUser);
 }
