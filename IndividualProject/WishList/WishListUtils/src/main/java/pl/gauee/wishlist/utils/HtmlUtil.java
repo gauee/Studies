@@ -77,4 +77,26 @@ public class HtmlUtil {
                 .append(checked ? "checked" : "")
                 .append(">").toString();
     }
+
+    public static String getFormWithImageInput(String action, String method, String inputName, String inputImageSrc) {
+        if (false) {
+            return "<form action=\"myFriends\" method=\"POST\" >"
+                    + "<input type=\"image\" name=\"friendToDelete\" src=\"/wishListWebApp/resources/images/icons/delete.ico\" alt=\"delete\">"
+                    + "</form>";
+        }
+
+        return new StringBuilder()
+                .append("<form action=\"")
+                .append(action)
+                .append("\" method=\"")
+                .append(method)
+                .append("\" > ")
+                .append("<input type=\"image\" name=\"")
+                .append(inputName)
+                .append("\" src=\"")
+                .append(inputImageSrc)
+                .append("\" alt=\"delete\"> ")
+                .append("</form>")
+                .toString();
+    }
 }

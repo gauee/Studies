@@ -68,9 +68,17 @@ public class RemoteAccess implements RemoteAccessApi {
         return userApi.joinTwoUserAsFriends(user1, user2);
     }
 
+    public void deleteFriendship(WishUser user, WishUser userToDelete) {
+        UserApi userApi = DaoDistributor.getInstance().getUserApi();
+        user.getUserFriends().remove(userToDelete);
+        userToDelete.getUserFriends().remove(user);
+
+        userApi.updateUser(user);
+        userApi.updateUser(userToDelete);
+    }
+
     public List<WishUser> getAllUsers() {
         UserApi userApi = DaoDistributor.getInstance().getUserApi();
         return userApi.getAllUsers();
-
     }
 }

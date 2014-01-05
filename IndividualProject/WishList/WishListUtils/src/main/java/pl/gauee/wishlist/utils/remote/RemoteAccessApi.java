@@ -34,4 +34,5 @@ public interface RemoteAccessApi {
 
     public List<WishUser> getAllUsers();
 
+    public void deleteFriendship(WishUser user, WishUser userToDelete);
 }

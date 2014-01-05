@@ -80,20 +80,9 @@ class UserAccess implements WebUserApi {
         List<WishUser> allUsers = remoteAccessApi.getAllUsers();
         logger.info("Total user is: " + allUsers.size());
 
-
-        logger.info("***all users***");
-        for (WishUser user : allUsers) {
-            logger.info(user);
-        }
-        logger.info("Logged user: " + loggedUser);
+        allUsers.remove(loggedUser);
         for (WishUser friend : loggedUser.getUserFriends()) {
-            logger.info("Friend: " + friend);
-        }
-
-
-        logger.info("remove logged: " + allUsers.remove(loggedUser));
-        for (WishUser friend : loggedUser.getUserFriends()) {
-            logger.info("Remove friend: " + allUsers.remove(friend));
+            allUsers.remove(friend);
         }
 
         for (WishUser nonFriend : allUsers) {
@@ -101,6 +90,11 @@ class UserAccess implements WebUserApi {
         }
 
         return nonFriends;
+    }
+
+    @Override
+    public void deleteFriendship(WishUser user, WishUser userToDelete) {
+        remoteAccessApi.deleteFriendship(user, userToDelete);
     }
 
     @Override

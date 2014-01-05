@@ -26,11 +26,10 @@
     </jsp:attribute>
     <jsp:attribute name="content" >
         <h3>Dodaj znajomego</h3>
-        <form action="#">
-            Szukaj: <input type="text" id="friendSearcher" autocomplete="off" name="friendSearcher" >
+        <form action="myFriends_add_new_one" method="post">
+            Szukaj: <input type="text" id="friendSearcher" autocomplete="off" name="friend_newOne" >
             <input type="submit" value="Dodaj" >
         </form>
-        <h2>Message:</h2>
         <h4>${message}</h4>
         <script>
             $(function() {

@@ -19,6 +19,10 @@ public class PageUtils {
     public static final String MyItem = "myItem";
     public static final String MyItemBought = MyItem + "_bought";
     public static final String MyItemBoughtCancel = MyItem + "_bought_cancel";
+    public static final String MyFriends = "myFriends";
+    public static final String MyFriendsAddNewOne = MyFriends + "_add_new_one";
+    public static final String MyFriendsDeleteFriendship = MyFriends + "_delete_friendship";
     public static final String login = "login";
     public static final String register = "register";
+    public static final String welcome = "welcome";
 }

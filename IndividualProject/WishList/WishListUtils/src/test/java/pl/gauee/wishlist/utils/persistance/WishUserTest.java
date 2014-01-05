@@ -25,8 +25,8 @@ public class WishUserTest extends TestCase {
     }
 
     public void testEquals() {
-        String login  = new String("gauee");
-        String login2  = new String("gauee");
+        String login = new String("gauee");
+        String login2 = new String("gauee");
         WishUser wishUser = new WishUser(login, null, null, null, null, null);
         WishUser wishUser2 = new WishUser(login2, null, null, null, null, null);
 

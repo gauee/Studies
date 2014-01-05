@@ -34,7 +34,7 @@ public class ItemCategoryDaoTest extends TestCase {
         assertEquals(0, itemCategory.getId());
 
         itemCategory = categoryDao.create(itemCategory);
-        
+
         assertNotSame(0, itemCategory.getId());
 
         WishItemCategory itemCategory2 = new WishItemCategory();

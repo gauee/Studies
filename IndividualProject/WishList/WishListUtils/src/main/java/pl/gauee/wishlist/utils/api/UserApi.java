@@ -26,5 +26,4 @@ public interface UserApi {
     public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2);
 
     public List<WishUser> getAllUsers();
-
 }

@@ -45,7 +45,7 @@ public class UserDaoTest extends TestCase {
 
     public void testJoinTwoUserAsFriends() {
         UserDao dao = new UserDao();
-        
+
         WishUser user1 = dao.getUserByLogin("friend");
         WishUser user2 = dao.getUserByLogin("gauee");
 

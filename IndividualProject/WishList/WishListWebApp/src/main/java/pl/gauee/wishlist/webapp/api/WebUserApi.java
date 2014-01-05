@@ -19,4 +19,6 @@ public interface WebUserApi extends UserApi {
     public boolean isTwoPassIdentical(String pass1, String pass2);
 
     public List<String> getNonFriendsLoginForUser(String loginCurrentLoggedUser);
+
+    public void deleteFriendship(WishUser user, WishUser userToAdd);
 }

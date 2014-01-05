@@ -6,6 +6,7 @@ package pl.gauee.wishlist.webapp.controller;
 
 import java.util.List;
 import java.util.Random;
+import javax.mail.Message;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -71,16 +72,42 @@ public class MainController {
         return "myMessages";
     }
 
-    @RequestMapping(value = "/myFriends", method = RequestMethod.GET)
+    @RequestMapping(value = PageUtils.MyFriends, method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
         WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
 //        logger.info(""+user.getUserFriends());
-        
+
         List<String> nonFriendsLoginLists = userApi.getNonFriendsLoginForUser(getLoginCurrentLoggedUser());
-        
+
         model.addAttribute("message", MyFriendBuilder.build(user));
         model.addAttribute("nonFriendList", nonFriendsLoginLists);
         return "friends";
+    }
+
+    @RequestMapping(value = PageUtils.MyFriendsAddNewOne, method = RequestMethod.POST)
+    public String myFriendsAddNewOne(
+            @RequestParam("friend_newOne") String friendToAdd,
+            ModelMap model) {
+        WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
+        logger.info("User to add is : " + friendToAdd);
+        WishUser userToAdd = userApi.getUserByLogin(friendToAdd);
+        userApi.joinTwoUserAsFriends(user, userToAdd);
+        model.addAttribute("message", "User " + friendToAdd + " successful add to your friends");
+
+        return getRedirectTo(PageUtils.MyFriends);
+    }
+
+    @RequestMapping(value = PageUtils.MyFriendsDeleteFriendship, method = RequestMethod.POST)
+    public String myFriendsDeleteFriendship(
+            @RequestParam("friendToDelete") String friendToDelete,
+            ModelMap model) {
+        WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
+        logger.info("User to delete is : " + friendToDelete);
+        WishUser userToAdd = userApi.getUserByLogin(friendToDelete);
+        userApi.deleteFriendship(user, userToAdd);
+        model.addAttribute("message", "User " + friendToDelete + " successful delete from your friends");
+
+        return getRedirectTo(PageUtils.MyFriends);
     }
 
     @RequestMapping(value = PageUtils.MyList, method = RequestMethod.GET)
@@ -127,7 +154,9 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyListAddNewOne, method = RequestMethod.GET)
     public String myListsAddNewOne(ModelMap model) {
-        model.addAttribute("message", "Stworzenie nowej listy");
+        if (!model.containsAttribute("message")) {
+            model.addAttribute("message", "Stworzenie nowej listy");
+        }
 
         return "lists_add_new_one";
     }
@@ -145,7 +174,7 @@ public class MainController {
             return "lists_add_new_one";
         }
 
-        return "redirect:/" + PageUtils.MyList;
+        return getRedirectTo(PageUtils.MyList);
     }
 
     @RequestMapping(value = PageUtils.login, method = RequestMethod.GET)
@@ -190,7 +219,7 @@ public class MainController {
 
         model.addAttribute("message", "Utworzono konto dla użytkownika: " + login);
 
-        return "redirect:/welcome";
+        return getRedirectTo(PageUtils.welcome);
     }
 
     @RequestMapping(value = PageUtils.MyItemBought, method = RequestMethod.GET)
@@ -214,5 +243,9 @@ public class MainController {
 
     private Long getIdCurrentLoggedUser() {
         return userApi.getUserByLogin(getLoginCurrentLoggedUser()).getId();
+    }
+
+    private String getRedirectTo(String redirectDest) {
+        return "redirect:/" + redirectDest;
     }
 }

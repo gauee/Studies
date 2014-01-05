@@ -16,7 +16,7 @@
             <goal>package</goal>
         </goals>
         <properties>
-                <jpda.listen>maven</jpda.listen>
+            <jpda.listen>maven</jpda.listen>
             
             
             
