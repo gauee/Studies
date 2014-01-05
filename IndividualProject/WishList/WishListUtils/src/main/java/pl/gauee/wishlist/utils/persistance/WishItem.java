@@ -34,6 +34,10 @@ public class WishItem implements WishObject {
     private double price;
     @Column(name = "wi_photo")
     private String photoUrl;
+    @Column(name = "wi_bought")
+    private boolean bought;
+    @Column(name = "wi_last_update")
+    private Date lastUpdate;
     @ManyToOne
     @JoinColumn(name = "wi_wic_id")
     private WishItemCategory category;

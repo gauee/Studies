@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.gauee.wishlist.utils.CustomRequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
+import pl.gauee.wishlist.utils.persistance.WishItem;
+import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 import pl.gauee.wishlist.webapp.api.WebListApi;
@@ -129,17 +131,59 @@ public class MainController {
     }
 
     @RequestMapping(value = PageUtils.MyListPreview, method = RequestMethod.GET)
-    public String myListsPreview(ModelMap model) {
-        List<WishList> lists = listApi.getDefaultWishList();
-        model.addAttribute("message", MyListBuilder.buildViewOneList(lists.get(new Random().nextInt(2))));
+    public String myListsPreview(
+            @RequestParam("listId") long listId,
+            ModelMap model) {
+        WishList list = listApi.getListById(listId);
+        model.addAttribute("message", MyListBuilder.buildViewOneList(list));
 
         return "lists";
     }
 
     @RequestMapping(value = PageUtils.MyListEdit, method = RequestMethod.GET)
-    public String myListsEdit(ModelMap model) {
+    public String myListsEdit(
+            @RequestParam("listId") long listId,
+            ModelMap model) {
 
-        model.addAttribute("message", "Edycja");
+        WishList list = listApi.getListById(listId);
+        model.addAttribute("message", MyListBuilder.buildViewForListEdit(list));
+
+        return "lists";
+    }
+
+    @RequestMapping(value = PageUtils.MyListAddNewItem, method = RequestMethod.POST)
+    public String myListsAddNewItem(
+            @RequestParam("listId") long listId,
+            @RequestParam(value = "itemMainName", required = true) String itemMainName,
+            @RequestParam(value = "itemName", required = true) String itemName,
+            @RequestParam(value = "itemDescribe", required = false) String itemDescribe,
+            @RequestParam(value = "itemPrice", required = false) String itemPrice,
+            @RequestParam(value = "itemPhoto", required = false) String itemPhotoUrl,
+            ModelMap model) {
+
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("Post form with attributes: ")
+                .append("\n listId: ")
+                .append(listId)
+                .append("\n itemMainName: ")
+                .append(itemMainName)
+                .append("\n itemName: ")
+                .append(itemName)
+                .append("\n itemDescribe: ")
+                .append(itemDescribe)
+                .append("\n itemPrice: ")
+                .append(itemPrice)
+                .append("\n itemPhotoUrl: ")
+                .append(itemPhotoUrl);
+
+        logger.info(sb.toString());
+
+        WishItemInList tmpItemInList = new WishItemInList();
+        WishItem tmpItem = new WishItem();
+        
+        WishList list = listApi.getListById(listId);
+        model.addAttribute("message", MyListBuilder.buildViewForListEdit(list));
 
         return "lists";
     }

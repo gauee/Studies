@@ -27,4 +27,4 @@
         <jsp:attribute name="content" >
         <h4>${message}</h4>
     </jsp:attribute>
-</t:template>>
+</t:template>

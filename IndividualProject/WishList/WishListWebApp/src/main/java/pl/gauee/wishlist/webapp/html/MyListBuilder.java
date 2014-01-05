@@ -66,6 +66,17 @@ public class MyListBuilder {
                 .append(HtmlUtil.getNewLine())
                 .append("<table>");
 
+        if (list.getItems() == null || list.getItems().isEmpty()) {
+            sb
+                    .append("</table>")
+                    .append("<p>")
+                    .append("Niestety lista jest na chwilę obecną pusta.")
+                    .append(HtmlUtil.TAG_NEW_LINE)
+                    .append("Możesz dodać nowe artykuły poprzez edycje listy w innym oknie.")
+                    .append(" </p> ");
+            return sb.toString();
+        }
+
         sb.append(HtmlUtil.getBold(HtmlUtil.getTableRow(itemsLables)));
 
         for (WishItemInList item : list.getItems()) {
@@ -149,6 +160,95 @@ public class MyListBuilder {
 
         sb.append("</table>");
 
+
+
+        return sb.toString();
+    }
+
+    public static String buildViewForListEdit(WishList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(HtmlUtil.getHeader3("Edycja listy: " + list.getName()))
+                .append(HtmlUtil.TAG_NEW_LINE)
+//                .append(getAddNewItemToListForm(getListIdAsParam(list)))
+                .append(getAddNewItemToListForm(list.getId()))
+                .append(getEditableItemListList(list));
+
+        return sb.toString();
+    }
+
+//    private static Object getAddNewItemToListForm(String idAsParam) {
+    private static String getAddNewItemToListForm(long idAsParam) {
+        StringBuilder sb = new StringBuilder();
+
+        sb
+                .append("<div id=\"form_container\">")
+                .append("<form id=\"form_769762\" class=\"appnitro\" method=\"post\" action=\"")
+                .append(PageUtils.MyListAddNewItem)
+                .append("?listId=")
+                .append(idAsParam)
+                .append("\">")
+                .append("<ul>")
+                .append("<li id=\"li_1\">")
+                .append("<label class=\"description\" for=\"element_1\">")
+                .append("Produkt")
+                .append("</label>")
+                .append("<div>")
+                .append("<input id=\"element_1\" name=\"itemMainName\" class=\"element text medium\" type=\"text\" required>")
+                .append("</div>")
+                .append("</li>")
+                .append("<li id=\"li_2\">")
+                .append("<label class=\"description\" for=\"element_2\">")
+                .append("Nazwa")
+                .append("</label>")
+                .append("<div>")
+                .append("<input id=\"element_2\" name=\"itemName\" class=\"element text medium\" type=\"text\" required>")
+                .append("</div>")
+                .append("</li>")
+                .append("<li id=\"li_3\">")
+                .append("<label class=\"description\" for=\"element_3\">")
+                .append("Opis")
+                .append("</label>")
+                .append("<div>")
+                .append("<input id=\"element_3\" name=\"itemDescribe\" class=\"element text medium\" type=\"text\" >")
+                .append("</div>")
+                .append("</li>")
+                .append("<li id=\"li_4\">")
+                .append("<label class=\"description\" for=\"element_4\">")
+                .append("Cena")
+                .append("</label>")
+                .append("<div>")
+                .append("<input id=\"element_4\" name=\"itemPrice\" class=\"element text medium\" type=\"text\" >")
+                .append("</div>")
+                .append("</li>")
+                .append("<li id=\"li_5\">")
+                .append("<label class=\"description\" for=\"element_5\">")
+                .append("Zdjęcie")
+                .append("</label>")
+                .append("<div>")
+                .append("<input id=\"element_5\" name=\"itemPhoto\" class=\"element text medium\" type=\"file\" accept=\"image/*\" >")
+                .append("</div>")
+                .append("</li>")
+                .append("<li class=\"buttons\">")
+                .append("<input type=\"hidden\" name=\"form_id\" value=\"769762\">")
+                .append("<input id=\"saveForm\" class=\"button_text\" type=\"submit\" name=\"submit\" value=\"Dodaj Artykuł\">")
+                .append("</li>")
+                .append("</ul>")
+                .append("</form>")
+                .append("</div>");
+
+        return sb.toString();
+    }
+
+    private static Object getEditableItemListList(WishList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb
+                .append(HtmlUtil.getHeader3("Lista artykułów:"))
+                .append("<table>")
+                .append(HtmlUtil.getTableRow("Produkt1", "Chleb"))
+                .append(HtmlUtil.getTableRow("Produkt2", "Masło"))
+                .append("</table>");
 
 
         return sb.toString();
