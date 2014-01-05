@@ -7,6 +7,7 @@ package pl.gauee.wishlist.core.remote;
 import java.util.LinkedList;
 import java.util.List;
 import pl.gauee.wishlist.core.dao.DaoDistributor;
+import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.api.UserApi;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
@@ -80,5 +81,10 @@ public class RemoteAccess implements RemoteAccessApi {
     public List<WishUser> getAllUsers() {
         UserApi userApi = DaoDistributor.getInstance().getUserApi();
         return userApi.getAllUsers();
+    }
+
+    public WishList getList(Long listId) {
+        ListApi listApi = DaoDistributor.getInstance().getListApi();
+        return listApi.getListById(listId);
     }
 }

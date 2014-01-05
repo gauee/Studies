@@ -24,4 +24,8 @@ class ListDao extends BaseDao<WishList> implements ListApi {
     public List<WishList> getListOwnedToUser(Long userId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public WishList getListById(Long listId) {
+        return super.getById(listId);
+    }
 }

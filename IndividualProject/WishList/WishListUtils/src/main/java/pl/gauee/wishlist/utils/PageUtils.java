@@ -16,6 +16,8 @@ public class PageUtils {
     public static final String MyListShare = MyList + "_share";
     public static final String MyListDelete = MyList + "_delete";
     public static final String MyListAddNewOne = MyList + "_add_new_one";
+    public static final String MyListDeleteShare = MyList + "_delete_shared";
+    public static final String MyListAddShare = MyList + "_add_shared";
     public static final String MyItem = "myItem";
     public static final String MyItemBought = MyItem + "_bought";
     public static final String MyItemBoughtCancel = MyItem + "_bought_cancel";

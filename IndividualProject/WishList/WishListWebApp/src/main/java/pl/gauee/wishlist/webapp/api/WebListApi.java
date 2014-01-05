@@ -15,8 +15,6 @@ import pl.gauee.wishlist.utils.persistance.WishUser;
  */
 public interface WebListApi extends ListApi {
 
-    public WishList getList(Long listId);
-
     public List<WishList> getListsOwnedToUser(String userName);
 
     public boolean createNewListForUser(WishList list, String userName);

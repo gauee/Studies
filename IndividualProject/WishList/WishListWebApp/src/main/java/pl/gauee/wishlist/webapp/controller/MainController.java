@@ -6,7 +6,7 @@ package pl.gauee.wishlist.webapp.controller;
 
 import java.util.List;
 import java.util.Random;
-import javax.mail.Message;
+import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.gauee.wishlist.utils.CustomRequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
@@ -137,9 +138,13 @@ public class MainController {
     }
 
     @RequestMapping(value = PageUtils.MyListShare, method = RequestMethod.GET)
-    public String myListsShare(ModelMap model) {
+    public String myListsShare(
+            @RequestParam("listId") long listId,
+            ModelMap model) {
 
-        model.addAttribute("message", "Współdzielenie");
+        WishList sharedList = listApi.getListById(listId);
+        Set<WishUser> friends = userApi.getUserByLogin(getLoginCurrentLoggedUser()).getUserFriends();
+        model.addAttribute("message", MyListBuilder.buildViewSharedList(friends, sharedList));
 
         return "lists";
     }
@@ -175,6 +180,55 @@ public class MainController {
         }
 
         return getRedirectTo(PageUtils.MyList);
+    }
+
+    @RequestMapping(value = PageUtils.MyListAddShare, method = RequestMethod.POST)
+    public String myListsAddShare(
+            @RequestParam("listId") long listId,
+            @RequestParam("friendLogin") String friendLogin,
+            ModelMap model) {
+
+        logger.info("Trying to add sharing list no " + listId + " with user: " + friendLogin);
+
+        WishUser friend = userApi.getUserByLogin(friendLogin);
+        WishList list = listApi.getListById(listId);
+
+        if (friend.getUserLists().contains(list)) {
+            logger.warn("User already has this list");
+            return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+        }
+
+        list.getListUsers().add(friend);
+        friend.getUserLists().add(list);
+
+        userApi.updateUser(friend);
+
+
+
+        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+    }
+
+    @RequestMapping(value = PageUtils.MyListDeleteShare, method = RequestMethod.POST)
+    public String myListsDeleteShare(
+            @RequestParam("listId") long listId,
+            @RequestParam("friendLogin") String friendLogin,
+            ModelMap model) {
+
+        logger.info("Trying to remove sharing list no " + listId + " with user: " + friendLogin);
+
+        WishUser friend = userApi.getUserByLogin(friendLogin);
+        WishList list = listApi.getListById(listId);
+
+        if (!friend.getUserLists().contains(list)) {
+            logger.warn("User already has not this list");
+            return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+        }
+
+        friend.getUserLists().remove(list);
+
+        userApi.updateUser(friend);
+
+        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
     }
 
     @RequestMapping(value = PageUtils.login, method = RequestMethod.GET)
@@ -247,5 +301,19 @@ public class MainController {
 
     private String getRedirectTo(String redirectDest) {
         return "redirect:/" + redirectDest;
+    }
+
+    private String getRedirectTo(String redirectDest, CustomRequestParam... customRequestParams) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getRedirectTo(redirectDest))
+                .append("?");
+        for (CustomRequestParam crp : customRequestParams) {
+            sb.append(crp.getParamName())
+                    .append("=")
+                    .append(crp.getParamValue())
+                    .append("&");
+        }
+
+        return sb.substring(0, sb.length() - 1);
     }
 }

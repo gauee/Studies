@@ -4,9 +4,13 @@
  */
 package pl.gauee.wishlist.utils.api;
 
+import pl.gauee.wishlist.utils.persistance.WishList;
+
 /**
  *
  * @author gauee
  */
 public interface ListApi {
+    
+    public WishList getListById(Long listId);
 }

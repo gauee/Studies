@@ -17,4 +17,6 @@ public class IconUtils {
     public static final String iconShare = basePathToResourceIcons + "share.ico";
     public static final String iconBought = basePathToResourceIcons + "bought.ico";
     public static final String iconNotBought = basePathToResourceIcons + "boughtnot.ico";
+    public static final String iconAddShareList = basePathToResourceIcons + "addShareList.ico";
+    public static final String iconDeleteShareList = basePathToResourceIcons + "deleteShareList.ico";
 }

@@ -4,7 +4,9 @@
  */
 package pl.gauee.wishlist.core.dao;
 
+import java.util.Iterator;
 import junit.framework.TestCase;
+import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
@@ -50,5 +52,24 @@ public class UserDaoTest extends TestCase {
         WishUser user2 = dao.getUserByLogin("gauee");
 
         dao.joinTwoUserAsFriends(user1, user2);
+    }
+
+    public void testAddListToOtherUser() {
+        UserDao dao = new UserDao();
+
+        WishUser user1 = dao.getUserByLogin("friend");
+        WishUser user2 = dao.getUserByLogin("gauee");
+
+        Iterator<WishList> iterList = user2.getUserLists().iterator();
+        WishList list = null;
+        while (iterList.hasNext()) {
+            list = iterList.next();
+        }
+        if (list == null) {
+            assertEquals(true, false);
+        }
+
+        user1.getUserLists().add(list);
+        dao.update(user1);
     }
 }

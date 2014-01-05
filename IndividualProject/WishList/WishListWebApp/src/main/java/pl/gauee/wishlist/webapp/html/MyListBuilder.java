@@ -6,13 +6,14 @@ package pl.gauee.wishlist.webapp.html;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import pl.gauee.wishlist.utils.HtmlUtil;
 import pl.gauee.wishlist.utils.IconUtils;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *
@@ -41,10 +42,10 @@ public class MyListBuilder {
             sb.append(HtmlUtil.getTableRow(
                     list.getName(),
                     dateFormat.format(list.getCreatedDate()),
-                    getImgA(PageUtils.MyListPreview, IconUtils.iconPreview),
-                    getImgA(PageUtils.MyListEdit, IconUtils.iconEdit),
-                    getImgA(PageUtils.MyListShare, IconUtils.iconShare),
-                    getImgA(PageUtils.MyListDelete, IconUtils.iconDelete)));
+                    getImgA(PageUtils.MyListPreview + getListIdAsParam(list), IconUtils.iconPreview),
+                    getImgA(PageUtils.MyListEdit + getListIdAsParam(list), IconUtils.iconEdit),
+                    getImgA(PageUtils.MyListShare + getListIdAsParam(list), IconUtils.iconShare),
+                    getImgA(PageUtils.MyListDelete + getListIdAsParam(list), IconUtils.iconDelete)));
         }
         sb.append("</table>");
         return sb.toString();
@@ -81,6 +82,22 @@ public class MyListBuilder {
         return sb.toString();
     }
 
+    public static String buildViewSharedList(Set<WishUser> friends, WishList list) {
+        StringBuilder sb = new StringBuilder();
+
+        if (friends == null || friends.isEmpty()) {
+            return new StringBuilder().append("Nie masz znajomych aby współdzielić listę.").toString();
+        }
+
+        sb.append("Współdzielenie listy: ")
+                .append(list.getName());
+
+        sb.append(buildViewFriendsSharedList(friends, list));
+        sb.append(buildViewFriendsNotSharedList(friends, list));
+
+        return sb.toString();
+    }
+
     public static String getBoughtLink() {
         return HtmlUtil.getAhrefLink(PageUtils.MyItemBoughtCancel,
                 HtmlUtil.getImgSrc(IconUtils.iconBought));
@@ -89,5 +106,51 @@ public class MyListBuilder {
     public static String getNotBoughtLink() {
         return HtmlUtil.getAhrefLink(PageUtils.MyItemBought,
                 HtmlUtil.getImgSrc(IconUtils.iconNotBought));
+    }
+
+    private static String getListIdAsParam(WishList list) {
+        return "?listId=" + list.getId();
+    }
+
+    private static String buildViewFriendsSharedList(Set<WishUser> friends, WishList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(HtmlUtil.getHeader3("Znajomi współdzielący listę:"))
+                .append(HtmlUtil.TAG_NEW_LINE)
+                .append("<table>");
+        for (WishUser friend : friends) {
+            if (friend.getUserLists().contains(list)) {
+                sb.append(HtmlUtil.getTableRow(
+                        friend.getLogin(),
+                        HtmlUtil.getFormWithImageInput(PageUtils.MyListDeleteShare + "?listId=" + list.getId() + "&friendLogin=" + friend.getLogin(), "POST", "test", IconUtils.iconDeleteShareList)));
+            }
+        }
+
+
+        sb.append("</table>");
+
+        return sb.toString();
+    }
+
+    private static String buildViewFriendsNotSharedList(Set<WishUser> friends, WishList list) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(HtmlUtil.getHeader3("Znajomi jeszcze nie współdzielący listę:"))
+                .append(HtmlUtil.TAG_NEW_LINE)
+                .append("<table>");
+        for (WishUser friend : friends) {
+            if (!friend.getUserLists().contains(list)) {
+                sb.append(HtmlUtil.getTableRow(
+                        friend.getLogin(),
+                        HtmlUtil.getFormWithImageInput(PageUtils.MyListAddShare + "?listId=" + list.getId() + "&friendLogin=" + friend.getLogin(), "POST", "test", IconUtils.iconAddShareList)));
+            }
+        }
+
+
+        sb.append("</table>");
+
+
+
+        return sb.toString();
     }
 }

@@ -98,4 +98,23 @@ public class WishList implements WishObject {
 
         return sb.substring(1);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        WishObject toCompare = (WishObject) obj;
+        return this.getId() == toCompare.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id;
+    }
 }

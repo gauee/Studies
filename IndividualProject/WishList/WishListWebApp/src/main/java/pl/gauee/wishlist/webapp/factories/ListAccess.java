@@ -26,8 +26,8 @@ public class ListAccess implements WebListApi {
     RemoteAccessApi remoteAccessApi;
 
     @Override
-    public WishList getList(Long listId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public WishList getListById(Long listId) {
+        return remoteAccessApi.getList(listId);
     }
 
     @Override

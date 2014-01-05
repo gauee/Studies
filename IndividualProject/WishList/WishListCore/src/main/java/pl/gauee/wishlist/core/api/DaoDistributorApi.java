@@ -4,6 +4,7 @@
  */
 package pl.gauee.wishlist.core.api;
 
+import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.api.UserApi;
 
 /**
@@ -13,4 +14,6 @@ import pl.gauee.wishlist.utils.api.UserApi;
 public interface DaoDistributorApi {
 
     public UserApi getUserApi();
+
+    public ListApi getListApi();
 }

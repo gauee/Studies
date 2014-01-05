@@ -45,7 +45,7 @@ public class WishUser implements WishObject {
     private String email;
     @Column(name = "wu_msisdn")
     private String msisdn;
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "Wish_User_List",
             joinColumns = {
         @JoinColumn(name = "wul_wu_id")
@@ -63,8 +63,8 @@ public class WishUser implements WishObject {
         @JoinColumn(name = "wuu_wu_id2")
     })
     private Set<WishUser> userFriends = new HashSet<WishUser>();
-    @ManyToMany(mappedBy = "userFriends", fetch = FetchType.EAGER)
-    private Set<WishUser> userFriends2 = new HashSet<WishUser>();
+//    @ManyToMany(mappedBy = "userFriends", fetch = FetchType.EAGER)
+//    private Set<WishUser> userFriends2 = new HashSet<WishUser>();
 
     public WishUser() {
     }
@@ -89,7 +89,7 @@ public class WishUser implements WishObject {
         }
 
         WishUser compareUser = (WishUser) obj;
-        return this.getId() == this.getId() && this.getLogin().equals(compareUser.getLogin());
+        return this.getId() == compareUser.getId() && this.getLogin().equals(compareUser.getLogin());
     }
 
     @Override
