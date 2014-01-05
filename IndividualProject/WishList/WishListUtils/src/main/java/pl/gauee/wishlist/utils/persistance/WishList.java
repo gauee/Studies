@@ -54,6 +54,25 @@ public class WishList implements WishObject {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        WishObject toCompare = (WishObject) obj;
+        return this.getId() == toCompare.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id;
+    }
+
+    @Override
     public String toString() {
         return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + ", listUsers=" + getUsersName(listUsers) + '}';
     }
@@ -105,22 +124,11 @@ public class WishList implements WishObject {
         return sb.substring(1);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-
-        if (obj == null || obj.getClass() != this.getClass()) {
-            return false;
-        }
-
-        WishObject toCompare = (WishObject) obj;
-        return this.getId() == toCompare.getId();
+    public Set<WishItem> getListItems() {
+        return listItems;
     }
 
-    @Override
-    public int hashCode() {
-        return (int) id;
+    public void setListItems(Set<WishItem> listItems) {
+        this.listItems = listItems;
     }
 }

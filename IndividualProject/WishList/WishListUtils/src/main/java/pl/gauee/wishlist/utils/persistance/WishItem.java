@@ -59,7 +59,7 @@ public class WishItem implements WishObject {
 
     @Override
     public String toString() {
-        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", photoUrl=" + photoUrl + '}';
+        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", photoUrl=" + photoUrl + ", bought=" + bought + ", lastUpdate=" + lastUpdate + ", category=" + category + ", list=" + getListNames(list) + '}';
     }
 
     public long getId() {
@@ -108,5 +108,33 @@ public class WishItem implements WishObject {
 
     public void setCategory(WishItemCategory category) {
         this.category = category;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public WishList getList() {
+        return list;
+    }
+
+    public void setList(WishList list) {
+        this.list = list;
+    }
+
+    private String getListNames(WishList list) {
+        return list.getName();
     }
 }
