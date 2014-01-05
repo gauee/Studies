@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS `Wish_User_UserGroup`;
 DROP TABLE IF EXISTS `Wish_User_List`;
 DROP TABLE IF EXISTS `Wish_User_User`;
-DROP TABLE IF EXISTS `WishItemInList`;
 DROP TABLE IF EXISTS `WishUserRole`;
 DROP TABLE IF EXISTS `WishUser`;
 DROP TABLE IF EXISTS `WishUserGroup`;
@@ -103,33 +102,21 @@ CREATE TABLE `WishItem` (
   `wi_photo` varchar(255) DEFAULT NULL, 
   `wi_description` varchar(255) DEFAULT NULL,
   `wi_price` DECIMAL(9,2) DEFAULT NULL,
+  `wi_bought` tinyint(1) DEFAULT FALSE,
+  `wi_last_update` date NOT NULL,
+  `wi_wl_id` bigint NOT NULL,
   `wi_wic_id` bigint NOT NULL,
   PRIMARY KEY (`wi_id`),
+  INDEX(wi_wl_id),
+  FOREIGN KEY (wi_wl_id)
+      REFERENCES WishList(wl_id)
+      ON UPDATE CASCADE ON DELETE RESTRICT,
   INDEX(wi_wic_id),
   FOREIGN KEY (wi_wic_id)
       REFERENCES WishItemCategory(wic_id)
       ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-CREATE TABLE `WishItemInList` (
-  `wiil_id` bigint NOT NULL AUTO_INCREMENT,
-  `wiil_bought` tinyint(1) DEFAULT FALSE,
-  `wiil_last_update` date NOT NULL,
-
-  `wiil_wl_id` bigint NOT NULL,
-  `wiil_wi_id` bigint NOT NULL,
-
-  PRIMARY KEY (`wiil_id`),
-  INDEX(wiil_wl_id),
-  INDEX(wiil_wi_id),
-  FOREIGN KEY (wiil_wl_id)
-      REFERENCES WishList(wl_id)
-      ON UPDATE CASCADE ON DELETE RESTRICT,
-  FOREIGN KEY (wiil_wi_id)
-      REFERENCES WishItem(wi_id)
-      ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 show variables like "character_set_database";
 show variables like "collation_database";
