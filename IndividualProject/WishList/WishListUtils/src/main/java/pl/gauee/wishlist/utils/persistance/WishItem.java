@@ -42,6 +42,9 @@ public class WishItem implements WishObject {
     @ManyToOne
     @JoinColumn(name = "wi_wic_id")
     private WishItemCategory category;
+    @ManyToOne
+    @JoinColumn(name = "wi_wl_id")
+    private WishList list;
 
     public WishItem() {
     }

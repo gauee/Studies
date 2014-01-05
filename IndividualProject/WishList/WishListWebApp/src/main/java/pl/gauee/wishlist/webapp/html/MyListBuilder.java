@@ -170,7 +170,7 @@ public class MyListBuilder {
 
         sb.append(HtmlUtil.getHeader3("Edycja listy: " + list.getName()))
                 .append(HtmlUtil.TAG_NEW_LINE)
-//                .append(getAddNewItemToListForm(getListIdAsParam(list)))
+                //                .append(getAddNewItemToListForm(getListIdAsParam(list)))
                 .append(getAddNewItemToListForm(list.getId()))
                 .append(getEditableItemListList(list));
 

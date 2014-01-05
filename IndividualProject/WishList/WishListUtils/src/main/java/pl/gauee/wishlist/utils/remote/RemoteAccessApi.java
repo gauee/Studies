@@ -43,5 +43,4 @@ public interface RemoteAccessApi {
     public WishList createList(WishList list);
 
     public void deleteList(long listId);
-
 }

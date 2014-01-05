@@ -19,5 +19,4 @@ public interface WebListApi extends ListApi {
     public boolean createNewListForUser(WishList list, String userName);
 
     public List<WishList> getDefaultWishList();
-
 }

@@ -181,7 +181,7 @@ public class MainController {
 
         WishItemInList tmpItemInList = new WishItemInList();
         WishItem tmpItem = new WishItem();
-        
+
         WishList list = listApi.getListById(listId);
         model.addAttribute("message", MyListBuilder.buildViewForListEdit(list));
 
