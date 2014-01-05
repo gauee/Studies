@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.utils.api;
 
 import java.util.List;
+import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
@@ -26,4 +27,6 @@ public interface UserApi {
     public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2);
 
     public List<WishUser> getAllUsers();
+    
+    public boolean addListToUser(WishList list, String userName);
 }

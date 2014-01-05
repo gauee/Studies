@@ -7,7 +7,6 @@ package pl.gauee.wishlist.webapp.api;
 import java.util.List;
 import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.persistance.WishList;
-import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
  *

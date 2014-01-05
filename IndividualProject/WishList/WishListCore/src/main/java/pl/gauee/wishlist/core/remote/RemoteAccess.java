@@ -87,4 +87,11 @@ public class RemoteAccess implements RemoteAccessApi {
         ListApi listApi = DaoDistributor.getInstance().getListApi();
         return listApi.getListById(listId);
     }
+
+    public boolean addListToUser(WishList list, String userName) {
+        UserApi useApi = DaoDistributor.getInstance().getUserApi();
+        return useApi.addListToUser(list, userName);
+    }
+    
+    
 }

@@ -69,6 +69,9 @@ public class UserDaoTest extends TestCase {
             assertEquals(true, false);
         }
 
+        
+        ListDao listDao = new ListDao();
+        list = listDao.getListById(2L);
         user1.getUserLists().add(list);
         dao.update(user1);
     }

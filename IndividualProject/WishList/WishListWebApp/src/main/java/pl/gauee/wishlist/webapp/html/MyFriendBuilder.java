@@ -4,7 +4,6 @@
  */
 package pl.gauee.wishlist.webapp.html;
 
-import com.sun.org.apache.xerces.internal.util.HTTPInputSource;
 import java.util.LinkedList;
 import java.util.List;
 import pl.gauee.wishlist.utils.HtmlUtil;

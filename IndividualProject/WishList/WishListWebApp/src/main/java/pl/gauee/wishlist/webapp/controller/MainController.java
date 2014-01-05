@@ -44,6 +44,8 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
+        
         model.addAttribute("message", "Testuje servlet...");
 
         return "index";
@@ -51,6 +53,7 @@ public class MainController {
 
     @RequestMapping(value = "/welcome", method = RequestMethod.GET)
     public String welcome(ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
         model.addAttribute("message", "Witaj na mojej pierwszej stronie napisanej w springu");
 
         return "index";
@@ -58,6 +61,7 @@ public class MainController {
 
     @RequestMapping(value = "/mySite", method = RequestMethod.GET)
     public String mySite(ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
         String currentLoggedUser = getLoginCurrentLoggedUser();
         WishUser user = userApi.getUserByLogin(currentLoggedUser);
 
@@ -68,6 +72,7 @@ public class MainController {
 
     @RequestMapping(value = "/myMessages", method = RequestMethod.GET)
     public String myMessages(ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
         model.addAttribute("message", "Moje wiadomości");
 
         return "myMessages";
@@ -75,6 +80,7 @@ public class MainController {
 
     @RequestMapping(value = PageUtils.MyFriends, method = RequestMethod.GET)
     public String myFriends(ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
         WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
 //        logger.info(""+user.getUserFriends());
 
@@ -89,6 +95,7 @@ public class MainController {
     public String myFriendsAddNewOne(
             @RequestParam("friend_newOne") String friendToAdd,
             ModelMap model) {
+        setUserNameCurrentLoggedUser(model);
         WishUser user = userApi.getUserByLogin(getLoginCurrentLoggedUser());
         logger.info("User to add is : " + friendToAdd);
         WishUser userToAdd = userApi.getUserByLogin(friendToAdd);
@@ -149,6 +156,44 @@ public class MainController {
         return "lists";
     }
 
+    @RequestMapping(value = PageUtils.MyListAddShare, method = RequestMethod.POST)
+    public String myListsAddShare(
+            @RequestParam("listId") long listId,
+            @RequestParam("friendLogin") String friendLogin,
+            ModelMap model) {
+
+        logger.info("Trying to add sharing list no " + listId + " with user: " + friendLogin);
+
+        WishList list = listApi.getListById(listId);
+
+        userApi.addListToUser(list, friendLogin);
+
+        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+    }
+
+    @RequestMapping(value = PageUtils.MyListDeleteShare, method = RequestMethod.POST)
+    public String myListsDeleteShare(
+            @RequestParam("listId") long listId,
+            @RequestParam("friendLogin") String friendLogin,
+            ModelMap model) {
+
+        logger.info("Trying to remove sharing list no " + listId + " with user: " + friendLogin);
+
+        WishUser friend = userApi.getUserByLogin(friendLogin);
+        WishList list = listApi.getListById(listId);
+
+        if (!friend.getUserLists().contains(list)) {
+            logger.warn("User already has not this list");
+            return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+        }
+
+        friend.getUserLists().remove(list);
+
+        userApi.updateUser(friend);
+
+        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
+    }
+
     @RequestMapping(value = PageUtils.MyListDelete, method = RequestMethod.GET)
     public String myListsDelete(ModelMap model) {
 
@@ -180,55 +225,6 @@ public class MainController {
         }
 
         return getRedirectTo(PageUtils.MyList);
-    }
-
-    @RequestMapping(value = PageUtils.MyListAddShare, method = RequestMethod.POST)
-    public String myListsAddShare(
-            @RequestParam("listId") long listId,
-            @RequestParam("friendLogin") String friendLogin,
-            ModelMap model) {
-
-        logger.info("Trying to add sharing list no " + listId + " with user: " + friendLogin);
-
-        WishUser friend = userApi.getUserByLogin(friendLogin);
-        WishList list = listApi.getListById(listId);
-
-        if (friend.getUserLists().contains(list)) {
-            logger.warn("User already has this list");
-            return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
-        }
-
-        list.getListUsers().add(friend);
-        friend.getUserLists().add(list);
-
-        userApi.updateUser(friend);
-
-
-
-        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
-    }
-
-    @RequestMapping(value = PageUtils.MyListDeleteShare, method = RequestMethod.POST)
-    public String myListsDeleteShare(
-            @RequestParam("listId") long listId,
-            @RequestParam("friendLogin") String friendLogin,
-            ModelMap model) {
-
-        logger.info("Trying to remove sharing list no " + listId + " with user: " + friendLogin);
-
-        WishUser friend = userApi.getUserByLogin(friendLogin);
-        WishList list = listApi.getListById(listId);
-
-        if (!friend.getUserLists().contains(list)) {
-            logger.warn("User already has not this list");
-            return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
-        }
-
-        friend.getUserLists().remove(list);
-
-        userApi.updateUser(friend);
-
-        return getRedirectTo(PageUtils.MyListShare, new CustomRequestParam("listId", "" + listId));
     }
 
     @RequestMapping(value = PageUtils.login, method = RequestMethod.GET)
@@ -315,5 +311,9 @@ public class MainController {
         }
 
         return sb.substring(0, sb.length() - 1);
+    }
+
+    private void setUserNameCurrentLoggedUser(ModelMap model) {
+        model.addAttribute("userName", getLoginCurrentLoggedUser());
     }
 }

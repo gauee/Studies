@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
 import pl.gauee.wishlist.webapp.api.WebUserApi;
@@ -95,6 +96,11 @@ class UserAccess implements WebUserApi {
     @Override
     public void deleteFriendship(WishUser user, WishUser userToDelete) {
         remoteAccessApi.deleteFriendship(user, userToDelete);
+    }
+
+    @Override
+    public boolean addListToUser(WishList list, String userName) {
+        return remoteAccessApi.addListToUser(list, userName);
     }
 
     @Override

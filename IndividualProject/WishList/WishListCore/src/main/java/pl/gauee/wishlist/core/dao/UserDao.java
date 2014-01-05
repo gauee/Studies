@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.classic.Session;
 import org.hibernate.criterion.Restrictions;
 import pl.gauee.wishlist.utils.api.UserApi;
+import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
@@ -50,6 +51,13 @@ class UserDao extends BaseDao<WishUser> implements UserApi {
     @Override
     public List<WishUser> getAllUsers() {
         return super.getAll();
+    }
+
+    public boolean addListToUser(WishList list, String userName) {
+        WishUser user = getUserByLogin(userName);
+        user.getUserLists().add(list);
+        super.update(user);
+        return true;
     }
 
     public boolean joinTwoUserAsFriends(WishUser user1, WishUser user2) {
