@@ -34,18 +34,6 @@ CREATE TABLE `Wish_User_User` (
       ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `WishUserRole` (
-  `wur_id` bigint NOT NULL AUTO_INCREMENT,
-  `wur_authority` varchar(255) NOT NULL,
-  `wur_wu_id` bigint NOT NULL,
-
-  PRIMARY KEY (`wur_id`),
-  INDEX(wur_wu_id),
-  FOREIGN KEY (wur_wu_id)
-      REFERENCES WishUser(wu_id)
-      ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `WishUserGroup` (
   `wug_id` bigint NOT NULL AUTO_INCREMENT,
@@ -103,9 +91,9 @@ CREATE TABLE `WishItem` (
   `wi_description` varchar(255) DEFAULT NULL,
   `wi_price` DECIMAL(9,2) DEFAULT NULL,
   `wi_bought` tinyint(1) DEFAULT FALSE,
-  `wi_last_update` date NOT NULL,
-  `wi_wl_id` bigint NOT NULL,
-  `wi_wic_id` bigint NOT NULL,
+  `wi_last_update` date DEFAULT NULL,
+  `wi_wl_id` bigint DEFAULT NULL,
+  `wi_wic_id` bigint DEFAULT NULL,
   PRIMARY KEY (`wi_id`),
   INDEX(wi_wl_id),
   FOREIGN KEY (wi_wl_id)

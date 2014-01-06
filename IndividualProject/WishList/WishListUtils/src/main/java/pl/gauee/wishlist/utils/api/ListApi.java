@@ -4,6 +4,7 @@
  */
 package pl.gauee.wishlist.utils.api;
 
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishList;
 
 /**
@@ -17,4 +18,8 @@ public interface ListApi {
     public WishList createList(WishList list);
 
     public void deleteList(long listId);
+
+    public void addItemToList(WishItem wishItem, long listId);
+
+    public void updateList(WishList wishList);
 }

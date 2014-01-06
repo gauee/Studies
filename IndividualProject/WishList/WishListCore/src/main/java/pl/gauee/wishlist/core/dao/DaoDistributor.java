@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.core.dao;
 
 import pl.gauee.wishlist.core.api.DaoDistributorApi;
+import pl.gauee.wishlist.utils.api.ItemApi;
 import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.api.UserApi;
 
@@ -29,5 +30,9 @@ public class DaoDistributor implements DaoDistributorApi {
 
     public ListApi getListApi() {
         return new ListDao();
+    }
+
+    public ItemApi getItemApi() {
+        return new ItemDao();
     }
 }

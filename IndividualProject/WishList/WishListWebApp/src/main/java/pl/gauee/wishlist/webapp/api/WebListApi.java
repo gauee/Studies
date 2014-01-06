@@ -6,6 +6,7 @@ package pl.gauee.wishlist.webapp.api;
 
 import java.util.List;
 import pl.gauee.wishlist.utils.api.ListApi;
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishList;
 
 /**
@@ -19,4 +20,5 @@ public interface WebListApi extends ListApi {
     public boolean createNewListForUser(WishList list, String userName);
 
     public List<WishList> getDefaultWishList();
+
 }

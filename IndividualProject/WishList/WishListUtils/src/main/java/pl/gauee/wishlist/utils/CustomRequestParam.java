@@ -18,10 +18,6 @@ public class CustomRequestParam {
         this.paramValue = paramValue;
     }
 
-    public CustomRequestParam(String listId, long listId0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public String getParamName() {
         return paramName;
     }

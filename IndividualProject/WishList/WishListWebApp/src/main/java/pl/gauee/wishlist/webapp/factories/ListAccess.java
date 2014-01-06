@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
@@ -50,6 +51,19 @@ public class ListAccess implements WebListApi {
         remoteAccessApi.deleteList(listId);
     }
 
+    @Override
+    public void addItemToList(WishItem wishItem, long listId) {
+        remoteAccessApi.addItemToList(wishItem,listId);
+    }
+
+    @Override
+    public void updateList(WishList wishList) {
+        remoteAccessApi.updateList(wishList);
+    }
+
+    
+    
+    
     @Override
     public List<WishList> getDefaultWishList() {
         List<WishList> wishLists = new LinkedList<WishList>();

@@ -7,8 +7,10 @@ package pl.gauee.wishlist.core.remote;
 import java.util.LinkedList;
 import java.util.List;
 import pl.gauee.wishlist.core.dao.DaoDistributor;
+import pl.gauee.wishlist.utils.api.ItemApi;
 import pl.gauee.wishlist.utils.api.ListApi;
 import pl.gauee.wishlist.utils.api.UserApi;
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
@@ -104,11 +106,31 @@ public class RemoteAccess implements RemoteAccessApi {
         listApi.deleteList(listId);
     }
 
+    public WishItem createItem(WishItem item) {
+        ItemApi itemApi = getItemApi();
+        return itemApi.createItem(item);
+    }
+
+    public void addItemToList(WishItem wishItem, long listId) {
+        ListApi listApi = getListApi();
+        listApi.addItemToList(wishItem, listId);
+    }
+
+    public void updateList(WishList wishList) {
+        ListApi listApi = getListApi();
+        listApi.updateList(wishList);
+    }
+
+//    Additional methods
     private ListApi getListApi() {
         return DaoDistributor.getInstance().getListApi();
     }
 
     private UserApi getUserApi() {
         return DaoDistributor.getInstance().getUserApi();
+    }
+
+    private ItemApi getItemApi() {
+        return DaoDistributor.getInstance().getItemApi();
     }
 }

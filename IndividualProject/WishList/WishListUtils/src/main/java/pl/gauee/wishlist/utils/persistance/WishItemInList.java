@@ -6,18 +6,16 @@ package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  *
  * @author gauee
  */
-@Entity
-@Table(name = "WishItemInList")
+//@Entity
+//@Table(name = "WishItemInList")
 public class WishItemInList implements WishObject {
 
     private static final long serialVersionUID = 7809641968663834551L;

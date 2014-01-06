@@ -36,6 +36,7 @@
     <!--Apis-->
     <bean id="userApiBean" class="pl.gauee.wishlist.webapp.factories.UserAccess" />
     <bean id="listApiBean" class="pl.gauee.wishlist.webapp.factories.ListAccess" />
+    <bean id="itemApiBean" class="pl.gauee.wishlist.webapp.factories.ItemAccess" />
     
     <!--RMI-->
     <bean id="proxyBean" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">

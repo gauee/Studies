@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.utils.persistance;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,15 +39,16 @@ public class WishItem implements WishObject {
     @Column(name = "wi_bought")
     private boolean bought;
     @Column(name = "wi_last_update")
-    private Date lastUpdate;
+    private Timestamp lastUpdate;
     @ManyToOne
     @JoinColumn(name = "wi_wic_id")
     private WishItemCategory category;
     @ManyToOne
     @JoinColumn(name = "wi_wl_id")
-    private WishList list;
+    private WishList itemList;
 
     public WishItem() {
+        this.lastUpdate = new Timestamp(System.currentTimeMillis());
     }
 
     public WishItem(String name, String description, double price, String photoUrl, WishItemCategory category) {
@@ -58,8 +60,27 @@ public class WishItem implements WishObject {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        WishObject toCompare = (WishObject) obj;
+        return this.getId() == toCompare.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) id;
+    }
+
+    @Override
     public String toString() {
-        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", photoUrl=" + photoUrl + ", bought=" + bought + ", lastUpdate=" + lastUpdate + ", category=" + category + ", list=" + getListNames(list) + '}';
+        return "WishItem{" + "id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", photoUrl=" + photoUrl + ", bought=" + bought + ", lastUpdate=" + lastUpdate + ", category=" + category + ", list=" + getListNames(itemList) + '}';
     }
 
     public long getId() {
@@ -118,20 +139,20 @@ public class WishItem implements WishObject {
         this.bought = bought;
     }
 
-    public Date getLastUpdate() {
+    public Timestamp getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
-    public WishList getList() {
-        return list;
+    public WishList getItemList() {
+        return itemList;
     }
 
-    public void setList(WishList list) {
-        this.list = list;
+    public void setItemList(WishList itemList) {
+        this.itemList = itemList;
     }
 
     private String getListNames(WishList list) {

@@ -60,6 +60,7 @@ public abstract class BaseDao<T extends WishObject> implements DaoApi<T> {
         session.beginTransaction();
         session.update(object);
         session.getTransaction().commit();
+        session.flush();
         session.close();
         return object;
     }

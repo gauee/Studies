@@ -11,6 +11,7 @@ import java.util.Set;
 import pl.gauee.wishlist.utils.HtmlUtil;
 import pl.gauee.wishlist.utils.IconUtils;
 import pl.gauee.wishlist.utils.PageUtils;
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
@@ -66,7 +67,7 @@ public class MyListBuilder {
                 .append(HtmlUtil.getNewLine())
                 .append("<table>");
 
-        if (list.getItems() == null || list.getItems().isEmpty()) {
+        if (list.getListItems() == null || list.getListItems().isEmpty()) {
             sb
                     .append("</table>")
                     .append("<p>")
@@ -79,14 +80,14 @@ public class MyListBuilder {
 
         sb.append(HtmlUtil.getBold(HtmlUtil.getTableRow(itemsLables)));
 
-        for (WishItemInList item : list.getItems()) {
+        for (WishItem item : list.getListItems()) {
             sb.append(HtmlUtil.getTableRow(
                     item.isBought() ? getBoughtLink() : getNotBoughtLink(),
-                    item.getItem().getName(),
-                    item.getItem().getDescription(),
-                    item.getItem().getPrice() + "zł",
+                    item.getName(),
+                    item.getDescription(),
+                    item.getPrice() + "zł",
                     dateFormat.format(item.getLastUpdate()),
-                    HtmlUtil.getImgSrc(item.getItem().getPhotoUrl() == null ? "" : item.getItem().getPhotoUrl())));
+                    HtmlUtil.getImgSrc(item.getPhotoUrl() == null ? "" : item.getPhotoUrl())));
         }
 
         sb.append("</table>");
@@ -189,44 +190,37 @@ public class MyListBuilder {
                 .append(idAsParam)
                 .append("\">")
                 .append("<ul>")
+                .append("</li>")
                 .append("<li id=\"li_1\">")
                 .append("<label class=\"description\" for=\"element_1\">")
-                .append("Produkt")
+                .append("Nazwa")
                 .append("</label>")
                 .append("<div>")
-                .append("<input id=\"element_1\" name=\"itemMainName\" class=\"element text medium\" type=\"text\" required>")
+                .append("<input id=\"element_1\" name=\"itemName\" class=\"element text medium\" type=\"text\" required>")
                 .append("</div>")
                 .append("</li>")
                 .append("<li id=\"li_2\">")
                 .append("<label class=\"description\" for=\"element_2\">")
-                .append("Nazwa")
+                .append("Opis")
                 .append("</label>")
                 .append("<div>")
-                .append("<input id=\"element_2\" name=\"itemName\" class=\"element text medium\" type=\"text\" required>")
+                .append("<input id=\"element_2\" name=\"itemDescribe\" class=\"element text medium\" type=\"text\" >")
                 .append("</div>")
                 .append("</li>")
                 .append("<li id=\"li_3\">")
                 .append("<label class=\"description\" for=\"element_3\">")
-                .append("Opis")
+                .append("Cena")
                 .append("</label>")
                 .append("<div>")
-                .append("<input id=\"element_3\" name=\"itemDescribe\" class=\"element text medium\" type=\"text\" >")
+                .append("<input id=\"element_3\" name=\"itemPrice\" class=\"element text medium\" type=\"text\" >")
                 .append("</div>")
                 .append("</li>")
                 .append("<li id=\"li_4\">")
                 .append("<label class=\"description\" for=\"element_4\">")
-                .append("Cena")
-                .append("</label>")
-                .append("<div>")
-                .append("<input id=\"element_4\" name=\"itemPrice\" class=\"element text medium\" type=\"text\" >")
-                .append("</div>")
-                .append("</li>")
-                .append("<li id=\"li_5\">")
-                .append("<label class=\"description\" for=\"element_5\">")
                 .append("Zdjęcie")
                 .append("</label>")
                 .append("<div>")
-                .append("<input id=\"element_5\" name=\"itemPhoto\" class=\"element text medium\" type=\"file\" accept=\"image/*\" >")
+                .append("<input id=\"element_4\" name=\"itemPhoto\" class=\"element text medium\" type=\"file\" accept=\"image/*\" >")
                 .append("</div>")
                 .append("</li>")
                 .append("<li class=\"buttons\">")
@@ -245,9 +239,17 @@ public class MyListBuilder {
 
         sb
                 .append(HtmlUtil.getHeader3("Lista artykułów:"))
-                .append("<table>")
-                .append(HtmlUtil.getTableRow("Produkt1", "Chleb"))
-                .append(HtmlUtil.getTableRow("Produkt2", "Masło"))
+                .append("<table>");
+        for (WishItem item : list.getListItems()) {
+            sb.append(HtmlUtil.getTableRow(
+                    item.getName(),
+                    item.getDescription(),
+                    item.getPrice() + "zł",
+                    item.getLastUpdate().toString(),
+                    HtmlUtil.getImgSrc(item.getPhotoUrl())));
+        }
+
+        sb
                 .append("</table>");
 
 

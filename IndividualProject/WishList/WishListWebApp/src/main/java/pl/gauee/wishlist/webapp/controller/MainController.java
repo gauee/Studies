@@ -5,7 +5,6 @@
 package pl.gauee.wishlist.webapp.controller;
 
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.gauee.wishlist.utils.CustomRequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
-import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
+import pl.gauee.wishlist.webapp.api.WebItemApi;
 import pl.gauee.wishlist.webapp.api.WebListApi;
 import pl.gauee.wishlist.webapp.api.WebUserApi;
 import pl.gauee.wishlist.webapp.html.MyFriendBuilder;
@@ -43,6 +42,9 @@ public class MainController {
     @Autowired
     @Qualifier(value = "listApiBean")
     WebListApi listApi;
+    @Autowired
+    @Qualifier(value = "itemApiBean")
+    WebItemApi itemApi;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -154,7 +156,6 @@ public class MainController {
     @RequestMapping(value = PageUtils.MyListAddNewItem, method = RequestMethod.POST)
     public String myListsAddNewItem(
             @RequestParam("listId") long listId,
-            @RequestParam(value = "itemMainName", required = true) String itemMainName,
             @RequestParam(value = "itemName", required = true) String itemName,
             @RequestParam(value = "itemDescribe", required = false) String itemDescribe,
             @RequestParam(value = "itemPrice", required = false) String itemPrice,
@@ -166,8 +167,6 @@ public class MainController {
                 .append("Post form with attributes: ")
                 .append("\n listId: ")
                 .append(listId)
-                .append("\n itemMainName: ")
-                .append(itemMainName)
                 .append("\n itemName: ")
                 .append(itemName)
                 .append("\n itemDescribe: ")
@@ -179,13 +178,17 @@ public class MainController {
 
         logger.info(sb.toString());
 
-        WishItemInList tmpItemInList = new WishItemInList();
         WishItem tmpItem = new WishItem();
+        tmpItem.setName(itemName);
+        tmpItem.setDescription(itemDescribe);
+        tmpItem.setPhotoUrl(itemPhotoUrl);
+        tmpItem.setPrice(Double.parseDouble(itemPrice));
 
-        WishList list = listApi.getListById(listId);
-        model.addAttribute("message", MyListBuilder.buildViewForListEdit(list));
+        WishItem wishItem = itemApi.createItem(tmpItem);
 
-        return "lists";
+        listApi.addItemToList(wishItem, listId);
+
+        return getRedirectTo(PageUtils.MyListEdit, new CustomRequestParam("listId", ""+listId));
     }
 
     @RequestMapping(value = PageUtils.MyListShare, method = RequestMethod.GET)

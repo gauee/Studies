@@ -19,7 +19,7 @@ public abstract class HibernateUtil {
                     .configure()
                     .addAnnotatedClass(WishItem.class)
                     .addAnnotatedClass(WishItemCategory.class)
-                    .addAnnotatedClass(WishItemInList.class)
+//                    .addAnnotatedClass(WishItemInList.class)
                     .addAnnotatedClass(WishList.class)
                     .addAnnotatedClass(WishUser.class)
                     .addAnnotatedClass(WishUserGroup.class)

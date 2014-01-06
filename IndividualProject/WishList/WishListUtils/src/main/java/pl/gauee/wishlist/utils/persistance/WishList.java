@@ -41,7 +41,7 @@ public class WishList implements WishObject {
     private String name;
     @ManyToMany(mappedBy = "userLists", fetch = FetchType.EAGER)
     private Set<WishUser> listUsers = new HashSet<WishUser>();
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "wi_wl_id")
     private Set<WishItem> listItems = new HashSet<WishItem>();
 
@@ -99,10 +99,6 @@ public class WishList implements WishObject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<WishItemInList> getItems() {
-        return new LinkedList<WishItemInList>();
     }
 
     public Set<WishUser> getListUsers() {

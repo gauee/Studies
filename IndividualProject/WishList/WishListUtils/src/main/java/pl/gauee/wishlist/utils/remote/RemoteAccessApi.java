@@ -5,6 +5,7 @@
 package pl.gauee.wishlist.utils.remote;
 
 import java.util.List;
+import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
@@ -43,4 +44,10 @@ public interface RemoteAccessApi {
     public WishList createList(WishList list);
 
     public void deleteList(long listId);
+
+    public WishItem createItem(WishItem item);
+
+    public void addItemToList(WishItem wishItem, long listId);
+
+    public void updateList(WishList wishList);
 }
