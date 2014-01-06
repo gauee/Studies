@@ -66,6 +66,18 @@ public class HtmlUtil {
                 .toString();
     }
 
+    public static String getImgSrc(String href, int width, int height) {
+        String rawImg = getImgSrc(href);
+        return new StringBuilder()
+                .append(rawImg.substring(0, rawImg.length() - 2))
+                .append("width=\"")
+                .append(width)
+                .append("px\" height=\"")
+                .append(height)
+                .append("px\" />")
+                .toString();
+    }
+
     public static String getNewLine() {
         return TAG_NEW_LINE;
     }

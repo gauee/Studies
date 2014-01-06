@@ -184,11 +184,11 @@ public class MyListBuilder {
 
         sb
                 .append("<div id=\"form_container\">")
-                .append("<form id=\"form_769762\" class=\"appnitro\" method=\"post\" action=\"")
+                .append("<form id=\"form_769762\" class=\"appnitro\" method=\"post\" enctype=\"multipart/form-data\" action=\"")
                 .append(PageUtils.MyListAddNewItem)
                 .append("?listId=")
                 .append(idAsParam)
-                .append("\" modelAttribute=\"uploadedFile\" >")
+                .append("\" >")
                 .append("<ul>")
                 .append("</li>")
                 .append("<li id=\"li_1\">")
@@ -246,7 +246,7 @@ public class MyListBuilder {
                     item.getDescription(),
                     item.getPrice() + "zł",
                     item.getLastUpdate().toString(),
-                    HtmlUtil.getImgSrc(item.getPhotoUrl())));
+                    HtmlUtil.getImgSrc(item.getPhotoUrl(), 50, 50)));
         }
 
         sb

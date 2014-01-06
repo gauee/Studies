@@ -4,11 +4,6 @@
  */
 package pl.gauee.wishlist.webapp.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -17,13 +12,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import pl.gauee.wishlist.utils.CustomRequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
@@ -35,6 +27,7 @@ import pl.gauee.wishlist.webapp.api.WebUserApi;
 import pl.gauee.wishlist.webapp.html.MyFriendBuilder;
 import pl.gauee.wishlist.webapp.html.MyListBuilder;
 import pl.gauee.wishlist.webapp.html.MySiteBuilder;
+import pl.gauee.wishlist.webapp.uploads.UploadFileSaver;
 
 /**
  *
@@ -161,8 +154,6 @@ public class MainController {
 
         return "lists";
     }
-    @Autowired
-    private FileValidator fileValidator;
 
     @RequestMapping(value = PageUtils.MyListAddNewItem, method = RequestMethod.POST)
     public String myListsAddNewItem(
@@ -170,65 +161,16 @@ public class MainController {
             @RequestParam(value = "itemName", required = true) String itemName,
             @RequestParam(value = "itemDescribe", required = false) String itemDescribe,
             @RequestParam(value = "itemPrice", required = false) String itemPrice,
-            //            @RequestParam(value = "itemPhoto", required = false) Part itemPhotoUrl,
-            @ModelAttribute("uploadedFile") UploadedFile uploadedFile,
-            BindingResult result,
+            @RequestParam("itemPhoto") CommonsMultipartFile uploadedFile,
             ModelMap model) {
-
-        StringBuilder sb = new StringBuilder();
-        sb
-                .append("Post form with attributes: ")
-                .append("\n listId: ")
-                .append(listId)
-                .append("\n itemName: ")
-                .append(itemName)
-                .append("\n itemDescribe: ")
-                .append(itemDescribe)
-                .append("\n itemPrice: ")
-                .append(itemPrice);
-//                .append("\n itemPhotoUrl: ")
-//                .append(itemPhotoUrl)
-//                .append(itemPhotoUrl.getClass().getName());
-
-        logger.info(sb.toString());
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-
-        MultipartFile file = uploadedFile.getFile();
-        fileValidator.validate(uploadedFile, result);
-
-        String fileName = file.getOriginalFilename();
-
-        if (result.hasErrors()) {
-            return getRedirectTo(PageUtils.MyListEdit);
-        }
-        File newFile = null;
-        try {
-            inputStream = file.getInputStream();
-
-            newFile = new File("/home/gauee/Pulpit/tmp/uploadedFiles/" + fileName);
-            if (!newFile.exists()) {
-                newFile.createNewFile();
-            }
-            outputStream = new FileOutputStream(newFile);
-            int read = 0;
-            byte[] bytes = new byte[1024];
-
-            while ((read = inputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
-            }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block  
-            e.printStackTrace();
-        }
-
 
         WishItem tmpItem = new WishItem();
         tmpItem.setName(itemName);
         tmpItem.setDescription(itemDescribe);
-        tmpItem.setPhotoUrl(newFile == null ? "" : newFile.getAbsolutePath());
         tmpItem.setPrice(Double.parseDouble(itemPrice));
 
+        UploadFileSaver fileSaver = new UploadFileSaver(uploadedFile);
+        fileSaver.uploadFileWihUniqueFilePath(getLoginCurrentLoggedUser(), listId, tmpItem);
         WishItem wishItem = itemApi.createItem(tmpItem);
 
         listApi.addItemToList(wishItem, listId);
