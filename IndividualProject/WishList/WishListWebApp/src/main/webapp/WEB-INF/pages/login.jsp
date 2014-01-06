@@ -22,7 +22,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="sideBar" >
-        <h3>Login with Username and Password (Custom Page)</h3>
+        <h3>Panel logowania</h3>
         <form name='f' action="<c:url value='j_spring_security_check' />"
               method='POST'>
 
@@ -56,8 +56,9 @@
         <h2>Witaj w aplikacji WishList'a</h2>
         <div class="errorblock">
             <p>
-                Your login attempt was not successful, try again.<br /> Caused :
-                ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+                Aby skorzystać z aplikacji wymagana jest identyfikacja użytkownika.
+                Prosimy o zalogowanie się na swoje konto.
+                Jeśli takiego nie posiadasz możesz darmowo stworzyć.
             </p>
         </div>
     </jsp:attribute>
