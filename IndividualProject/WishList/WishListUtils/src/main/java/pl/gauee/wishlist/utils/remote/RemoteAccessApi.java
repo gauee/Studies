@@ -54,4 +54,6 @@ public interface RemoteAccessApi {
     public void setItemBought(long itemId);
 
     public void setItemBoughtCancel(long itemId);
+
+    public void deleteItem(long itemId);
 }

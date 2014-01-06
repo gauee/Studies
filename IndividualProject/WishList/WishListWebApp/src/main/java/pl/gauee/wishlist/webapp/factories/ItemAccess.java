@@ -36,6 +36,11 @@ public class ItemAccess implements WebItemApi {
     public void setItemBougthCancel(long itemId) {
         remoteAccessApi.setItemBoughtCancel(itemId);
     }
+
+    @Override
+    public void deleteItem(long itemId) {
+        remoteAccessApi.deleteItem(itemId);
+    }
     
     
 }

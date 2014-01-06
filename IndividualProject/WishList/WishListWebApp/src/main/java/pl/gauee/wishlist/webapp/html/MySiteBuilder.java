@@ -13,7 +13,8 @@ import pl.gauee.wishlist.utils.persistance.WishUser;
  */
 public class MySiteBuilder {
 
-    private static final String titlePage = "Strona o mnie";
+    private static final String titlePage = "Dane użytkownika";
+    private static final String titleStatistics = "Statystyki";
     private static final String labelLogin = "Login: ";
     private static final String labelName = "Imie: ";
     private static final String labelSurname = "Nazwisko: ";
@@ -21,16 +22,24 @@ public class MySiteBuilder {
     private static final String labelMsisdn = "Komórka: ";
 
     public static String build(WishUser user) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(HtmlUtil.getHeader3(titlePage))
+        return new StringBuilder()
+                .append(HtmlUtil.getHeader3(titlePage))
                 .append("<table>")
                 .append(HtmlUtil.getTableRow(labelLogin, user.getLogin()))
                 .append(HtmlUtil.getTableRow(labelName, user.getName()))
                 .append(HtmlUtil.getTableRow(labelSurname, user.getSurname()))
                 .append(HtmlUtil.getTableRow(labelEmail, user.getEmail()))
                 .append(HtmlUtil.getTableRow(labelMsisdn, user.getMsisdn()))
-                .append("</table>");
-
-        return sb.toString();
+                .append("</table>")
+                .append(HtmlUtil.getHeader3(titleStatistics))
+                .append("<table>")
+                .append(HtmlUtil.getTableRow(
+                "Posiadanych znajomych:",
+                user.getUserFriends().size() + ""))
+                .append(HtmlUtil.getTableRow(
+                "Prowadzonych list:",
+                user.getUserLists().size() + ""))
+                .append("</table>")
+                .toString();
     }
 }

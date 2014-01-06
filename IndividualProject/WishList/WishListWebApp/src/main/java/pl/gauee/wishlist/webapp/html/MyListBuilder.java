@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 import pl.gauee.wishlist.utils.HtmlUtil;
+import pl.gauee.wishlist.utils.HttpAction;
 import pl.gauee.wishlist.utils.IconUtils;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
@@ -68,14 +69,7 @@ public class MyListBuilder {
                 .append("<table>");
 
         if (list.getListItems() == null || list.getListItems().isEmpty()) {
-            sb
-                    .append("</table>")
-                    .append("<p>")
-                    .append("Niestety lista jest na chwilę obecną pusta.")
-                    .append(HtmlUtil.TAG_NEW_LINE)
-                    .append("Możesz dodać nowe artykuły poprzez edycje listy w innym oknie.")
-                    .append(" </p> ");
-            return sb.toString();
+            return createPageForEmptyList(sb, list.getId());
         }
 
         sb.append(HtmlUtil.getBold(HtmlUtil.getTableRow(itemsLables)));
@@ -246,7 +240,8 @@ public class MyListBuilder {
                     item.getDescription(),
                     item.getPrice() + "zł",
                     item.getLastUpdate().toString(),
-                    HtmlUtil.getImgSrc(item.getPhotoUrl(), 50, 50)));
+                    HtmlUtil.getImgSrc(item.getPhotoUrl(), 50, 50),
+                    HtmlUtil.getFormWithImageInput(getDeleteItemAction(item.getId(), list.getId()), HttpAction.POST.toString(), "deleteItem", IconUtils.iconDelete)));
         }
 
         sb
@@ -254,5 +249,21 @@ public class MyListBuilder {
 
 
         return sb.toString();
+    }
+
+    private static String getDeleteItemAction(long itemId, long listId) {
+        return PageUtils.MyItemDelete + "?itemId=" + itemId + "&listId=" + listId;
+    }
+
+    private static Object createPageForEmptyList(StringBuilder sb, long listId) {
+        return sb
+                .append("</table>")
+                .append("<p>")
+                .append("Niestety lista jest na chwilę obecną pusta.")
+                .append(HtmlUtil.TAG_NEW_LINE)
+                .append("Możesz dodać nowe artykuły poprzez edycje listy w innym oknie.")
+                .append(" </p> ")
+                .append(HtmlUtil.getAhrefLink(PageUtils.MyListEdit + "?listId=" + listId, "Przejdz do edycji listy"))
+                .toString();
     }
 }

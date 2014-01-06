@@ -27,10 +27,9 @@
 
 
     <jsp:attribute name="sideBar" >
-        Hej SideBar!
+        <h2>Strona Główna</h2>
     </jsp:attribute>
     <jsp:attribute name="content" >
-        <h2>Message:</h2>
         <h4>${message}</h4>
     </jsp:attribute>
 </t:template>>

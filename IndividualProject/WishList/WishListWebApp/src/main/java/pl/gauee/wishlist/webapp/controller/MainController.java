@@ -321,6 +321,17 @@ public class MainController {
         return getRedirectTo(PageUtils.MyListPreview, new CustomRequestParam("listId", "" + listId));
     }
 
+    @RequestMapping(value = PageUtils.MyItemDelete, method = RequestMethod.POST)
+    public String itemDeleteOne(
+            @RequestParam("listId") long listId,
+            @RequestParam("itemId") long itemId,
+            ModelMap model) {
+
+        itemApi.deleteItem(itemId);
+
+        return getRedirectTo(PageUtils.MyListEdit, new CustomRequestParam("listId", "" + listId));
+    }
+
     @RequestMapping(value = PageUtils.MyItemBoughtCancel, method = RequestMethod.GET)
     public String cancelBoughtItem(
             @RequestParam("listId") long listId,

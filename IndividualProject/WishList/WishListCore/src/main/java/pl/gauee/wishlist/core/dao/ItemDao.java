@@ -29,6 +29,10 @@ class ItemDao extends BaseDao<WishItem> implements ItemApi {
         super.delete(item);
     }
 
+    public void deleteItem(long itemId) {
+        removeItem(getById(itemId));
+    }
+
     public void setItemBougth(long itemId) {
         WishItem item = super.getById(itemId);
         item.setBought(true);

@@ -129,6 +129,11 @@ public class RemoteAccess implements RemoteAccessApi {
         getItemApi().setItemBougthCancel(itemId);
     }
 
+    public void deleteItem(long itemId) {
+        getItemApi().deleteItem(itemId);
+    }
+
+    
 //    Additional methods
     private ListApi getListApi() {
         return DaoDistributor.getInstance().getListApi();

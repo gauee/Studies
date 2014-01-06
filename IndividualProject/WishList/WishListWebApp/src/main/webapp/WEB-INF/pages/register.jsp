@@ -20,11 +20,10 @@
         <jsp:include page="footer.jsp" />
     </jsp:attribute>
     <jsp:attribute name="sideBar" >
-        Zarejestruj się.
+        <h2>Rejestracja</h2>
     </jsp:attribute>
     <jsp:attribute name="content" >
-        <h2>Rejestracja</h2>
-        <h4>${message}</h4>
+        <div style="height: 20px"></div>
         <div id="form_container">
             <form id="form_769762" class="appnitro" method="post" action="register">
                 <ul>

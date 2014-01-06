@@ -20,6 +20,7 @@ public class PageUtils {
     public static final String MyListDeleteShare = MyList + "_delete_shared";
     public static final String MyListAddShare = MyList + "_add_shared";
     public static final String MyItem = "myItem";
+    public static final String MyItemDelete = MyItem + "_delete_item";
     public static final String MyItemBought = MyItem + "_bought";
     public static final String MyItemBoughtCancel = MyItem + "_bought_cancel";
     public static final String MyFriends = "myFriends";

@@ -22,7 +22,7 @@
 
 
     <jsp:attribute name="sideBar" >
-
+        <h2>Twoi znajomi</h2>
     </jsp:attribute>
     <jsp:attribute name="content" >
         <h3>Dodaj znajomego</h3>

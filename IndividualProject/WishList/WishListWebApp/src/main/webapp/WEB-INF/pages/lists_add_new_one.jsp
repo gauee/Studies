@@ -22,10 +22,11 @@
 
 
     <jsp:attribute name="sideBar" >
-        <a href="myLists_add_new_one" ><img src="resources/images/icons/add.ico"/>Stwórz nową listę</a>
+        <h2>Tworzenie nowej listy</h2>
+        <!--<a href="myLists_add_new_one" ><img src="resources/images/icons/add.ico"/>Stwórz nową listę</a>-->
         </jsp:attribute>
         <jsp:attribute name="content" >
-        <h4>${message}</h4>
+            <div style="padding:0 0 40px 0"></div>
         <div id="form_container">
             <form id="form_769762" class="appnitro" method="post" action="myLists_add_new_one">
                 <ul>

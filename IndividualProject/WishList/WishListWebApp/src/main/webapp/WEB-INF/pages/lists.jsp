@@ -22,6 +22,7 @@
 
 
     <jsp:attribute name="sideBar" >
+        <h2>Zarządzanie Listami</h2>
         <a href="myLists_add_new_one" ><img src="resources/images/icons/add.ico"/>Stwórz nową listę</a>
         </jsp:attribute>
         <jsp:attribute name="content" >

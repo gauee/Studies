@@ -13,5 +13,6 @@ import pl.gauee.wishlist.utils.api.ItemApi;
 public interface WebItemApi  extends ItemApi{
 
 
+
     
 }
