@@ -188,7 +188,7 @@ public class MyListBuilder {
                 .append(PageUtils.MyListAddNewItem)
                 .append("?listId=")
                 .append(idAsParam)
-                .append("\">")
+                .append("\" modelAttribute=\"uploadedFile\" >")
                 .append("<ul>")
                 .append("</li>")
                 .append("<li id=\"li_1\">")

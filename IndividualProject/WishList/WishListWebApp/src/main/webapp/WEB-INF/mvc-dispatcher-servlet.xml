@@ -46,4 +46,9 @@
         <property name="refreshStubOnConnectFailure" value="true" />
     </bean>
  
+    <bean id="fileValidator" class="pl.gauee.wishlist.webapp.controller.FileValidator" />  
+  
+    <bean id="multipartResolver"  
+       class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+ 
 </beans>
