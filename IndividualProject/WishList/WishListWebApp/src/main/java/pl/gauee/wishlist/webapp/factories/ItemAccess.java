@@ -26,4 +26,16 @@ public class ItemAccess implements WebItemApi {
     public WishItem createItem(WishItem item) {
         return remoteAccessApi.createItem(item);
     }
+
+    @Override
+    public void setItemBougth(long itemId) {
+        remoteAccessApi.setItemBought(itemId);
+    }
+
+    @Override
+    public void setItemBougthCancel(long itemId) {
+        remoteAccessApi.setItemBoughtCancel(itemId);
+    }
+    
+    
 }

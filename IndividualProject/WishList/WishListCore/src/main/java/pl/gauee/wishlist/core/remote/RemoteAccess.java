@@ -121,6 +121,14 @@ public class RemoteAccess implements RemoteAccessApi {
         listApi.updateList(wishList);
     }
 
+    public void setItemBought(long itemId) {
+        getItemApi().setItemBougth(itemId);
+    }
+
+    public void setItemBoughtCancel(long itemId) {
+        getItemApi().setItemBougthCancel(itemId);
+    }
+
 //    Additional methods
     private ListApi getListApi() {
         return DaoDistributor.getInstance().getListApi();

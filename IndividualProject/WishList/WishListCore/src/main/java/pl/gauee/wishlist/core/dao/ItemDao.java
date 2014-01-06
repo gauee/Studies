@@ -4,6 +4,7 @@
  */
 package pl.gauee.wishlist.core.dao;
 
+import java.sql.Timestamp;
 import pl.gauee.wishlist.utils.api.ItemApi;
 import pl.gauee.wishlist.utils.persistance.WishItem;
 
@@ -26,5 +27,19 @@ class ItemDao extends BaseDao<WishItem> implements ItemApi {
 
     void removeItem(WishItem item) {
         super.delete(item);
+    }
+
+    public void setItemBougth(long itemId) {
+        WishItem item = super.getById(itemId);
+        item.setBought(true);
+        item.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+        super.update(item);
+    }
+
+    public void setItemBougthCancel(long itemId) {
+        WishItem item = super.getById(itemId);
+        item.setBought(false);
+        item.setLastUpdate(new Timestamp(System.currentTimeMillis()));
+        super.update(item);
     }
 }

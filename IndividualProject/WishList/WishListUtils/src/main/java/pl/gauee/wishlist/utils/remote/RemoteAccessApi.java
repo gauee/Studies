@@ -50,4 +50,8 @@ public interface RemoteAccessApi {
     public void addItemToList(WishItem wishItem, long listId);
 
     public void updateList(WishList wishList);
+
+    public void setItemBought(long itemId);
+
+    public void setItemBoughtCancel(long itemId);
 }

@@ -13,4 +13,8 @@ import pl.gauee.wishlist.utils.persistance.WishItem;
 public interface ItemApi {
 
     public WishItem createItem(WishItem item);
+
+    public void setItemBougth(long itemId);
+
+    public void setItemBougthCancel(long itemId);
 }

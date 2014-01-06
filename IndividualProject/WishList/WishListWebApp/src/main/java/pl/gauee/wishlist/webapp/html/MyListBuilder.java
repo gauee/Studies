@@ -82,7 +82,7 @@ public class MyListBuilder {
 
         for (WishItem item : list.getListItems()) {
             sb.append(HtmlUtil.getTableRow(
-                    item.isBought() ? getBoughtLink() : getNotBoughtLink(),
+                    item.isBought() ? getBoughtLink(list.getId(), item.getId()) : getNotBoughtLink(list.getId(), item.getId()),
                     item.getName(),
                     item.getDescription(),
                     item.getPrice() + "zł",
@@ -110,13 +110,13 @@ public class MyListBuilder {
         return sb.toString();
     }
 
-    public static String getBoughtLink() {
-        return HtmlUtil.getAhrefLink(PageUtils.MyItemBoughtCancel,
+    public static String getBoughtLink(long listId, long itemId) {
+        return HtmlUtil.getAhrefLink(PageUtils.MyItemBoughtCancel + "?listId=" + listId + "&itemId=" + itemId,
                 HtmlUtil.getImgSrc(IconUtils.iconBought));
     }
 
-    public static String getNotBoughtLink() {
-        return HtmlUtil.getAhrefLink(PageUtils.MyItemBought,
+    public static String getNotBoughtLink(long listId, long itemId) {
+        return HtmlUtil.getAhrefLink(PageUtils.MyItemBought + "?listId=" + listId + "&itemId=" + itemId,
                 HtmlUtil.getImgSrc(IconUtils.iconNotBought));
     }
 

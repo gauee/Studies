@@ -11,5 +11,7 @@ import pl.gauee.wishlist.utils.api.ItemApi;
  * @author gauee
  */
 public interface WebItemApi  extends ItemApi{
+
+
     
 }

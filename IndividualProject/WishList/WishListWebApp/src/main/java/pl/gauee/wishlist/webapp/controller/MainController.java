@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import pl.gauee.wishlist.utils.CustomRequestParam;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
@@ -188,7 +189,7 @@ public class MainController {
 
         listApi.addItemToList(wishItem, listId);
 
-        return getRedirectTo(PageUtils.MyListEdit, new CustomRequestParam("listId", ""+listId));
+        return getRedirectTo(PageUtils.MyListEdit, new CustomRequestParam("listId", "" + listId));
     }
 
     @RequestMapping(value = PageUtils.MyListShare, method = RequestMethod.GET)
@@ -324,18 +325,25 @@ public class MainController {
     }
 
     @RequestMapping(value = PageUtils.MyItemBought, method = RequestMethod.GET)
-    public String boughtItem(ModelMap model) {
-        model.addAttribute("message", "przedmiot kupiony");
-//        model.addAttribute("message", "przedmiot kupiony, remote value is: " + remoteAccess.testBySquare(new Random().nextInt(100)));
+    public String boughtItem(
+            @RequestParam("listId") long listId,
+            @RequestParam("itemId") long itemId,
+            ModelMap model) {
 
-        return "lists";
+        itemApi.setItemBougth(itemId);
+
+        return getRedirectTo(PageUtils.MyListPreview, new CustomRequestParam("listId", "" + listId));
     }
 
     @RequestMapping(value = PageUtils.MyItemBoughtCancel, method = RequestMethod.GET)
-    public String cancelBoughtItem(ModelMap model) {
-        model.addAttribute("message", "przedmiot został oddany");
+    public String cancelBoughtItem(
+            @RequestParam("listId") long listId,
+            @RequestParam("itemId") long itemId,
+            ModelMap model) {
 
-        return "lists";
+        itemApi.setItemBougthCancel(itemId);
+
+        return getRedirectTo(PageUtils.MyListPreview, new CustomRequestParam("listId", "" + listId));
     }
 
     private String getLoginCurrentLoggedUser() {
