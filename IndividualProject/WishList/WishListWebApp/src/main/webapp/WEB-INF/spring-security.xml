@@ -9,12 +9,16 @@
     <http pattern="/login" security="none"/>
     <http pattern="/register" security="none"/>
     <http pattern="static" security="none"/>
+    <http pattern="/rest/user/*" security="none"/>
+    <!--<http pattern="/rest/*" security="none"/>-->
     
     <http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/*" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <!--<intercept-url pattern="/wishListWebApp/rest/person/random" access="hasRole('ROLE_USER')" />-->
         <form-login login-page="/login" default-target-url="/welcome"
                     authentication-failure-url="/login" />
         <logout logout-success-url="/" />
+        <http-basic/>
     </http>
  
     <!--    <authentication-manager>

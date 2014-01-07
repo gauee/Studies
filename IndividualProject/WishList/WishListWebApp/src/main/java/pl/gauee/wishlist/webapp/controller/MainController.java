@@ -342,7 +342,43 @@ public class MainController {
 
         return getRedirectTo(PageUtils.MyListPreview, new CustomRequestParam("listId", "" + listId));
     }
+    
+    @RequestMapping(value = "/getMessageForAndroid",method = RequestMethod.GET, produces = "application/json")
+    private RestMessage getMessage4Android(){
+        return new RestMessage(123, "No udało mi się wywołać zdalną metodę");
+    }
 
+    
+    private class RestMessage{
+        private long id;
+        private String message;
+
+        public RestMessage(long id, String message) {
+            this.id = id;
+            this.message = message;
+        }
+
+        public RestMessage() {
+        }
+        
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
+    
     private String getLoginCurrentLoggedUser() {
         return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }

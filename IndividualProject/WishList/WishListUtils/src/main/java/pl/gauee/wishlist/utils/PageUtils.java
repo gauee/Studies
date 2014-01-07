@@ -29,4 +29,9 @@ public class PageUtils {
     public static final String login = "login";
     public static final String register = "register";
     public static final String welcome = "welcome";
+    public static final String rest = "rest";
+    public static final String restUser = rest + "/user";
+    public static final String restUserAuth = restUser + "/isAuthenticated";
+    public static final String restUserMe = restUser + "/getMineUser";
+    public static final String restUserMyLists = restUser + "/getMyLists";
 }
