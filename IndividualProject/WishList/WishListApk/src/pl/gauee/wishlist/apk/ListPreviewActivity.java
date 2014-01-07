@@ -1,7 +1,13 @@
 package pl.gauee.wishlist.apk;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import pl.gauee.wishlist.apk.adapters.ListAdapter;
+import pl.gauee.wishlist.apk.remote.RemoteAccess;
+import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.WishUser;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,22 +21,14 @@ public class ListPreviewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_preview);
+
+		List<WishList> lists = RemoteAccess.getInstance().geWishLists();
 		
-		String[] lists = new String[]{
-				"List1",
-				"List2",
-				"List3",
-				"List4",
-				"List5"
-		};
-		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_expandable_list_item_1,
+
+		ListAdapter adapter = new ListAdapter(this, R.layout.row_item_lists,
 				lists);
-		
-		ListView listView = (ListView)findViewById(R.id.listpreview_lists);
+		ListView listView = (ListView) findViewById(R.id.listpreview_lists);
 		listView.setAdapter(adapter);
-		
 	}
 
 	@Override

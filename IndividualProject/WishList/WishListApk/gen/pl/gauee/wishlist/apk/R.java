@@ -22,42 +22,64 @@ public final class R {
     }
     public static final class drawable {
         public static final int bg=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int list=0x7f020002;
-        public static final int list_add=0x7f020003;
-        public static final int list_delete=0x7f020004;
-        public static final int list_preview=0x7f020005;
-        public static final int moins=0x7f020006;
-        public static final int plus=0x7f020007;
+        public static final int bought=0x7f020001;
+        public static final int boughtnot=0x7f020002;
+        public static final int delete=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int insert_image=0x7f020005;
+        public static final int list=0x7f020006;
+        public static final int list_add=0x7f020007;
+        public static final int list_delete=0x7f020008;
+        public static final int list_preview=0x7f020009;
+        public static final int moins=0x7f02000a;
+        public static final int plus=0x7f02000b;
+        public static final int search=0x7f02000c;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000a;
-        public static final int button1=0x7f080001;
-        public static final int editText1=0x7f080002;
-        public static final int listpreview_layout=0x7f080003;
-        public static final int listpreview_lists=0x7f080005;
-        public static final int listpreview_title=0x7f080004;
-        public static final int login_login=0x7f080006;
-        public static final int login_pass=0x7f080007;
-        public static final int login_submit=0x7f080008;
-        public static final int login_title=0x7f080009;
-        public static final int preview_listAdd=0x7f08000c;
-        public static final int preview_listDelete=0x7f08000d;
-        public static final int preview_listPreview=0x7f08000b;
+        public static final int action_settings=0x7f080016;
+        public static final int button1=0x7f080008;
+        public static final int editText1=0x7f080009;
+        public static final int itemdetails_buy=0x7f080005;
+        public static final int itemdetails_describe=0x7f080003;
+        public static final int itemdetails_name=0x7f080002;
+        public static final int itemdetails_photo=0x7f080006;
+        public static final int itemdetails_price=0x7f080004;
+        public static final int itemdetails_saveChanges=0x7f080007;
+        public static final int listpreview_layout=0x7f08000a;
+        public static final int listpreview_lists=0x7f08000c;
+        public static final int listpreview_title=0x7f08000b;
+        public static final int login_login=0x7f08000d;
+        public static final int login_pass=0x7f08000e;
+        public static final int login_submit=0x7f08000f;
+        public static final int login_title=0x7f080010;
+        public static final int preview_listAdd=0x7f080018;
+        public static final int preview_listDelete=0x7f080019;
+        public static final int preview_listPreview=0x7f080017;
+        public static final int rowItem_itemBought=0x7f080012;
+        public static final int rowItem_itemDelete=0x7f080014;
+        public static final int rowItem_itemLabel=0x7f080011;
+        public static final int rowItem_itemPreview=0x7f080013;
+        public static final int rowItem_lists=0x7f080015;
         public static final int textView1=0x7f080000;
+        public static final int textView2=0x7f080001;
     }
     public static final class layout {
-        public static final int activity_list_add=0x7f030000;
-        public static final int activity_list_preview=0x7f030001;
-        public static final int activity_login=0x7f030002;
-        public static final int activity_preview=0x7f030003;
+        public static final int activity_item_details=0x7f030000;
+        public static final int activity_list_add=0x7f030001;
+        public static final int activity_list_preview=0x7f030002;
+        public static final int activity_login=0x7f030003;
+        public static final int activity_preview=0x7f030004;
+        public static final int row_item_items=0x7f030005;
+        public static final int row_item_lists=0x7f030006;
     }
     public static final class menu {
-        public static final int list_add=0x7f070000;
-        public static final int list_delete=0x7f070001;
-        public static final int list_preview=0x7f070002;
-        public static final int login=0x7f070003;
-        public static final int preview=0x7f070004;
+        public static final int item_details=0x7f070000;
+        public static final int list_add=0x7f070001;
+        public static final int list_delete=0x7f070002;
+        public static final int list_items_preview=0x7f070003;
+        public static final int list_preview=0x7f070004;
+        public static final int login=0x7f070005;
+        public static final int preview=0x7f070006;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -70,8 +92,10 @@ public final class R {
         public static final int preview_listAdd=0x7f050009;
         public static final int preview_listDelete=0x7f05000a;
         public static final int preview_listPreview=0x7f050008;
+        public static final int title_activity_item_details=0x7f05000f;
         public static final int title_activity_list_add=0x7f05000c;
         public static final int title_activity_list_delete=0x7f05000d;
+        public static final int title_activity_list_items_preview=0x7f05000e;
         public static final int title_activity_list_preview=0x7f05000b;
         public static final int title_activity_preview=0x7f050007;
     }

@@ -15,5 +15,7 @@
     <string name="title_activity_list_preview">ListPreviewActivity</string>
     <string name="title_activity_list_add">ListAddActivity</string>
     <string name="title_activity_list_delete">ListDeleteActivity</string>
+    <string name="title_activity_list_items_preview">ListItemsPreview</string>
+    <string name="title_activity_item_details">ItemDetailsActivity</string>
 
 </resources>
