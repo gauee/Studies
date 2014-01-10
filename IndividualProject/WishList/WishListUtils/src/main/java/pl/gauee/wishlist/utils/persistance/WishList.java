@@ -74,7 +74,7 @@ public class WishList implements WishObject {
 
     @Override
     public String toString() {
-        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + ", listUsers=" + getUsersName(listUsers) + '}';
+        return "WishList{" + "id=" + id + ", createdDate=" + createdDate + ", name=" + name + ", listUsers=" + getUsersName() + '}';
     }
 
     public long getId() {
@@ -109,7 +109,7 @@ public class WishList implements WishObject {
         this.listUsers = listUsers;
     }
 
-    private String getUsersName(Set<WishUser> listUsers) {
+    private String getUsersName() {
         StringBuilder sb = new StringBuilder();
         sb.append(",");
         for (WishUser user : listUsers) {

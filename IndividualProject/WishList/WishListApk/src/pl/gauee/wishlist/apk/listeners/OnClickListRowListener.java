@@ -1,11 +1,10 @@
 package pl.gauee.wishlist.apk.listeners;
 
-import pl.gauee.wishlist.apk.ListItemsPreviewActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
+import pl.gauee.wishlist.apk.activities.ListItemsPreviewActivity;
 
 public class OnClickListRowListener implements OnClickListener {
 

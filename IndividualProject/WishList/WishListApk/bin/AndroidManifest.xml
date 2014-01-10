@@ -50,6 +50,10 @@
             android:name="pl.gauee.wishlist.apk.ItemDetailsActivity"
             android:label="@string/title_activity_item_details" >
         </activity>
+        <activity
+            android:name="pl.gauee.wishlist.apk.activities.UserPreview"
+            android:label="@string/title_activity_user_preview" >
+        </activity>
     </application>
 
 </manifest>

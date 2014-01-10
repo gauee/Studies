@@ -34,4 +34,6 @@ public class PageUtils {
     public static final String restUserAuth = restUser + "/isAuthenticated";
     public static final String restUserMe = restUser + "/getMineUser";
     public static final String restUserMyLists = restUser + "/getMyLists";
+    public static final String restUserMyOneList = restUser + "/getMyList";
+    public static final String restUserAddNewList = restUser + "/addNewList";
 }

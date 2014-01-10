@@ -4,7 +4,6 @@
  */
 package pl.gauee.wishlist.utils.persistance.rest;
 
-import java.util.List;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
 /**
@@ -14,7 +13,6 @@ import pl.gauee.wishlist.utils.persistance.WishUser;
 public class RestWishUser extends RestObject<RestWishUser, WishUser> {
 
     private static final long serialVersionUID = -7310580863244092166L;
-    private long id;
     private String login;
     private String name;
     private String surname;

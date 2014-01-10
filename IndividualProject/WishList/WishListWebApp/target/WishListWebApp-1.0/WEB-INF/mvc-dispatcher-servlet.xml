@@ -13,6 +13,7 @@
     <context:component-scan base-package="pl.gauee.wishlist.webapp.controller" />
         
     <mvc:resources mapping="/resources/**" location="/WEB-INF/classes/" />
+    <mvc:resources mapping="/uploadedFiles/**" location="file:/home/gauee/Pulpit/tmp/uploadedFiles/" />
     <!--<mvc:resources mapping="/images/**" location="/resources/images/" />-->
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
@@ -33,11 +34,22 @@
     <mvc:resources mapping="/static/**" location="/static/" />
     <mvc:default-servlet-handler />
     
+    <!--Apis-->
+    <bean id="userApiBean" class="pl.gauee.wishlist.webapp.factories.UserAccess" />
+    <bean id="listApiBean" class="pl.gauee.wishlist.webapp.factories.ListAccess" />
+    <bean id="itemApiBean" class="pl.gauee.wishlist.webapp.factories.ItemAccess" />
     
     <!--RMI-->
     <bean id="proxyBean" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         <property name="serviceUrl" value="rmi://localhost:1099/RMIService" />
         <property name="serviceInterface" value="pl.gauee.wishlist.utils.remote.RemoteAccessApi" />
-    </bean>
+        <property name="lookupStubOnStartup" value="false"/>
+        <property name="refreshStubOnConnectFailure" value="true" />
+    </bean>  
+  
+    <bean id="multipartResolver"  
+       class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
  
+    <!--JsonRest-->
+    <mvc:annotation-driven />
 </beans>

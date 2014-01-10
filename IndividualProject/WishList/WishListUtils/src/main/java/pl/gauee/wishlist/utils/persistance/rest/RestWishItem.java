@@ -13,7 +13,7 @@ import pl.gauee.wishlist.utils.persistance.WishItem;
 public class RestWishItem extends RestObject<RestWishItem, WishItem> {
 
     private static final long serialVersionUID = 1978998391030475180L;
-    private long id;
+//    private long id;
     private String name;
     private String describtion;
     private String photoUrl;

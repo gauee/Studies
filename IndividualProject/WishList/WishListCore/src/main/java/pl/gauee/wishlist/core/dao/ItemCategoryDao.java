@@ -12,7 +12,7 @@ import pl.gauee.wishlist.utils.persistance.WishItemCategory;
  */
 class ItemCategoryDao extends BaseDao<WishItemCategory> {
 
-    public static final Class<WishItemCategory> classType = WishItemCategory.class;
+    private static final Class<WishItemCategory> classType = WishItemCategory.class;
 
     @Override
     public Class getClassType() {

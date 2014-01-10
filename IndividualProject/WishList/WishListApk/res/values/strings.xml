@@ -17,5 +17,8 @@
     <string name="title_activity_list_delete">ListDeleteActivity</string>
     <string name="title_activity_list_items_preview">ListItemsPreview</string>
     <string name="title_activity_item_details">ItemDetailsActivity</string>
+    <string name="title_activity_user_preview">UserPreview</string>
+    <string name="baseUrlToWebApp">http://192.168.1.15:8080/wishListWebApp</string>
+    <string name="preview_user">Użytkownik</string>
 
 </resources>

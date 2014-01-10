@@ -3,9 +3,13 @@ package pl.gauee.wishlist.apk.remote;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.gauee.wishlist.apk.R;
+import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishItem;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishUser;
 
 public class RemoteAccess {
 
@@ -43,6 +47,11 @@ public class RemoteAccess {
 			list.getListItems().add(item);
 		}
 		return list;
+	}
+	
+	public RestWishUser getMe(){
+		final String requestUrl = R.string.baseUrlToWebApp+PageUtils.restUserMe;
+		return HttpRequestService.getService().getHttpGet(requestUrl, RestWishUser.class);
 	}
 
 }

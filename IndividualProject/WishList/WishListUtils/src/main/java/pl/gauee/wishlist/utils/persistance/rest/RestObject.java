@@ -18,7 +18,7 @@ import pl.gauee.wishlist.utils.persistance.WishObject;
 public abstract class RestObject<M, N extends WishObject> implements Serializable {
 
     private static final long serialVersionUID = 8062745708664909747L;
-    private long id;
+    protected long id;
 
     public long getId() {
         return id;

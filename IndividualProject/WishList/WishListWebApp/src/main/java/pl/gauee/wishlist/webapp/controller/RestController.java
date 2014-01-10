@@ -5,7 +5,6 @@
 package pl.gauee.wishlist.webapp.controller;
 
 import java.util.List;
-import java.util.Random;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,9 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.gauee.wishlist.utils.PageUtils;
+import pl.gauee.wishlist.utils.persistance.WishList;
+import pl.gauee.wishlist.utils.persistance.rest.RestUserLists;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishItem;
 import pl.gauee.wishlist.utils.persistance.rest.RestWishList;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishListWithItems;
 import pl.gauee.wishlist.utils.persistance.rest.RestWishUser;
 import pl.gauee.wishlist.utils.remote.RemoteAccessApi;
 
@@ -31,12 +35,6 @@ public class RestController {
     @Autowired
     @Qualifier(value = "proxyBean")
     private RemoteAccessApi remoteAccessApi;
-
-    @RequestMapping(value = "rest/person/random", method = RequestMethod.GET)
-    @ResponseBody
-    public Person randomPerson() {
-        return new Person(new Random().nextInt(), "Jfafesteś ", " zautoryzowany");
-    }
 
     @RequestMapping(value = PageUtils.restUserAuth, method = RequestMethod.GET)
     @ResponseBody
@@ -54,16 +52,44 @@ public class RestController {
 
     @RequestMapping(value = PageUtils.restUserMyLists, method = RequestMethod.GET)
     @ResponseBody
-    public List<RestWishList> getMyLists() {
+    public RestUserLists getMyLists() {
         logger.info("Logged user is " + getLoginCurrentLoggedUser());
-        return new RestWishList().packListTo(
-                remoteAccessApi.getUserByLogin(getLoginCurrentLoggedUser()).getUserLists());
+        return new RestUserLists(new RestWishList().packListTo(
+                remoteAccessApi.getUserByLogin(getLoginCurrentLoggedUser()).getUserLists()));
+    }
+
+    @RequestMapping(value = PageUtils.restUserMyOneList, method = RequestMethod.GET)
+    @ResponseBody
+    public RestWishListWithItems getMyOneList(
+            @RequestParam("listId") long listId) {
+
+        List<WishList> lists = remoteAccessApi.getListOwnToUser(getLoginCurrentLoggedUser());
+        RestWishListWithItems listWithItems = new RestWishListWithItems();
+        for (WishList list : lists) {
+            if (list.getId() == listId) {
+                listWithItems.setList(new RestWishList().packTo(list));
+                listWithItems.setItems(new RestWishItem().packListTo(list.getListItems()));
+            }
+        }
+        return listWithItems;
+    }
+
+    @RequestMapping(value = PageUtils.restUserAddNewList, method = RequestMethod.GET)
+    @ResponseBody
+    public boolean addNewList(
+            @RequestParam("listName") String listName) {
+
+        
+        logger.info("addNewList: " + listName);
+        WishList list = new WishList(listName);
+        return remoteAccessApi.addListToUser(list, getLoginCurrentLoggedUser());
+        
     }
 
     private String getLoginCurrentLoggedUser() {
-        if (true) {
-            return (String) "gauee";
-        }
+//        if (true) {
+//            return (String) "gauee";
+//        }
         return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

@@ -22,10 +22,10 @@
 
 
     <jsp:attribute name="sideBar" >
-        Hej SideBar!
-    </jsp:attribute>
-    <jsp:attribute name="content" >
-        <h2>Message:</h2>
+        <h2>Zarządzanie Listami</h2>
+        <a href="myLists_add_new_one" ><img src="resources/images/icons/add.ico"/>Stwórz nową listę</a>
+        </jsp:attribute>
+        <jsp:attribute name="content" >
         <h4>${message}</h4>
     </jsp:attribute>
-</t:template>>
+</t:template>

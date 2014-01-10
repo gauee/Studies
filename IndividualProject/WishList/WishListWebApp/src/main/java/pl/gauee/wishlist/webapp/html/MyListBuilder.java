@@ -13,7 +13,6 @@ import pl.gauee.wishlist.utils.HttpAction;
 import pl.gauee.wishlist.utils.IconUtils;
 import pl.gauee.wishlist.utils.PageUtils;
 import pl.gauee.wishlist.utils.persistance.WishItem;
-import pl.gauee.wishlist.utils.persistance.WishItemInList;
 import pl.gauee.wishlist.utils.persistance.WishList;
 import pl.gauee.wishlist.utils.persistance.WishUser;
 
