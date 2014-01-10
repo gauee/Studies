@@ -1,19 +1,15 @@
 package pl.gauee.wishlist.apk.activities;
 
-import pl.gauee.wishlist.apk.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
+import pl.gauee.wishlist.apk.R;
 import pl.gauee.wishlist.apk.adapters.ListAdapter;
 import pl.gauee.wishlist.apk.remote.RemoteAccess;
-import pl.gauee.wishlist.utils.persistance.WishList;
-import pl.gauee.wishlist.utils.persistance.WishUser;
-
-import android.os.Bundle;
+import pl.gauee.wishlist.utils.persistance.rest.RestUserLists;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishList;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class ListPreviewActivity extends Activity {
@@ -23,11 +19,24 @@ public class ListPreviewActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_preview);
 
-		List<WishList> lists = RemoteAccess.getInstance().geWishLists();
+		new RemoteAccess<RestUserLists>(this) {
+			@Override
+			public void onReceivedResult(RestUserLists result) {
+				// TODO Auto-generated method stub
+				setListAdapter(result);
+			}
+			
+			
+		}.getUserLists();
+	}
+
+	private void setListAdapter(RestUserLists result) {
+		List<RestWishList> lists = result.getLists();
 		
 
 		ListAdapter adapter = new ListAdapter(this, R.layout.row_item_lists,
-				lists);
+				lists,
+				false);
 		ListView listView = (ListView) findViewById(R.id.listpreview_lists);
 		listView.setAdapter(adapter);
 	}

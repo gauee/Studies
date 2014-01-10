@@ -79,10 +79,23 @@ public class RestController {
     public boolean addNewList(
             @RequestParam("listName") String listName) {
 
-        
+
         logger.info("addNewList: " + listName);
         WishList list = new WishList(listName);
-        return remoteAccessApi.addListToUser(list, getLoginCurrentLoggedUser());
+        boolean rslt = remoteAccessApi.createNewListForUser(list, getLoginCurrentLoggedUser());
+        logger.info("return status: " + rslt);
+        
+        return rslt;
+
+    }
+
+    @RequestMapping(value = PageUtils.restUserChangeItemStatus, method = RequestMethod.GET)
+    @ResponseBody
+    public boolean addNewList(
+            @RequestParam("itemId") long itemId) {
+
+
+        return remoteAccessApi.changeItemStatur(itemId);
         
     }
 

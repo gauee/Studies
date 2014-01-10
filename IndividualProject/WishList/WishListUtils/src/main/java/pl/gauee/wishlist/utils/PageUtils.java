@@ -36,4 +36,5 @@ public class PageUtils {
     public static final String restUserMyLists = restUser + "/getMyLists";
     public static final String restUserMyOneList = restUser + "/getMyList";
     public static final String restUserAddNewList = restUser + "/addNewList";
+    public static final String restUserChangeItemStatus = restUser + "/changeItemStatus";
 }

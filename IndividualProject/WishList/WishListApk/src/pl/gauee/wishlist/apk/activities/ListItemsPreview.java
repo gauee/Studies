@@ -1,8 +1,8 @@
 package pl.gauee.wishlist.apk.activities;
 
-import pl.gauee.wishlist.apk.*;
-import android.os.Bundle;
+import pl.gauee.wishlist.apk.R;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 

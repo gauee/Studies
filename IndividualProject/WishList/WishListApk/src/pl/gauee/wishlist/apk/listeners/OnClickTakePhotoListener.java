@@ -5,12 +5,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public abstract class OnClickTakePhotoListener implements OnClickListener {
-	private final Context context;
+public abstract class OnClickTakePhotoListener extends CustomOnClick{
 	private final long itemId;
 
 	public OnClickTakePhotoListener(Context context, long itemId) {
-		this.context = context;
+		super(context);
 		this.itemId = itemId;
 	}
 

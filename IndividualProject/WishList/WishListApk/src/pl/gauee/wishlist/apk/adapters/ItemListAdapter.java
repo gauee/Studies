@@ -6,7 +6,7 @@ import pl.gauee.wishlist.apk.R;
 import pl.gauee.wishlist.apk.listeners.OnClickBoughtItemListener;
 import pl.gauee.wishlist.apk.listeners.OnClickDeleteItemListener;
 import pl.gauee.wishlist.apk.listeners.OnClickPreviewItemListener;
-import pl.gauee.wishlist.utils.persistance.WishItem;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishItem;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +15,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ItemListAdapter extends ArrayAdapter<WishItem>{
+public class ItemListAdapter extends ArrayAdapter<RestWishItem>{
 
 	private final Context context;
-	private final List<WishItem> items;
+	private final List<RestWishItem> items;
 	
 	public ItemListAdapter(Context context, 
 			int textViewResourceId,
-			List<WishItem> objects) {
+			List<RestWishItem> objects) {
 		super(context, textViewResourceId, objects);
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.items = objects;
+	}
+	
+	public List<RestWishItem> getItems(){
+		return items;
 	}
 	
 	
@@ -37,7 +41,7 @@ public class ItemListAdapter extends ArrayAdapter<WishItem>{
 	}
 	
 	@Override
-	public WishItem getItem(int position) {
+	public RestWishItem getItem(int position) {
 		// TODO Auto-generated method stub
 		return ((items == null ) ? null : items.get(position));
 	}
@@ -53,7 +57,7 @@ public class ItemListAdapter extends ArrayAdapter<WishItem>{
 			view = layoutInflater.inflate(R.layout.row_item_items, null);
 		}
 		
-		WishItem item = items.get(position);
+		RestWishItem item = items.get(position);
 		if(item != null){
 			TextView itemLabel = (TextView)view.findViewById(R.id.rowItem_itemLabel);
 			ImageView imageBuy = (ImageView)view.findViewById(R.id.rowItem_itemBought);
@@ -61,9 +65,10 @@ public class ItemListAdapter extends ArrayAdapter<WishItem>{
 			ImageView imageDelete = (ImageView)view.findViewById(R.id.rowItem_itemDelete);
 			
 			
-			itemLabel.setText(item.getName());
+			itemLabel.setText(item.getName() + " - " + item.getPrice() + "zł");
+			imageBuy.setImageResource((item.isBought()?R.drawable.boughtnot:R.drawable.bought));
 			
-			imageBuy.setOnClickListener(new OnClickBoughtItemListener(context, item.getId()));
+			imageBuy.setOnClickListener(new OnClickBoughtItemListener(context,imageBuy, item.getId()));
 			imagePreview.setOnClickListener(new OnClickPreviewItemListener(context, item));
 			imageDelete.setOnClickListener(new OnClickDeleteItemListener(context, item.getId()));
 		}

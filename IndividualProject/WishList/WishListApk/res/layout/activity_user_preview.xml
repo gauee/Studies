@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".ItemDetailsActivity" >
+    tools:context=".UserPreview" >
 
     <TextView
         android:id="@+id/textView1"
@@ -16,68 +16,92 @@
         android:text="@string/hello_world" />
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="33dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="30dp"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nazwa:"
+            android:text="Login:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <EditText
-            android:id="@+id/itemdetails_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/userpreview_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Opis:"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <EditText
-            android:id="@+id/itemdetails_describe"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </EditText>
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cena:"
+            android:text="Imie:"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/itemdetails_price"
+            android:id="@+id/userpreview_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal" >
+            android:hint="Imie"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
         </EditText>
 
-        <ImageView
-            android:id="@+id/itemdetails_buy"
+        <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/bought" />
-        <ImageView
-            android:id="@+id/itemdetails_photo"
+            android:text="Nazwisko:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/userpreview_surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nazwisko"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/insert_image" />
+            android:text="E-mail:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/userpreview_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone:"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <EditText
+            android:id="@+id/userpreview_msisdn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone" />
 
         <Button
-            android:id="@+id/itemdetails_saveChanges"
-            android:layout_width="wrap_content"
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="saveChanges"
+            android:layout_marginTop="30dp"
+            android:onClick="saveChangePersonalData"
             android:text="Zapisz zmiany" />
 
     </LinearLayout>

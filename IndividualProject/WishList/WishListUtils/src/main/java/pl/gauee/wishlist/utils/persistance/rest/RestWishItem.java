@@ -18,13 +18,14 @@ public class RestWishItem extends RestObject<RestWishItem, WishItem> {
     private String describtion;
     private String photoUrl;
     private double price;
+    private boolean bought;
 
     public RestWishItem() {
     }
 
     @Override
     public String toString() {
-        return "RestWishItem{" + "id=" + id + ", name=" + name + ", describe=" + describtion + ", photoUrl=" + photoUrl + ", price=" + price + '}';
+        return "RestWishItem{" + "name=" + name + ", describtion=" + describtion + ", photoUrl=" + photoUrl + ", price=" + price + ", bought=" + bought + '}';
     }
 
     @Override
@@ -39,6 +40,7 @@ public class RestWishItem extends RestObject<RestWishItem, WishItem> {
         restItem.setDescription(sourceObject.getDescription());
         restItem.setPhotoUrl(sourceObject.getPhotoUrl());
         restItem.setPrice(sourceObject.getPrice());
+        restItem.setBought(sourceObject.isBought());
 
         return restItem;
 
@@ -56,9 +58,26 @@ public class RestWishItem extends RestObject<RestWishItem, WishItem> {
         restItem.setDescription(sourceObject.getDescription());
         restItem.setPhotoUrl(sourceObject.getPhotoUrl());
         restItem.setPrice(sourceObject.getPrice());
+        restItem.setBought(sourceObject.isBought());
 
         return restItem;
 
+    }
+
+    public String getDescribtion() {
+        return describtion;
+    }
+
+    public void setDescribtion(String describtion) {
+        this.describtion = describtion;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
     }
 
     public String getName() {

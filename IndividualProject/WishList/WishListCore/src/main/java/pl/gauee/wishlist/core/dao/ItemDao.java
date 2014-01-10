@@ -33,6 +33,18 @@ class ItemDao extends BaseDao<WishItem> implements ItemApi {
         removeItem(getById(itemId));
     }
 
+    public boolean changeItemStatus(long itemId) {
+        WishItem item = super.getById(itemId);
+        if (item.isBought()) {
+            setItemBougthCancel(itemId);
+            return false;
+        } else {
+            setItemBougth(itemId);
+            return true;
+        }
+
+    }
+
     public void setItemBougth(long itemId) {
         WishItem item = super.getById(itemId);
         item.setBought(true);

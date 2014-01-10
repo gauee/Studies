@@ -4,13 +4,14 @@ import pl.gauee.wishlist.apk.R;
 import pl.gauee.wishlist.apk.listeners.OnClickBoughtItemListener;
 import pl.gauee.wishlist.apk.listeners.OnClickShowPhotoListener;
 import pl.gauee.wishlist.apk.listeners.OnClickTakePhotoListener;
-import pl.gauee.wishlist.utils.persistance.WishItem;
 import pl.gauee.wishlist.utils.persistance.rest.RestWishItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,7 +34,7 @@ public class ItemDetailsActivity extends Activity {
 			itemPrice.setText(item.getPrice()+"");
 			
 			ImageView buy = (ImageView) findViewById(R.id.itemdetails_buy);
-			buy.setOnClickListener(new OnClickBoughtItemListener(this, item.getId()));
+			buy.setOnClickListener(new OnClickBoughtItemListener(this,null, item.getId()));
 			
 			ImageView photo = (ImageView) findViewById(R.id.itemdetails_photo);
 			if(item.getPhotoUrl()==null){
@@ -57,6 +58,10 @@ public class ItemDetailsActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.item_details, menu);
 		return true;
+	}
+	
+	public void onSaveChanges(View v){
+		
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {  

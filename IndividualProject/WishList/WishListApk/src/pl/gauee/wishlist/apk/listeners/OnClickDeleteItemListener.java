@@ -2,15 +2,13 @@ package pl.gauee.wishlist.apk.listeners;
 
 import android.content.Context;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class OnClickDeleteItemListener implements OnClickListener {
-	private final Context context;
+public class OnClickDeleteItemListener extends CustomOnClick {
 	private final long itemId;
 
 	public OnClickDeleteItemListener(Context context, long itemId) {
-		this.context = context;
+		super(context);
 		this.itemId = itemId;
 	}
 

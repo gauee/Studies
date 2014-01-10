@@ -56,4 +56,6 @@ public interface RemoteAccessApi {
     public void setItemBoughtCancel(long itemId);
 
     public void deleteItem(long itemId);
+
+    public boolean changeItemStatur(long itemId);
 }

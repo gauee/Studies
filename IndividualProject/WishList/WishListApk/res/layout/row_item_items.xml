@@ -24,18 +24,21 @@
                 android:id="@+id/rowItem_itemBought"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:src="@drawable/bought" />
 
             <ImageView
                 android:id="@+id/rowItem_itemPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:src="@drawable/search" />
 
             <ImageView
                 android:id="@+id/rowItem_itemDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:src="@drawable/delete" />
 
         </LinearLayout>

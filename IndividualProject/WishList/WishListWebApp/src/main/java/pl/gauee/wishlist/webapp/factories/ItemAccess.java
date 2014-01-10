@@ -41,6 +41,12 @@ public class ItemAccess implements WebItemApi {
     public void deleteItem(long itemId) {
         remoteAccessApi.deleteItem(itemId);
     }
+
+    @Override
+    public boolean changeItemStatus(long itemId) {
+        return remoteAccessApi.changeItemStatur(itemId);
+    }
+    
     
     
 }

@@ -133,7 +133,10 @@ public class RemoteAccess implements RemoteAccessApi {
         getItemApi().deleteItem(itemId);
     }
 
-    
+    public boolean changeItemStatur(long itemId) {
+        return getItemApi().changeItemStatus(itemId);
+    }
+
 //    Additional methods
     private ListApi getListApi() {
         return DaoDistributor.getInstance().getListApi();

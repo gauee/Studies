@@ -19,4 +19,6 @@ public interface ItemApi {
     public void setItemBougthCancel(long itemId);
     
     public void deleteItem(long itemId);
+
+    public boolean changeItemStatus(long itemId);
 }

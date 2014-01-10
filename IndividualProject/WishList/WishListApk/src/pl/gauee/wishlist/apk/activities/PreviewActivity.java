@@ -1,6 +1,6 @@
 package pl.gauee.wishlist.apk.activities;
 
-import pl.gauee.wishlist.apk.*;
+import pl.gauee.wishlist.apk.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

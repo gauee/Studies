@@ -1,57 +1,160 @@
 package pl.gauee.wishlist.apk.remote;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import pl.gauee.wishlist.apk.R;
+import pl.gauee.wishlist.apk.store.SharePrefManagement;
 import pl.gauee.wishlist.utils.PageUtils;
-import pl.gauee.wishlist.utils.persistance.WishItem;
-import pl.gauee.wishlist.utils.persistance.WishItemInList;
-import pl.gauee.wishlist.utils.persistance.WishList;
-import pl.gauee.wishlist.utils.persistance.rest.RestWishItem;
+import pl.gauee.wishlist.utils.persistance.rest.RestUserLists;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishList;
+import pl.gauee.wishlist.utils.persistance.rest.RestWishListWithItems;
 import pl.gauee.wishlist.utils.persistance.rest.RestWishUser;
+import android.content.Context;
 
-public class RemoteAccess {
+public abstract class RemoteAccess<T> {
 
-	private static RemoteAccess instance = new RemoteAccess();
+	private final String baseHttpUrl = "http://192.168.1.2:8080/wishListWebApp/";
+	private final Context context;
 
-	private RemoteAccess() {
-		// TODO Auto-generated constructor stub
+	public RemoteAccess(Context context) {
+		// TODO Auto -generated constructor stub
+		this.context = context;
 	}
 
-	public static RemoteAccess getInstance() {
-		return instance;
+	public void getMyList(long listId) {
+		final String requestUrl = baseHttpUrl + PageUtils.restUserMyOneList+"?listId="+listId;
+
+		final String login = new SharePrefManagement(context).getUserName();
+		final String pass = new SharePrefManagement(context).getUserPass();
+
+		new RemoteAsyncTask<RestWishListWithItems>(login, pass, context,
+				requestUrl) {
+			@Override
+			public void executeOnFinished(RestWishListWithItems result) {
+				onReceivedResult((T) result);
+			}
+
+			@Override
+			public Class<RestWishListWithItems> getClassType() {
+				return RestWishListWithItems.class;
+			}
+		}.execute();
+
 	}
 
-	public List<WishList> geWishLists() {
-		List<WishList> list = new ArrayList<WishList>();
+	public void getUserAuthorized(String login, String pass) {
+		String requestUrl = baseHttpUrl + PageUtils.restUserAuth;
+		RemoteAsyncTask<Boolean> rat = new RemoteAsyncTask<Boolean>(login,
+				pass, context, requestUrl) {
+			@Override
+			public void executeOnFinished(Boolean result) {
+				// TODO Auto-generated method stub
+				onReceivedResult((T)(result==null?new Boolean(false):result));
+			}
 
-		list.add(new WishList("WishLista1"));
-		list.add(new WishList("WishLista2"));
-		list.add(new WishList("WishLista3"));
-		list.add(new WishList("WishLista4"));
-		list.add(new WishList("WishLista5"));
-		list.add(new WishList("WishLista6"));
-		list.add(new WishList("WishLista7"));
-
-		return list;
+			@Override
+			public Class<Boolean> getClassType() {
+				// TODO Auto-generated method stub
+				return Boolean.class;
+			}
+		};
+		rat.execute();
 	}
 
-	public WishList getWishList() {
-		WishList list = new WishList("Przykładowa lista");
-		WishItem item;
-		for (int i = 0; i < 10; ++i) {
-			item = new WishItem("Artykuł" + i, "Opis"+i, 10.00+i,
-					(i % 3 == 0 ? null : "photoUrl"), null);
-			item.setId(i);
-			list.getListItems().add(item);
-		}
-		return list;
+	public void getUserLists() {
+		final String requestUrl = baseHttpUrl + PageUtils.restUserMyLists;
+
+		String login = new SharePrefManagement(context).getUserName();
+		String pass = new SharePrefManagement(context).getUserPass();
+
+		new RemoteAsyncTask<RestUserLists>(login, pass, context, requestUrl) {
+			@Override
+			public void executeOnFinished(RestUserLists result) {
+				// TODO Auto-generated method stub
+				onReceivedResult((T) result);
+			}
+
+			@Override
+			public Class<RestUserLists> getClassType() {
+				return RestUserLists.class;
+			}
+		}.execute();
+	}
+
+	public void getMe() {
+		final String requestUrl = baseHttpUrl + PageUtils.restUserMe;
+
+		String login = new SharePrefManagement(context).getUserName();
+		String pass = new SharePrefManagement(context).getUserPass();
+
+		RemoteAsyncTask<RestWishUser> rat = new RemoteAsyncTask<RestWishUser>(
+				login, pass, context, requestUrl) {
+			@Override
+			public Class<RestWishUser> getClassType() {
+				return RestWishUser.class;
+			}
+
+			@Override
+			public void executeOnFinished(RestWishUser result) {
+				// TODO Auto-generated method stub
+				onReceivedResult((T) result);
+			}
+		};
+		rat.execute();
+
+	}
+
+
+	public void createNewList(RestWishList newList) {
+		final String requestUrl = baseHttpUrl + PageUtils.restUserAddNewList + "?listName="+newList.getName();
+
+		String login = new SharePrefManagement(context).getUserName();
+		String pass = new SharePrefManagement(context).getUserPass();
+
+		
+		new RemoteAsyncTask<Boolean>(
+				login,
+				pass,
+				context,
+				requestUrl
+				) {
+			@Override
+			public void executeOnFinished(Boolean result) {
+				// TODO Auto-generated method stub
+				onReceivedResult((T)result);
+			}
+			
+			@Override
+			public Class<Boolean> getClassType() {
+				return Boolean.class;
+			}
+		}.execute();
 	}
 	
-	public RestWishUser getMe(){
-		final String requestUrl = R.string.baseUrlToWebApp+PageUtils.restUserMe;
-		return HttpRequestService.getService().getHttpGet(requestUrl, RestWishUser.class);
+
+
+	public void changeBuyStatusFor(long itemId) {
+		final String requestUrl = baseHttpUrl + PageUtils.restUserChangeItemStatus + "?itemId="+itemId;
+
+		String login = new SharePrefManagement(context).getUserName();
+		String pass = new SharePrefManagement(context).getUserPass();
+		new RemoteAsyncTask<Boolean>(
+				login,
+				pass,
+				context,
+				requestUrl
+				) {
+			@Override
+			public void executeOnFinished(Boolean result) {
+				// TODO Auto-generated method stub
+				onReceivedResult((T)result);
+			}
+			
+			@Override
+			public Class<Boolean> getClassType() {
+				return Boolean.class;
+			}
+		}.execute();
+		
 	}
+	
+	public abstract void onReceivedResult(T result);
 
 }
