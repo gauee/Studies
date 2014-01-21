@@ -238,7 +238,7 @@ public class MyListBuilder {
                     item.getName(),
                     item.getDescription(),
                     item.getPrice() + "zł",
-                    item.getLastUpdate().toString(),
+                    dateFormat.format(item.getLastUpdate()),
                     HtmlUtil.getImgSrc(item.getPhotoUrl(), 50, 50),
                     HtmlUtil.getFormWithImageInput(getDeleteItemAction(item.getId(), list.getId()), HttpAction.POST.toString(), "deleteItem", IconUtils.iconDelete)));
         }

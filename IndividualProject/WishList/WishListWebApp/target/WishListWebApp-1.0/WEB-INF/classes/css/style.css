@@ -27,6 +27,7 @@ body{
     background-color: transparent;
     margin: 0;
     width: 100%;
+    min-width: 1360px;
     height: 680px;
     position: absolute;
     /*top: 0;*/

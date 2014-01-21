@@ -40,15 +40,22 @@ grepHsS pat opt cont = putStr(
 handlePCO :: String -> String -> [String] -> [String]
 handlePCO pat _ [] = []
 handlePCO []  _ cont = cont
-handlePCO pat opt cont
-        | isFlag opt = grepMatch (aPO pat opt) (aCO cont opt)
-        | otherwise = grepMatch pat cont
+handlePCO pat opt cont = grepMatch pat opt cont False False
+        -- | isFlag opt = grepMatch (aPO pat opt) (aCO cont opt)
+        -- | otherwise = grepMatch pat cont
 
 --Find matches in content
-grepMatch :: String -> [String] -> [String]
-grepMatch (p:ps) cont
-        | p =='~' = filter (phraseNotExistIn ps False) cont
-        | otherwise = filter (phraseExistIn ps False) cont
+grepMatch :: String -> String -> [String] ->Bool ->Bool -> [String]
+grepMatch pat [] cont uCase uMatch
+        | uMatch = filter (phraseNotExistIn pat uCase) cont
+        | otherwise = filter (phraseExistIn pat uCase) cont 
+grepMatch pat (o:os) cont uCase uMatch
+        | o == 'i' = grepMatch pat os cont True uMatch
+        | o == 'v' = grepMatch pat os cont uCase True
+        
+--grepMatch pat opt cont uCase uMatch
+  --      | p =='~' = filter (phraseNotExistIn ps False) cont
+  --      | otherwise = filter (phraseExistIn ps False) cont
         -- | (head pat)=='~' = filter (phraseNotExistIn pat) cont
         -- | otherwise = filter (phraseExistIn pat) cont
 
@@ -90,23 +97,19 @@ subStrings xs = xs : case xs of
                         _:xs' -> subStrings xs'
 
 --checking if phrase is prefix of line
---phraseIsPrefOf :: (Eq a) => [a] ->[a] -> Bool
 phraseIsPrefOf :: [Char] -> Bool ->[Char] -> Bool
 phraseIsPrefOf [] _ _ = True
 phraseIsPrefOf _ _ [] = False
 phraseIsPrefOf (x:xs) uCase (y:ys) = (cmpChars x y uCase) && phraseIsPrefOf xs uCase ys
 
 --checking if line contains phr
---phraseExistIn :: (Eq a) => [a]->[a]->Bool
 phraseExistIn :: [Char]->Bool->[Char]->Bool
 phraseExistIn phr uCase line = any (phraseIsPrefOf phr uCase) (subStrings line)
 
 --checking if line not contains phr
---phraseNotExistIn :: (Eq a) => [a]->[a]->Bool
 phraseNotExistIn :: [Char]->Bool->[Char]->Bool
 phraseNotExistIn phr uCase line = not (phraseExistIn phr uCase line)
 
---Convert Char to lowerCase
 charLowCase :: Char -> Char
 charLowCase c 
         | (fromEnum 'A') <= (fromEnum c) && 
@@ -124,6 +127,5 @@ charLowCase c
         
         
 cmpChars :: Char->Char->Bool->Bool
---cmpChars :: (Eq a)=>a->a->Bool->Bool
 cmpChars x y uCase = x == y || (uCase && (charLowCase x) == (charLowCase y))
                        
