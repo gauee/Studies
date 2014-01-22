@@ -10,7 +10,7 @@ grepHs list = grepGetParts list
 --Resolve options for grep
 grepGetParts :: [String] -> IO()
 grepGetParts (p:"file":o:os) = grepHsF p o
-grepGetParts (p:"file":o) = grepHsF p "/"
+grepGetParts (p:"file":o) = grepHsF p "-"
 grepGetParts (p:o:rest) = grepHsS p o rest
 grepGetParts _ = usageGrep
 
@@ -40,34 +40,37 @@ grepHsS pat opt cont = putStr(
 handlePCO :: String -> String -> [String] -> [String]
 handlePCO pat _ [] = []
 handlePCO []  _ cont = cont
-handlePCO pat opt cont = grepMatch pat opt cont False False
+handlePCO pat opt cont 
+        | isFlag opt = grepMatch pat opt cont False False False False
+        | otherwise = grepMatch pat [] cont False False False False
 
 --Find matches in content
-grepMatch :: String -> String -> [String] ->Bool ->Bool -> [String]
-grepMatch pat [] cont uCase uMatch
-       | uMatch = filter (phraseNotExistIn pat uCase) cont
-       | otherwise = filter (phraseExistIn pat uCase) cont
+grepMatch::String->String->[String]->Bool->Bool->Bool->Bool->[String]
+grepMatch pat [] cont uCase uMatch rNum oWord
+        | uMatch = cResult rNum (findNotMatches pat uCase oWord cont)
+        | otherwise = cResult rNum (findMatches pat uCase oWord cont)
          
-grepMatch pat (o:os) cont uCase uMatch
-        | o == 'i' = grepMatch pat os cont True uMatch
-        | o == 'v' = grepMatch pat os cont uCase True
-        | otherwise = grepMatch pat os cont uCase uMatch
+grepMatch pat (o:os) cont uCase uMatch rNum oWord
+        | o == 'i' = grepMatch pat os cont True uMatch rNum oWord
+        | o == 'v' = grepMatch pat os cont uCase True rNum oWord
+        | o == 'c' = grepMatch pat os cont uCase uMatch True oWord
+        | o == 'w' = grepMatch pat os cont uCase uMatch rNum True
+        | otherwise = grepMatch pat os cont uCase uMatch rNum oWord
 
+--Grep find matching to pattern
+findMatches:: String->Bool->Bool->[String]->[String]
+findMatches pat uCase oWord cont = filter (phraseExistIn pat uCase oWord) cont
 
---apply options for pattern phrase
-aPO :: String -> String -> String
-aPO pat [] = pat
-aPO pat opt 
-        | (head opt) == 'i' = aPO pat (tail opt)
-        | (head opt) == 'v' = aPO ("~"++pat) (tail opt)
-        | otherwise = aPO pat (tail opt)     
+--Grep find matching to pattern
+findNotMatches:: String->Bool->Bool->[String]->[String]
+findNotMatches pat uCase oWord cont = filter (phraseNotExistIn pat uCase oWord) cont
 
---apply options for pattern content 
-aCO :: [String] -> String -> [String]
-aCO cont [] = cont
-aCO cont opt
-        | (head opt) == 'i' = aCO cont (tail opt)
-        | otherwise = aCO cont (tail opt)
+--
+cResult :: Bool ->[String]->[String]
+cResult needCount rslt
+                | needCount = [(show (length rslt))]
+                | otherwise = rslt
+
 
 --Grep way uf usage
 usageGrep :: IO()
@@ -77,7 +80,10 @@ usageGrep = putStr $unlines([
                       "For file [pattern,'file',-{flags,}]",
                       "-{flags}:",
                       "-i : ignoring character case",
-                      "-v : invert match"])
+                      "-v : invert match",
+                      "-c : count of matching lines",
+                      "-w : match only whole words",
+                      "flags can be concatenate e.g. -iv (ignore and invert)"])
 
 --Packing results
 packResult :: [String] -> String
@@ -92,19 +98,26 @@ subStrings xs = xs : case xs of
                         _:xs' -> subStrings xs'
 
 --checking if phrase is prefix of line
-phraseIsPrefOf :: [Char] -> Bool ->[Char] -> Bool
-phraseIsPrefOf [] _ _ = True
-phraseIsPrefOf _ _ [] = False
-phraseIsPrefOf (x:xs) uCase (y:ys) = (cmpChars x y uCase) && phraseIsPrefOf xs uCase ys
+phraseIsPrefOf :: [Char] -> Bool->Bool->[Char] -> Bool
+phraseIsPrefOf [] _ True [] = True
+phraseIsPrefOf [] _ True _ = False
+phraseIsPrefOf _ _ True [] = False
+phraseIsPrefOf [] _ _ _ = True
+phraseIsPrefOf [] _ _ _ = True
+phraseIsPrefOf _ _ _ [] = False
+phraseIsPrefOf (x:xs) uCase oWord (y:ys) = (cmpChars x y uCase) &&    phraseIsPrefOf xs uCase oWord ys
 
 --checking if line contains phr
-phraseExistIn :: [Char]->Bool->[Char]->Bool
-phraseExistIn phr uCase line = any (phraseIsPrefOf phr uCase) (subStrings line)
+phraseExistIn :: [Char]->Bool->Bool->[Char]->Bool
+phraseExistIn phr uCase oWord line
+        | oWord = any (phraseIsPrefOf phr uCase oWord) (words line)
+        | otherwise = any (phraseIsPrefOf phr uCase oWord) (subStrings line)
 
 --checking if line not contains phr
-phraseNotExistIn :: [Char]->Bool->[Char]->Bool
-phraseNotExistIn phr uCase line = not (phraseExistIn phr uCase line)
+phraseNotExistIn :: [Char]->Bool->Bool->[Char]->Bool
+phraseNotExistIn phr uCase oWord line = not (phraseExistIn phr uCase oWord line)
 
+--method convert character to lower case if is in upper
 charLowCase :: Char -> Char
 charLowCase c 
         | (fromEnum 'A') <= (fromEnum c) && 
@@ -122,5 +135,6 @@ charLowCase c
         
         
 cmpChars :: Char->Char->Bool->Bool
-cmpChars x y uCase = x == y || (uCase && (charLowCase x) == (charLowCase y))
+cmpChars x y uCase = x == y || 
+                (uCase && (charLowCase x) == (charLowCase y))
                        
