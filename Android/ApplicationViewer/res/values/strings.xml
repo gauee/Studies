@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ApplicationViewer</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sorting">Sortowanie</string>
+	<string name="sort_alf_asc">A-Z Rosnąco</string>
+	<string name="sort_alf_desc">A-Z Malejąca</string>
+	<string name="sort_rate_asc">Najwyższa ocena</string>
+	<string name="sort_rate_desc">Najniższa ocena</string>
+	
+</resources>

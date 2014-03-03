@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:columnCount="5"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="2"
+        android:onClick="onLockScreen"
+        android:text="LockScreen" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="4"
+        android:onClick="onMute"
+        android:text="Mute" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="3"
+        android:onClick="onUnlockScreen"
+        android:text="UnlockScreen" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="5"
+        android:onClick="onUnmute"
+        android:text="Unmute" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="50dp"
+        android:layout_column="2"
+        android:layout_gravity="left|top"
+        android:layout_row="6"
+        android:onClick="onSoundUp"
+        android:text="+" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="44dp"
+        android:layout_column="3"
+        android:layout_gravity="left|top"
+        android:layout_row="6"
+        android:onClick="onSoundDown"
+        android:text="-" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="7"
+        android:onClick="onSwitchWindow"
+        android:text="ZmienOkno" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="47dp"
+        android:layout_column="2"
+        android:layout_gravity="left|top"
+        android:layout_row="7"
+        android:onClick="onSwitchWindowForward"
+        android:text="&lt;" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="42dp"
+        android:layout_column="3"
+        android:layout_gravity="left|top"
+        android:layout_row="7"
+        android:onClick="onSwitchWindowBackward"
+        android:text=">" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_column="0"
+        android:layout_gravity="left|center_vertical"
+        android:layout_row="6"
+        android:text="SoundController" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_column="4"
+        android:layout_gravity="left|top"
+        android:layout_row="7"
+        android:onClick="onEndSwitchWindow"
+        android:text="Wybierz" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="8"
+        android:onClick="onPowerOff"
+        android:text="Wyłacz" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_column="0"
+        android:layout_gravity="left|top"
+        android:layout_row="9"
+        android:onClick="onReboot"
+        android:text="Zrestartuj" />
+
+</GridLayout>

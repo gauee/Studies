@@ -1,0 +1,24 @@
+
+<resources>
+    <string name="app_name">RemoteController</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="test_one"></string>
+    <string name="submit">Sumbit</string>
+    <string name="zablokuj">ZablokujEkran</string>
+    <string name="odblokujEkran">OdblokujEkran</string>
+    <string name="mute">WyłączDźwięk</string>
+    <string name="unmute">WłączDźwięk</string>
+    <string name="przycisz">Przycisz</string>
+    <string name="soundUp">Zgłośnij</string>
+    <string name="leftWindow">PrzejdzOknoLewo</string>
+    <string name="rightWindow">PrzejdzOknoPrawo</string>
+    <string name="minimalized">ZminimalizujOkno</string>
+    <string name="maximalize">MaksymalizujOkno</string>
+    <string name="powerOff">Wyłącz komputer</string>
+    <string name="reboot">ZrestartujKomputer</string>
+    <string name="hello">Witaj w aplikacji do kontrolowania zdalnie twojego komputera</string>
+    <string name="enter">Przejdz do wyboru hosta</string>
+    <string name="connect_to_dedicated_app">Połącz do dedykowanej aplikacji</string>
+    <string name="exit">Wyjdz z aplikacji</string>
+</resources>

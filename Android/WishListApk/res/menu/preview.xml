@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/preview_listPreview"
+        android:icon="@drawable/list_preview"
+        android:orderInCategory="10"
+        android:showAsAction="ifRoom"
+        android:title="@string/preview_listPreview"/>
+    <item
+        android:id="@+id/preview_listAdd"
+        android:icon="@drawable/list_add"
+        android:orderInCategory="20"
+        android:showAsAction="ifRoom"
+        android:title="@string/preview_listAdd"/>
+    <item
+        android:id="@+id/preview_listDelete"
+        android:icon="@drawable/list_delete"
+        android:orderInCategory="30"
+        android:showAsAction="ifRoom"
+        android:title="@string/preview_listDelete"/>
+    <item
+        android:id="@+id/preview_UserAccount"
+        android:icon="@drawable/user"
+        android:orderInCategory="30"
+        android:showAsAction="ifRoom"
+        android:title="@string/preview_user"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+
+</menu>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyFirstOwnApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Siemanko tutaj Gauee i to jego pierwsze hello World! ^^</string>
+    <string name="test_one">To jest test dodania tekstu</string>
+    <string name="submit">Submit</string>
+
+</resources>

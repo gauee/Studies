@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="mainPreferenceScreen" >
+
+    <PreferenceCategory
+        android:key="pref_user"
+        android:title="@string/pref_user_settings_tittle" >
+        <ListPreference 
+            android:key="callListPref"
+            android:title="Połączenie do:"
+            android:summary="Wybierz osobę do której zostanie wykonany telefon."
+            />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="isGeoActive"
+            android:summary="@string/pref_user_geo_active_desc"
+            android:title="@string/pref_user_geo_active" />
+        
+        <MultiSelectListPreference 
+            android:key="smsListPref"
+            android:title="Wiadomość sms do:"
+            android:summary="Wybierz osoby do których ma zostać wysłana wiadomość sms."
+            />
+    </PreferenceCategory>
+
+</PreferenceScreen>

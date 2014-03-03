@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/main_connect_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/main_lock_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onLockScreen"
+        android:text="Lock screen" />
+
+    <Button
+        android:id="@+id/main_unlock_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onUnlockScreen"
+        android:text="Unlock screen" />
+
+    <Button
+        android:id="@+id/main_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onMute"
+        android:text="Mute" />
+
+    <Button
+        android:id="@+id/main_unmute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onUnmute"
+        android:text="Unmute" />
+
+    <Button
+        android:id="@+id/main_poweroff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onPowerOff"
+        android:text="Power off" />
+    
+    
+
+</LinearLayout>

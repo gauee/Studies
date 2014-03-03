@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black" >
+
+    <Button
+        android:id="@+id/searchHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Szukaj Hostów" />
+
+    <ListView
+        android:choiceMode="singleChoice"
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="326dp"
+        android:drawSelectorOnTop="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:textColor="@android:color/white" >
+    </ListView>
+
+    <Button
+        android:id="@+id/connectToHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onConnect"
+        android:text="Połącz z hostem" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_to_dedicated_app"
+        android:onClick="onConnectApp" />
+
+<!--     <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+    </EditText> -->
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item 
+        android:id="@+id/action_refresh"
+        android:orderInCategory="10"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/refresh"
+        android:text="@string/action_refresh"/>
+    <item 
+        android:id="@+id/action_delete_all"
+        android:orderInCategory="20"
+        android:showAsAction="ifRoom|withText"
+        android:icon="@drawable/delete_all"
+        android:text="@string/action_delete_all"/>
+    
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+
+</menu>

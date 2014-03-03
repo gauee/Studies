@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="pl.gauee.serwis.opon"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="pl.gauee.serwis.opon.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="pl.gauee.serwis.opon.SecondActivity"
+            android:label="@string/title_activity_second" >
+            <intent-filter>
+                <action android:name="pl.gauee.intent.action.SecondAction" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="pl.gauee.serwis.opon.ThirdActivity"
+            android:label="@string/title_activity_third" >
+            <intent-filter>
+                <action android:name="pl.gauee.intent.action.ThirdAction" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="pl.gauee.serwis.opon.FinalActivity"
+            android:label="@string/title_activity_final" >
+            <intent-filter>
+                <action android:name="pl.gauee.intent.action.FinalAction" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
